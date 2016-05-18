@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Information {
@@ -19,6 +20,7 @@ public class Information {
 	
 	private String description;
 	
+	@OneToMany
 	private List<Risque> risques;
 
 	public int getInfId() {
