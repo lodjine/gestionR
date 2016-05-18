@@ -29,7 +29,7 @@ private int status ;
 private Utilisateur user ; 
 
 
-@OneToOne 
+@ManyToOne (cascade = CascadeType.ALL)
 private Risque Risk ; 
 
 

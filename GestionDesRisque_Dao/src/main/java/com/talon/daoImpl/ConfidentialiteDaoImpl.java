@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.talon.dao.ConfidentialiteDao;
-import com.talon.entities.Confidentialité;
+import com.talon.entities.Confidentialite;
 
 @Repository
 public class ConfidentialiteDaoImpl implements ConfidentialiteDao {
@@ -21,28 +21,28 @@ public class ConfidentialiteDaoImpl implements ConfidentialiteDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	public List<Confidentialité> getAll() {
+	public List<Confidentialite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery("select a from Confidentialité a").list();
 		
 	}
-	public Confidentialité getById(int id) {
+	public Confidentialite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();	
-		return (Confidentialité) session.get(Confidentialité.class, id);
+		return (Confidentialite) session.get(Confidentialite.class, id);
 	}
-	public void persist(Confidentialité conf) {
+	public void persist(Confidentialite conf) {
 		Session session=sessionFactory.getCurrentSession();
 		session.persist(conf);
 	}
-	public void update(Confidentialité conf) {
+	public void update(Confidentialite conf) {
 		Session session=sessionFactory.getCurrentSession();
 		session.update(conf);
 	}
-	public void delete(Confidentialité conf) {
+	public void delete(Confidentialite conf) {
 		Session session=sessionFactory.getCurrentSession();
 		session.delete(conf);
 	}
-	public void save(Confidentialité conf) {
+	public void save(Confidentialite conf) {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(conf);
 	}

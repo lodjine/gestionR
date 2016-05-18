@@ -2,7 +2,7 @@ package com.talon.service;
 
 import java.util.List;
 
-import com.talon.entities.Activité;
+import com.talon.entities.Activite;
 import com.talon.entities.Administrateur;
 
 public interface AdiministrateurService {

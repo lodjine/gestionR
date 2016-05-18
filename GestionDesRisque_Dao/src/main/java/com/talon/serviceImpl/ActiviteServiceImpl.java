@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.talon.dao.ActionDao;
 import com.talon.dao.ActiviteDao;
 import com.talon.entities.Action;
-import com.talon.entities.Activité;
+import com.talon.entities.Activite;
 import com.talon.service.ActiviteService;
 
 @Service
@@ -30,32 +30,32 @@ public class ActiviteServiceImpl implements ActiviteService {
 		this.activiteDaoImpl = activiteDaoImpl;
 	}
 
-	public List<Activité> getAll() {
+	public List<Activite> getAll() {
 		// TODO Auto-generated method stub
 		return activiteDaoImpl.getAll();
 	}
 
-	public Activité getById(int id) {
+	public Activite getById(int id) {
 		// TODO Auto-generated method stub
 		return activiteDaoImpl.getById(id);
 	}
 
-	public void persist(Activité activité) {
+	public void persist(Activite activité) {
 		// TODO Auto-generated method stub
 		activiteDaoImpl.persist(activité);
 	}
 
-	public void update(Activité activité) {
+	public void update(Activite activité) {
 		// TODO Auto-generated method stub
 		activiteDaoImpl.update(activité);
 	}
 
-	public void delete(Activité activité) {
+	public void delete(Activite activité) {
 		// TODO Auto-generated method stub
 		activiteDaoImpl.delete(activité);
 	}
 
-	public void save(Activité activité) {
+	public void save(Activite activité) {
 		// TODO Auto-generated method stub
 		activiteDaoImpl.save(activité);
 	}

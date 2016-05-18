@@ -2,7 +2,7 @@ package com.talon.dao;
 
 import java.util.List;
 
-import com.talon.entities.Intégrité;
+import com.talon.entities.Integrite;
 
 import com.talon.entities.Utilisateur;
 

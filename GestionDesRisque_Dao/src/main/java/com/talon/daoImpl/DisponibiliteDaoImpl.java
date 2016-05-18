@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.talon.dao.DisponibiliteDao;
-import com.talon.entities.Disponibilité;
+import com.talon.entities.Disponibilite;
 @Repository
 public class DisponibiliteDaoImpl implements DisponibiliteDao {
 
@@ -20,29 +20,29 @@ public class DisponibiliteDaoImpl implements DisponibiliteDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	public List<Disponibilité> getAll() {
+	public List<Disponibilite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery("select a from Disponibilité a").list();
 	}
-	public Disponibilité getById(int id) {
+	public Disponibilite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();
-		return (Disponibilité) session.get(Disponibilité.class, id);
+		return (Disponibilite) session.get(Disponibilite.class, id);
 	}
-	public void persist(Disponibilité dispo) {
+	public void persist(Disponibilite dispo) {
 		Session session=sessionFactory.getCurrentSession();
 		session.persist(dispo);
 	}
-	public void update(Disponibilité dispo) {
+	public void update(Disponibilite dispo) {
 		Session session=sessionFactory.getCurrentSession();
 		session.update(dispo);
 		
 	}
-	public void delete(Disponibilité dispo) {
+	public void delete(Disponibilite dispo) {
 		Session session=sessionFactory.getCurrentSession();
 		session.delete(dispo);
 		
 	}
-	public void save(Disponibilité dispo) {
+	public void save(Disponibilite dispo) {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(dispo);
 		

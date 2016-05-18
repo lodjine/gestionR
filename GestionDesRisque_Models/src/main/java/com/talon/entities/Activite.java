@@ -1,5 +1,6 @@
 package com.talon.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,23 +11,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Activité {
+public class Activite implements Serializable{
 	@Id
 	private int activiteId;
+	
 private  String labelActivity; 
 	
 	
 	@ManyToOne(cascade= CascadeType.ALL)
 	private SousProcessus subprocess ;
 	
-	@OneToMany ( fetch =  FetchType.EAGER)
+	@OneToMany (mappedBy="activite", fetch =  FetchType.EAGER)
 	List<Information> informations ;
 	
 	
 	
 
 	
-	public Activité() {
+	public Activite() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

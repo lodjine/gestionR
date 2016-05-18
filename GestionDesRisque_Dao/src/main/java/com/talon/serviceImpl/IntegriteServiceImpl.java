@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talon.dao.IntegriteDao;
-import com.talon.entities.Disponibilité;
-import com.talon.entities.Intégrité;
+import com.talon.entities.Disponibilite;
+import com.talon.entities.Integrite;
 import com.talon.service.IntegriteService;
 @Transactional
 @Service
@@ -31,32 +31,32 @@ public void setIntegriteDaoImpl(IntegriteDao integriteDaoImpl) {
 	this.integriteDaoImpl = integriteDaoImpl;
 }
 
-	public List<Intégrité> getAll() {
+	public List<Integrite> getAll() {
 		// TODO Auto-generated method stub
 		return integriteDaoImpl.getAll();
 	}
 
-	public Intégrité getById(int id) {
+	public Integrite getById(int id) {
 		// TODO Auto-generated method stub
 		return integriteDaoImpl.getById(id);
 	}
 
-	public void persist(Intégrité integ) {
+	public void persist(Integrite integ) {
 		// TODO Auto-generated method stub
 		integriteDaoImpl.persist(integ);
 	}
 
-	public void update(Intégrité integ) {
+	public void update(Integrite integ) {
 		// TODO Auto-generated method stub
 		integriteDaoImpl.update(integ);
 	}
 
-	public void delete(Intégrité integ) {
+	public void delete(Integrite integ) {
 		// TODO Auto-generated method stub
 		integriteDaoImpl.delete(integ);
 	}
 
-	public void save(Intégrité integ) {
+	public void save(Integrite integ) {
 		// TODO Auto-generated method stub
 		integriteDaoImpl.save(integ);
 	}

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talon.dao.UtilisateurDao;
-import com.talon.entities.Intégrité;
+import com.talon.entities.Integrite;
 
 import com.talon.entities.Utilisateur;
 import com.talon.service.UtilisateurService;

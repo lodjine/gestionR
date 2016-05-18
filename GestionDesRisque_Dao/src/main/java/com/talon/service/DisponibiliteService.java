@@ -2,16 +2,16 @@ package com.talon.service;
 
 import java.util.List;
 
-import com.talon.entities.Confidentialité;
-import com.talon.entities.Disponibilité;
+import com.talon.entities.Confidentialite;
+import com.talon.entities.Disponibilite;
 
 public interface DisponibiliteService {
 
 	
-	public List<Disponibilité> getAll();
-	public Disponibilité getById(int id);
-	public void persist(Disponibilité dispo);
-	public void update(Disponibilité dispo);
-	public void delete(Disponibilité dispo);
-	public void save(Disponibilité dispo);
+	public List<Disponibilite> getAll();
+	public Disponibilite getById(int id);
+	public void persist(Disponibilite dispo);
+	public void update(Disponibilite dispo);
+	public void delete(Disponibilite dispo);
+	public void save(Disponibilite dispo);
 }

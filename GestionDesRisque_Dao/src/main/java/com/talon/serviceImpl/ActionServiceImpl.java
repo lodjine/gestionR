@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.talon.dao.ActionDao;
 import com.talon.entities.Action;
-import com.talon.entities.Activité;
+import com.talon.entities.Activite;
 import com.talon.service.ActionService;
 
 @Service

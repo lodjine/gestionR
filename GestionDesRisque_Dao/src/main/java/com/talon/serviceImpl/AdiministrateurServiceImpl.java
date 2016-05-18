@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talon.dao.AdiministrateurDao;
-import com.talon.entities.Activité;
+import com.talon.entities.Activite;
 import com.talon.entities.Administrateur;
 import com.talon.service.AdiministrateurService;
 

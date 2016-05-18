@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.talon.dao.ConfidentialiteDao;
 import com.talon.entities.Classification;
-import com.talon.entities.Confidentialité;
+import com.talon.entities.Confidentialite;
 import com.talon.service.ConfidentialiteService;
 @Transactional
 @Service
@@ -27,29 +27,29 @@ public void setConfidentialiteDaoImpl(ConfidentialiteDao confidentialiteDaoImpl)
 	this.confidentialiteDaoImpl = confidentialiteDaoImpl;
 }
 
-public List<Confidentialité> getAll() {
+public List<Confidentialite> getAll() {
 	// TODO Auto-generated method stub
 	return confidentialiteDaoImpl.getAll();
 }
 
-public Confidentialité getById(int id) {
+public Confidentialite getById(int id) {
 	// TODO Auto-generated method stub
 	return confidentialiteDaoImpl.getById(id);
 }
 
-public void persist(Confidentialité conf) {
+public void persist(Confidentialite conf) {
 confidentialiteDaoImpl.persist(conf);	
 }
 
-public void update(Confidentialité conf) {
+public void update(Confidentialite conf) {
 confidentialiteDaoImpl.update(conf);	
 }
 
-public void delete(Confidentialité conf) {
+public void delete(Confidentialite conf) {
 confidentialiteDaoImpl.delete(conf);	
 }
 
-public void save(Confidentialité conf) {
+public void save(Confidentialite conf) {
 confidentialiteDaoImpl.save(conf);	
 }
 	
