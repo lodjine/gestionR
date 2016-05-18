@@ -32,7 +32,7 @@ private Utilisateur user ;
 @ManyToOne (cascade = CascadeType.ALL)
 private Risque Risk ; 
 
-
+  
 
 
 
