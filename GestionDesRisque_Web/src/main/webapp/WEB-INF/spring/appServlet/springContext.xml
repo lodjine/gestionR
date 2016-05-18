@@ -87,6 +87,8 @@
 	<value>com.talon.entities.SousProcessus</value>
 	<value>com.talon.entities.Utilisateur</value>
 	<value>com.talon.entities.UserRole</value>
+	<value>com.talon.entities.Vulnerabilite</value>
+
 	
 
 	
