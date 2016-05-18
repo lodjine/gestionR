@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+
+
+
+
+	<tx:annotation-driven />
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.talon.dao" />
+	<context:component-scan base-package="com.talon.daoImpl" />
+	<context:component-scan base-package="com.talon.service" />
+
+	<context:component-scan base-package="com.talon.controlleur" />
+	<context:component-scan base-package="com.talon.serviceImpl"></context:component-scan>
+
+
+
+
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/talongr" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+
+
+
+
+
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<value>com.talon.entities.Activite</value>
+	<value>com.talon.entities.Action</value>
+	<value>com.talon.entities.Confidentialite</value>
+	<value>com.talon.entities.Disponibilite</value>
+	<value>com.talon.entities.ImpactC</value>
+	<value>com.talon.entities.Integrite</value>
+	<value>com.talon.entities.MesureEx</value>
+	<value>com.talon.entities.Processus</value>
+	<value>com.talon.entities.Administrateur</value>
+	<value>com.talon.entities.Alerte</value>
+	<value>com.talon.entities.AnalyseDesRisques</value>
+	<value>com.talon.entities.Classification</value>
+	<value>com.talon.entities.Information</value>
+	<value>com.talon.entities.Poste</value>
+	<value>com.talon.entities.Responsable</value>
+	<value>com.talon.entities.Risque</value>
+	<value>com.talon.entities.SousProcessus</value>
+	<value>com.talon.entities.Utilisateur</value>
+	<value>com.talon.entities.UserRole</value>
+	
+
+	
+		
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</beans>
