@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Processus implements Serializable {
 	
 	private String description;
 	
-	@OneToMany(mappedBy="processus")
+	@OneToMany(mappedBy="processus",fetch=FetchType.EAGER)
 	private List<SousProcessus> ssProcs;
 
 	public int getProcId() {

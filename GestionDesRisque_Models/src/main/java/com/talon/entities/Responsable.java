@@ -14,3 +14,5 @@ public class Responsable extends Utilisateur{
 	@OneToMany
 	private List<Processus> procs;
 }
+
+
