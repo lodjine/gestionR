@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+  <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
+<html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,15 +29,7 @@
 
   <script src="resources/js/jquery.min.js"></script>
 
-  <!--[if lt IE 9]>
-        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-        <![endif]-->
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
 </head>
 
@@ -63,7 +60,7 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Processus<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/ProcessAdd">Pocessus</a>
                     </li>
@@ -190,6 +187,44 @@
 										Gestion Des Risques <small>Talan</small>
 									</h2>
 								</div>
+								
+								        <div class="clearfix"></div>
+             
+                <div class="x_content">
+
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="processus" action="AddProcessus" >
+
+                  
+                    <span class="section">Processus</span>
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label Processus <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="processus" placeholder="Label" required="required" type="text">
+                      </div>
+                    </div>
+                    
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Description Processus <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="description" placeholder="Description" required="required" type="text">
+                      </div>
+                    </div>
+                   
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+                  </f:form>
+                </div>
+								
+					   </div>			
+								
 							</div>
 						</div>
 					</div>

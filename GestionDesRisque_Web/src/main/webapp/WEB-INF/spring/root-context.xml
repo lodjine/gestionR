@@ -13,7 +13,7 @@
  
 	  
 	
-	<import resource="appServlet/springContext.xml" />
+	<import resource="appServlet/spring-context.xml" />
 	<import resource="appServlet/spring-security.xml" />
 
  
