@@ -192,7 +192,7 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="ssProcessus" action="ssProcessAdd" >
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="activite" action="Addactivite" >
 
                   
                     <span class="section">Activite</span>

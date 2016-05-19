@@ -71,7 +71,7 @@
                     </li>
                     <li><a href="/GestionDesRisque_Web/activiteAdd">Activite</a>
                     </li>
-                    <li><a href="index3.html">Information</a>
+                    <li><a href="/GestionDesRisque_Web/InformationAdd">Information</a>
                     </li>
                   </ul>
                 </li>
