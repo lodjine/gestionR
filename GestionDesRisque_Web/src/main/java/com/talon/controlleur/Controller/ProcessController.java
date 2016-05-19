@@ -1,5 +1,7 @@
 package com.talon.controlleur.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,6 +48,18 @@ public class ProcessController {
 		ModelAndView model = new ModelAndView("index") ; 
 	
 		processServiceImpl.save(processus);
+		return model ; 
+		
+		
+	}
+	
+	@RequestMapping(value = "/AffichProc", method = RequestMethod.GET)
+	public ModelAndView AffichProcess(@ModelAttribute Processus processus){
+		
+		ModelAndView model = new ModelAndView("Process/processAffich") ; 
+		List<Processus> Listprocess=processServiceImpl.getAll();
+		model.addObject("Listprocess", Listprocess);
+		model.addObject("size",Listprocess.size());
 		return model ; 
 		
 		
