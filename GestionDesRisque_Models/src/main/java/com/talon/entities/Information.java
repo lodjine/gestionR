@@ -20,7 +20,7 @@ public class Information {
 	@ManyToOne
 	private Activite activite;
 	
-	
+	private String information;
 	private String description;
 	
 	@OneToMany
@@ -56,6 +56,14 @@ public class Information {
 
 	public void setRisques(List<Risque> risques) {
 		this.risques = risques;
+	}
+
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
 	}
 	
 	
