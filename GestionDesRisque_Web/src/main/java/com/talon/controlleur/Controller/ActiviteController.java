@@ -43,11 +43,11 @@ public class ActiviteController {
 		
 	}
 	@RequestMapping(value = "/Addactivite", method = RequestMethod.POST)
-	public ModelAndView validssProcess(@ModelAttribute SousProcessus ssProcessus){
+	public ModelAndView validssProcess(@ModelAttribute Activite activite){
 		
 		ModelAndView model = new ModelAndView("index") ; 
 	
-		sousProcessusServiceImpl.save(ssProcessus);
+		activiteServiceImpl.save(activite);
 		return model ; 
 		
 		
