@@ -27,11 +27,12 @@ public class ActiviteDaoImpl implements ActiviteDao{
 		this.sessionFactory = sessionFactory;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Activite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createQuery("select a from Activité a").list();
+		return session.createQuery("select a from Activite a").list();
 	}
-
+	
 	public Activite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();	
 		return (Activite) session.get(Activite.class, id);
