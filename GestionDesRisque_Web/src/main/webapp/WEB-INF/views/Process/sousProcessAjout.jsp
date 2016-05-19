@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+  <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
+<html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,15 +29,7 @@
 
   <script src="resources/js/jquery.min.js"></script>
 
-  <!--[if lt IE 9]>
-        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-        <![endif]-->
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
 </head>
 
@@ -63,13 +60,13 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Processus<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/ProcessAdd">Pocessus</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/ssProcessAdd">Sous Pocessus</a>
+                    <li><a href="index2.html">Sous Pocessus</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/activiteAdd">Activite</a>
+                    <li><a href="index3.html">Activite</a>
                     </li>
                     <li><a href="index3.html">Information</a>
                     </li>
@@ -190,6 +187,67 @@
 										Gestion Des Risques <small>Talan</small>
 									</h2>
 								</div>
+								
+								        <div class="clearfix"></div>
+             
+                <div class="x_content">
+
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="ssProcessus" action="ssProcessAdd" >
+
+                  
+                    <span class="section">Sous Processus</span>
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label Sous Processus <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="sousProcessus" placeholder="Label" required="required" type="text">
+                      </div>
+                    </div>
+                    
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Description Sous Processus <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="description" placeholder="Description" required="required" type="text">
+                      </div>
+                    </div>
+                    
+                      <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Processus<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
+                    
+							<select name="gaapType.gaapId" id="currencySelect"
+								class="form-control select2 form-control required noselect"  >
+								                 
+								<option value="">select processus</option>
+									
+								
+								
+								<c:forEach items="${processusList}" var="proc">
+									
+
+										<option value="${proc.procId}">${proc.processus}</option>
+									
+								</c:forEach>
+							</select>
+					
+                      </div>
+                    </div>
+                   
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+                  </f:form>
+                </div>
+								
+					   </div>			
+								
 							</div>
 						</div>
 					</div>
