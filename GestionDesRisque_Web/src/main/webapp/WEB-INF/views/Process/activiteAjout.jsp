@@ -218,7 +218,7 @@
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
                     
-							<select name="gaapType.gaapId" id="currencySelect"
+							<select name="subprocess.sspId" id="currencySelect"
 								class="form-control select2 form-control required noselect"  >
 								                 
 								<option value="">select sous processus</option>

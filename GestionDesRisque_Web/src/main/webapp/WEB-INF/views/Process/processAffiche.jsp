@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -192,50 +193,49 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="ssProcessus" action="ssProcessAdd" >
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="processus" action="AddProcessus" >
 
                   
-                    <span class="section">Sous Processus</span>
+                    <span class="section">Processus</span>
 
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label Sous Processus <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="sousProcessus" placeholder="Label" required="required" type="text">
-                      </div>
-                    </div>
-                    
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Description Sous Processus <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="description" placeholder="Description" required="required" type="text">
-                      </div>
-                    </div>
-                    
-                      <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Processus<span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
-                    
-							<select name="processus.procId" id="currencySelect" 
-								class="form-control select2 form-control required noselect"  >
-								                 
-								<option value="">select processus</option>
-									
-								
-								
-								<c:forEach items="${processusList}" var="proc">
-									
-
-										<option value="${proc.procId}">${proc.processus}</option>
-									
-								</c:forEach>
-							</select>
-					
-                      </div>
-                    </div>
+                    	 <div class="x_content">
+                  <p class="text-muted font-13 m-b-30">
+                  </p>
+                  <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Sub-Process</th>
+                        <th>Activity</th>
+                        <th>Information</th>
+                        <th>Owner</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    	<td rowspan="3">sub 1</td>
+                    	<td rowspan="3">
+	                    	act 1
+	                    </td> 
+	                    <td>info 1</td>
+	                    <td>owner 1</td>
+                    </tr>
                    
+                    <tr>
+                    	
+                    	<td>info 2</td>
+                    	<td>owner 2</td>
+                    </tr>
+                    <tr>
+                    	
+                    	<td>info 3</td>
+                    	
+                    	<td>owner 3</td>
+                    </tr>
+                   
+                    </tbody>
+                    </table>
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                       <div class="col-md-6 col-md-offset-3">
@@ -285,6 +285,8 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
+
+  	$('#datatable').DataTable();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
