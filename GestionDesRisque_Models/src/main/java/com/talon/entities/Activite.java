@@ -19,7 +19,7 @@ public class Activite implements Serializable{
 	private int activiteId;
 	
 private  String labelActivity; 
-	
+	private String description;
 	
 	@ManyToOne(cascade= CascadeType.ALL)
 	private SousProcessus subprocess ;
@@ -61,5 +61,15 @@ private  String labelActivity;
 	public void setInformations(List<Information> informations) {
 		this.informations = informations;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 	
 }

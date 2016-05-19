@@ -13,10 +13,29 @@ import javax.persistence.OneToMany;
 @Entity
 public class SousProcessus implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int sspId;
 
 	
+	
+
+	private String sousProcessus;
+	
+	private String description;
+	
+	
+	@ManyToOne
+	private Processus processus;
+	
+	@OneToMany(mappedBy="subprocess")
+	private List<Activite> activites;
+
+	public int getSspId() {
+		return sspId;
+	}
+	public void setSspId(int sspId) {
+		this.sspId = sspId;
+	}
 	
 	public String getSousProcessus() {
 		return sousProcessus;
@@ -42,25 +61,6 @@ public class SousProcessus implements Serializable {
 	public void setActivites(List<Activite> activites) {
 		this.activites = activites;
 	}
-	private String sousProcessus;
-	
-	private String description;
-	
-	
-	@ManyToOne
-	private Processus processus;
-	
-	@OneToMany(mappedBy="subprocess")
-	private List<Activite> activites;
-
-	public int getSspId() {
-		return sspId;
-	}
-	public void setSspId(int sspId) {
-		this.sspId = sspId;
-	}
-	
-	
 	
 	
 
