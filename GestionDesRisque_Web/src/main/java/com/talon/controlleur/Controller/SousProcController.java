@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Processus;
@@ -42,6 +43,30 @@ public class SousProcController {
 	
 		sousProcessusServiceImpl.save(ssProcessus);
 		return model ; 
+		
+		
+	}
+	
+	@RequestMapping(value = "/AffichSsProcess", method = RequestMethod.GET)
+	public ModelAndView validssProcess(@RequestParam int id){
+		
+		ModelAndView model = new ModelAndView("Process/sousProcessAffiche") ; 
+	
+		
+		model.addObject("ssProcessus", sousProcessusServiceImpl.getById(id));
+		return model ; 
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/MenuSsProcess", method = RequestMethod.GET)
+	public ModelAndView Menuinf(){
+		
+		ModelAndView model = new ModelAndView("Process/sousProcessMenu") ; 
+		
+		model.addObject("listSsProc", sousProcessusServiceImpl.getAll());
+		return model ;
 		
 		
 	}

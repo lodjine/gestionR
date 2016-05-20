@@ -240,7 +240,7 @@
 							aria-label="Position: activate to sort column ascending"
 							>Description</th>
 							<th class="sorting" tabindex="0" aria-controls="datatable"
-							rowspan="${size}" colspan="1"
+							rowspan="${size}" colspan="${size}"
 							aria-label="Position: activate to sort column ascending"
 							>Sous Processus</th>
 				
@@ -254,13 +254,20 @@
 					<tr role="row" class="odd">
 						<td class="sorting_1">${proc.processus}</td>
 						<td>${proc.processus}</td>
-						<td>
+							
+							
+							<td>
 						<c:forEach items="${proc.ssProcs}" var="ssproc">
-						<td>
-						${ssproc.sousProcessus}
-                         </td>
+					
+					
+						${ssproc.sousProcessus}<br>
+						
+                      
 						</c:forEach>
-						</td>
+						 </td>
+						
+							
+							
 					</tr>
 					</c:forEach>
 				</tbody>

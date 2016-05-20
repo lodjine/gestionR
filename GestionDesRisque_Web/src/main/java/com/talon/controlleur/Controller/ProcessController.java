@@ -15,8 +15,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talon.entities.Activite;
 import com.talon.entities.Information;
 import com.talon.entities.Processus;
+
+import com.talon.entities.Utilisateur;
+
 import com.talon.entities.SousProcessus;
+
 import com.talon.service.ProcessService;
+
+import com.talon.service.UtilisateurService;
+
 
 
 
@@ -25,7 +32,8 @@ public class ProcessController {
 	
 	@Autowired
 	ProcessService processServiceImpl;
-	
+	@Autowired
+	UtilisateurService utilisateurServiceImpl;
 	
 	
 	public ProcessService getProcessServiceImpl() {
@@ -42,6 +50,8 @@ public class ProcessController {
 		ModelAndView model = new ModelAndView("Process/processAjout") ; 
 		System.out.println("---------------------------------------");
 		Processus processus=new Processus();
+		List<Utilisateur> users=utilisateurServiceImpl.getAll();
+		model.addObject("users", users);
 		model.addObject("processus", processus);
 		return model ; 
 		

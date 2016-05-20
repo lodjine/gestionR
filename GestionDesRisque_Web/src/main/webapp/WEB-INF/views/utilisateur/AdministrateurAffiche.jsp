@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+  <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
+<html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,15 +29,7 @@
 
   <script src="resources/js/jquery.min.js"></script>
 
-  <!--[if lt IE 9]>
-        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-        <![endif]-->
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
 </head>
 
@@ -63,15 +60,15 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Processus<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/ProcessAdd">Pocessus</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/ssProcessAdd">Sous Pocessus</a>
+                    <li><a href="index2.html">Sous Pocessus</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/activiteAdd">Activite</a>
+                    <li><a href="index3.html">Activite</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/InformationAdd">Information</a>
+                    <li><a href="index3.html">Information</a>
                     </li>
                   </ul>
                 </li>
@@ -96,7 +93,7 @@
                 </li>
                 <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/adminAdd">Administrateur</a>
+                    <li><a href="general_elements.html">Administrateur</a>
                     </li>
                     <li><a href="media_gallery.html">Responsable</a>
                     </li>
@@ -190,6 +187,95 @@
 										Gestion Des Risques <small>Talan</small>
 									</h2>
 								</div>
+								
+								        <div class="clearfix"></div>
+             
+                <div class="x_content">
+
+    <div class="col-md-6 col-xs-12" style="margin-left: 250">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Utilisateur<small>Administrateur</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <br>
+                  <f:form modelAttribute="admin" action="UpdateAdmin" class="form-horizontal form-label-left input_mask">
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control has-feedback-left" path="firstName" id="inputSuccess2" placeholder="First Name"/>
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control" id="inputSuccess3" path="lastName"  placeholder="Last Name"/>
+                      <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control has-feedback-left" id="inputSuccess4" path="email"  placeholder="Email"/>
+                      <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control" id="inputSuccess5" path="pwd" placeholder="pwd" />
+                      <span class="fa fa-eye-slash form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+
+                    
+                      <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Poste<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
+                    
+							<select name="subprocess.sspId" id="currencySelect"
+								class="form-control select2 form-control "  >
+								                 
+								<option value="">select Poste</option>
+									
+								
+								
+								<c:forEach items="" var="ssProc">
+									
+
+										<option value=""></option>
+									
+								</c:forEach>
+							</select>
+					
+                      </div>
+                   
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+
+                  </f:form>
+                </div>
+              </div>
+
+                </div>
+								
+					   </div>			
+								
 							</div>
 						</div>
 					</div>
@@ -272,3 +358,7 @@
 </body>
 
 </html>
+            
+            
+            
+            
