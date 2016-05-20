@@ -47,7 +47,7 @@ public class SousProcController {
 		
 	}
 	
-	@RequestMapping(value = "/AffichSsProcess", method = RequestMethod.POST)
+	@RequestMapping(value = "/AffichSsProcess", method = RequestMethod.GET)
 	public ModelAndView validssProcess(@RequestParam int id){
 		
 		ModelAndView model = new ModelAndView("Process/sousProcessAffiche") ; 
@@ -55,6 +55,18 @@ public class SousProcController {
 		
 		model.addObject("ssProcessus", sousProcessusServiceImpl.getById(id));
 		return model ; 
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/MenuSsProcess", method = RequestMethod.GET)
+	public ModelAndView Menuinf(){
+		
+		ModelAndView model = new ModelAndView("Process/sousProcessMenu") ; 
+		
+		model.addObject("listSsProc", sousProcessusServiceImpl.getAll());
+		return model ;
 		
 		
 	}

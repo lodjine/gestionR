@@ -53,13 +53,23 @@ public class ActiviteController {
 		
 		
 	}
-	@RequestMapping(value = "/AfficheActivite", method = RequestMethod.POST)
+	@RequestMapping(value = "/AfficheActivite", method = RequestMethod.GET)
 	public ModelAndView AffichAct(@RequestParam int id){
 		
 		ModelAndView model = new ModelAndView("index") ; 
 	model.addObject("activite", activiteServiceImpl.getById(id));
 		
 		return model ; 
+		
+		
+	}
+	@RequestMapping(value = "/MenuActivite", method = RequestMethod.GET)
+	public ModelAndView Menuact(){
+		
+		ModelAndView model = new ModelAndView("Process/activiteMenu") ; 
+		
+		model.addObject("listActivite", activiteServiceImpl.getAll());
+		return model ;
 		
 		
 	}

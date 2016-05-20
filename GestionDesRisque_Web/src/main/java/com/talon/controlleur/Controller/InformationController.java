@@ -47,12 +47,24 @@ public class InformationController {
 		
 		
 	}
-	@RequestMapping(value = "/AffichInformation", method = RequestMethod.POST)
+	@RequestMapping(value = "/AffichInformation", method = RequestMethod.GET)
 	public ModelAndView Affichinf(@RequestParam int id){
 		
 		ModelAndView model = new ModelAndView("Process/informationAffiche") ; 
 		
 		model.addObject("information", informationServiceImpl.getById(id));
+		return model ;
+		
+		
+	}
+	
+	
+	@RequestMapping(value = "/MenuInformation", method = RequestMethod.GET)
+	public ModelAndView Menuinf(){
+		
+		ModelAndView model = new ModelAndView("Process/informationMenu") ; 
+		
+		model.addObject("listInformation", informationServiceImpl.getAll());
 		return model ;
 		
 		
