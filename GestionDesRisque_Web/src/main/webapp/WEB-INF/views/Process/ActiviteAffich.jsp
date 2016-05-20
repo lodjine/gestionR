@@ -221,7 +221,7 @@
 							<select name="subprocess.sspId" id="currencySelect"
 								class="form-control select2 form-control required noselect"  >
 								                 
-								<option value="${subprocess.${subprocess}}">${subprocess.sousProcessus}</option>
+								<option value="${activite.subprocess.sspId}">${activite.subprocess.sousProcessus}</option>
 									
 								
 								

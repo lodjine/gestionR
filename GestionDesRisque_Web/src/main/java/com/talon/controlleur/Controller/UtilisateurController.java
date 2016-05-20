@@ -53,10 +53,10 @@ public class UtilisateurController {
 		
 	}
 	
-	@RequestMapping(value = "/ShowInformation",params="updateByCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowAdmin",params="updateByCode", method = RequestMethod.GET)
 	public ModelAndView Affichinf(@RequestParam("byCode") String id){
 		
-		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAffich") ; 
+		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAffiche") ; 
 		
 		model.addObject("information", utilisateurServiceImpl.getById(id));
 		return model ;

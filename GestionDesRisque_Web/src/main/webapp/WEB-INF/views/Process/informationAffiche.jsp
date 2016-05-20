@@ -221,7 +221,7 @@
 							<select name="activite.activiteId" id="currencySelect"
 								class="form-control select2 form-control required noselect"  >
 								                 
-								<option value="${activite.activiteId}">${activite.labelActivity}</option>
+								<option value="${information.activite.activiteId}">${information.activite.labelActivity}</option>
 									
 								
 								
