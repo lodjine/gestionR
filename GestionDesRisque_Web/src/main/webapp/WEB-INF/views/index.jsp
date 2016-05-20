@@ -96,7 +96,7 @@
                 </li>
                 <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/adminAdd">Administrateur</a>
+                    <li><a href="/GestionDesRisque_Web/ShowAdmin">Administrateur</a>
                     </li>
                     <li><a href="media_gallery.html">Responsable</a>
                     </li>
