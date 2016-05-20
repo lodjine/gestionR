@@ -212,7 +212,7 @@
 							 
 							<option value="">Select an Information</option>
 								<c:forEach items="${ListInf}" var="info">
-							<option value="${info.InforId}">${info.information}</option>
+								<option value="${ info.inforId }">${info.information}</option>
 								</c:forEach>
 							</select>
 						

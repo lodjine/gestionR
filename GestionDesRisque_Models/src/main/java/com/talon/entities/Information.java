@@ -34,6 +34,8 @@ public class Information implements Serializable{
 
 	
 
+	
+
 	public int getInforId() {
 		return InforId;
 	}
