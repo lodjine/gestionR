@@ -21,7 +21,7 @@ public class Activite implements Serializable{
 private  String labelActivity; 
 	private String description;
 	
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne
 	private SousProcessus subprocess ;
 	
 	@OneToMany (mappedBy="activite", fetch =  FetchType.EAGER)
@@ -31,6 +31,14 @@ private  String labelActivity;
 	
 
 	
+	public int getActiviteId() {
+		return activiteId;
+	}
+
+	public void setActiviteId(int activiteId) {
+		this.activiteId = activiteId;
+	}
+
 	public Activite() {
 		super();
 		// TODO Auto-generated constructor stub

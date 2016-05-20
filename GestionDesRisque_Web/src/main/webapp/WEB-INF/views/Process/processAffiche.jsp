@@ -193,7 +193,7 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="processus" action="AddProcessus" >
+                  <f:form class="form-horizontal form-label-left" method="get" modelAttribute="proc"  >
 
                   
                     <span class="section">Processus</span>
@@ -212,27 +212,24 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${proc.ssProcs}" var="sspro" varStatus="status"> 
+                    
                     <tr>
-                    	<td rowspan="3">sub 1</td>
-                    	<td rowspan="3">
-	                    	act 1
+                    	<td rowspan="${sizeTotal}">${proc.processus }</td>
+                    	<td rowspan="${activityList[status.index] }">
+	                    	${sspro.activites[0].labelActivity}
 	                    </td> 
-	                    <td>info 1</td>
+	                    <td>${sspro.activites[status.index+1].labelActivity}</td>
 	                    <td>owner 1</td>
                     </tr>
-                   
+                   <c:forEach items="${proc.ssProcs.activites}" var="acts" varStatus="status"> 
                     <tr>
                     	
-                    	<td>info 2</td>
+                    	<td>acts.labelActivity</td>
                     	<td>owner 2</td>
                     </tr>
-                    <tr>
-                    	
-                    	<td>info 3</td>
-                    	
-                    	<td>owner 3</td>
-                    </tr>
-                   
+                    </c:forEach>
+                   </c:forEach>
                     </tbody>
                     </table>
                     </div>

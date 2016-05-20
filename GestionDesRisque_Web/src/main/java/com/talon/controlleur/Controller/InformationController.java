@@ -28,22 +28,23 @@ public class InformationController {
 		
 		
 		
-		ModelAndView model = new ModelAndView("Process/information") ; 
+		ModelAndView model = new ModelAndView("Process/InformationAjout") ; 
 		model.addObject("information", new Information());
 		model.addObject("activiteList", activiteServiceImpl.getAll());
 		return model ; 
 		
 		
 	}
-	@RequestMapping(value = "/addInformation", method = RequestMethod.GET)
-	public ModelAndView validInformation(@ModelAttribute Information information){
-		
+	
+	@RequestMapping(value = "/Addinformation", method = RequestMethod.POST)
+	public ModelAndView validProcess(@ModelAttribute Information info){
 		
 		ModelAndView model = new ModelAndView("index") ; 
-		
-		informationServiceImpl.save(information);
+	
+		informationServiceImpl.save(info);
 		return model ; 
 		
 		
 	}
+	
 }
