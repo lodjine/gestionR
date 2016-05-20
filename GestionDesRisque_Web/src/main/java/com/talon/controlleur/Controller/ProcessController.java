@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Activite;
@@ -44,7 +45,7 @@ public class ProcessController {
 		this.processServiceImpl = processServiceImpl;
 	}
 
-	@RequestMapping(value = "/ProcessAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowProcessus", params="newRecord",method = RequestMethod.GET)
 	public ModelAndView addProcess(){
 		
 		ModelAndView model = new ModelAndView("Process/processAjout") ; 
@@ -58,13 +59,13 @@ public class ProcessController {
 		
 	}
 	
-	@RequestMapping(value = "/ShowProcessus", method = RequestMethod.GET)
-	public ModelAndView AfficheProcess(){
+	@RequestMapping(value = "/ShowProcessus",params="updateByCode", method = RequestMethod.GET)
+	public ModelAndView AfficheProcess(@RequestParam("byCode") int id){
 		int sizeTotal = 0 ; 
 		ModelAndView model = new ModelAndView("Process/processAffiche") ; 
 		List<List<Activite>> activitys = new ArrayList<List<Activite>>();
 		List<List<Information>> infoss = new ArrayList<List<Information>>();
-		Processus proc =  processServiceImpl.getById(3);
+		Processus proc =  processServiceImpl.getById(id);
 		List<Integer> infoList = new ArrayList<Integer>() ; 
 		List<Integer> intList = new ArrayList<Integer>() ; 
 		List<Integer> activitysize = new ArrayList<Integer>();
@@ -122,6 +123,15 @@ public class ProcessController {
 		
 	}
 	
-	
+	@RequestMapping(value = "/MenuProces", method = RequestMethod.GET)
+	public ModelAndView MenuProc(){
+		
+		ModelAndView model = new ModelAndView("Process/ActifMenu") ; 
+		
+		model.addObject("Listprocess", processServiceImpl.getAll());
+		return model ;
+		
+		
+	}
 	
 }

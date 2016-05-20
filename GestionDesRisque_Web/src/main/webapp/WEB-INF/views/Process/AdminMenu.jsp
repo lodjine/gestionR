@@ -190,69 +190,67 @@
 								
 								        <div class="clearfix"></div>
              
-                <div class="x_content">
-
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="ssProcessus" action="UpdateSsProcess" >
-
-                  
-                    <span class="section">Sous Processus</span>
-
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label Sous Processus <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="sousProcessus" placeholder="Label" required="required" type="text"/>
-                      </div>
-                    </div>
-                    
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Description Sous Processus <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="description" placeholder="Description" required="required" type="text"/>
-                      </div>
-                    </div>
-                    
-                      <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Processus<span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
-                    
-							<select name="processus.procId" id="currencySelect" 
-								class="form-control select2 form-control required noselect"  >
-								                 
-								<option value="${ssProcessus.processus.procId}">${ssProcessus.processus.processus}</option>
-									
-								
-								
-								<c:forEach items="${processusList}" var="proc">
-									
-
-										<option value="${proc.procId}">${proc.processus}</option>
-									
+              <f:form method="get" modelAttribute="Process"   style="height: 2045px;" action="ShowAdmin">
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
+				
+				    
+                  <table id="idTable" class="table table-hover" >
+              
+                   <tr>
+                   	<td>Add New Admini</td>
+                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
+						<i class="glyphicon glyphicon-plus"></i>
+						</button>
+					</td>
+                   </tr>
+                    <tr>
+                      <td style="width: 171px;padding-top: 6px;"> Admin List  </td>
+                      <td>																	
+	
+							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
+							 
+							<option value="">Select a Process</option>
+								<c:forEach items="${ListAdmin}" var="group">
+							<option value="${group.email}">${group.email}</option>
 								</c:forEach>
 							</select>
+						
+					 
+                   	</td> 
+                <td style="width: 249px;">
+ 			 
+						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
+						
+						<i class="glyphicon glyphicon-search"></i>
+						</button>
+						
 					
-                      </div>
-                    </div>
-                   
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                      <div class="col-md-6 col-md-offset-3">
-                        
-                        <button id="send" type="submit" class="btn btn-success">Submit</button>
-                      </div>
-                    </div>
-                  </f:form>
-                </div>
+ 				
+						</td>
+                      
+                      
+                    </tr>
+                       
+                </table>
+                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
+		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
+                    
+                
+                </f:form>
+             
+						</div>
+						
+							</div>
+						</div>
+						</div>
+						</div>
+
 								
 					   </div>			
 								
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+						
+			
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -285,6 +283,23 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
+  $('#boutonLoop')
+  .click(
+  		function() {
+
+  			e = $('.byCodeClass').find(':selected').val();
+  			if(e != ""){
+
+  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
+
+  			$('#seekbouton').trigger("click");
+  			}
+  			
+  			
+
+  		});
+  
+  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 

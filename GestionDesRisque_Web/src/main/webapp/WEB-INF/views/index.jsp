@@ -65,13 +65,13 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/ProcessAdd">Pocessus</a>
+                    <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/ssProcessAdd">Sous Pocessus</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/activiteAdd">Activite</a>
+                    <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/InformationAdd">Information</a>
+                    <li><a href="/GestionDesRisque_Web/MenuInformation">Informations</a>
                     </li>
                   </ul>
                 </li>

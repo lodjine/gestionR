@@ -24,12 +24,12 @@ public class InformationController {
 	@Autowired
 	InformationService informationServiceImpl;
 
-	@RequestMapping(value = "/InformationAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowInformation",params="newRecord", method = RequestMethod.GET)
 	public ModelAndView addInformation(){
 		
 		
 		
-		ModelAndView model = new ModelAndView("Process/InformationAjout") ; 
+		ModelAndView model = new ModelAndView("Process/MenuInformation") ; 
 		model.addObject("information", new Information());
 		model.addObject("activiteList", activiteServiceImpl.getAll());
 		return model ; 
@@ -47,8 +47,8 @@ public class InformationController {
 		
 		
 	}
-	@RequestMapping(value = "/AffichInformation", method = RequestMethod.GET)
-	public ModelAndView Affichinf(@RequestParam int id){
+	@RequestMapping(value = "/ShowInformation",params="updateByCode", method = RequestMethod.GET)
+	public ModelAndView Affichinf(@RequestParam("byCode") int id){
 		
 		ModelAndView model = new ModelAndView("Process/informationAffiche") ; 
 		
@@ -64,7 +64,7 @@ public class InformationController {
 		
 		ModelAndView model = new ModelAndView("Process/informationMenu") ; 
 		
-		model.addObject("listInformation", informationServiceImpl.getAll());
+		model.addObject("ListInf", informationServiceImpl.getAll());
 		return model ;
 		
 		

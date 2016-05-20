@@ -23,7 +23,7 @@ public class SousProcController {
 	@Autowired
 	SousProcessusService sousProcessusServiceImpl;
 	
-	@RequestMapping(value = "/ssProcessAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowSubProcess",params="newRecord", method = RequestMethod.GET)
 	public ModelAndView addssProcess(){
 		
 		ModelAndView model = new ModelAndView("Process/sousProcessAjout") ; 
@@ -47,8 +47,8 @@ public class SousProcController {
 		
 	}
 	
-	@RequestMapping(value = "/AffichSsProcess", method = RequestMethod.GET)
-	public ModelAndView validssProcess(@RequestParam int id){
+	@RequestMapping(value = "/ShowSubProcess",params="updateByCode" ,method = RequestMethod.GET)
+	public ModelAndView validssProcess(@RequestParam("byCode") int id){
 		
 		ModelAndView model = new ModelAndView("Process/sousProcessAffiche") ; 
 	
@@ -63,9 +63,9 @@ public class SousProcController {
 	@RequestMapping(value = "/MenuSsProcess", method = RequestMethod.GET)
 	public ModelAndView Menuinf(){
 		
-		ModelAndView model = new ModelAndView("Process/sousProcessMenu") ; 
+		ModelAndView model = new ModelAndView("Process/MenuSousProcess") ; 
 		
-		model.addObject("listSsProc", sousProcessusServiceImpl.getAll());
+		model.addObject("ListSubprocess", sousProcessusServiceImpl.getAll());
 		return model ;
 		
 		

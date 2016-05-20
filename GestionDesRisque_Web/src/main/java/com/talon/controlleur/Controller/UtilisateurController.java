@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Administrateur;
@@ -30,7 +31,7 @@ public class UtilisateurController {
 		this.utilisateurServiceImpl = utilisateurServiceImpl;
 	}
 
-	@RequestMapping(value = "/adminAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowAdmin",params="newRecord", method = RequestMethod.GET)
 	public ModelAndView addssProcess(){
 		
 		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAjout") ; 
@@ -52,4 +53,24 @@ public class UtilisateurController {
 		
 	}
 	
+	@RequestMapping(value = "/ShowInformation",params="updateByCode", method = RequestMethod.GET)
+	public ModelAndView Affichinf(@RequestParam("byCode") String id){
+		
+		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAffich") ; 
+		
+		model.addObject("information", utilisateurServiceImpl.getById(id));
+		return model ;
+		
+		
+	}
+	@RequestMapping(value = "/MenuAdmin", method = RequestMethod.GET)
+	public ModelAndView Menuinf(){
+		
+		ModelAndView model = new ModelAndView("Process/AdminMenu") ; 
+		
+		model.addObject("ListAdmin", utilisateurServiceImpl.getAll());
+		return model ;
+		
+		
+	}
 }

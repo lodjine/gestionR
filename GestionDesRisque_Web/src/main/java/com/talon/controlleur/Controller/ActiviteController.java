@@ -30,7 +30,7 @@ public class ActiviteController {
 	@Autowired
 	SousProcessusService sousProcessusServiceImpl;
 	
-	@RequestMapping(value = "/activiteAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowActivity",params="newRecord", method = RequestMethod.GET)
 	public ModelAndView addAct(){
 		
 		ModelAndView model = new ModelAndView("Process/activiteAjout") ; 
@@ -53,8 +53,8 @@ public class ActiviteController {
 		
 		
 	}
-	@RequestMapping(value = "/AfficheActivite", method = RequestMethod.GET)
-	public ModelAndView AffichAct(@RequestParam int id){
+	@RequestMapping(value = "/AfficheActivite",params="updateByCode", method = RequestMethod.GET)
+	public ModelAndView AffichAct(@RequestParam("byCode") int id){
 		
 		ModelAndView model = new ModelAndView("index") ; 
 	model.addObject("activite", activiteServiceImpl.getById(id));
@@ -66,9 +66,9 @@ public class ActiviteController {
 	@RequestMapping(value = "/MenuActivite", method = RequestMethod.GET)
 	public ModelAndView Menuact(){
 		
-		ModelAndView model = new ModelAndView("Process/activiteMenu") ; 
+		ModelAndView model = new ModelAndView("Process/MenuActivite") ; 
 		
-		model.addObject("listActivite", activiteServiceImpl.getAll());
+		model.addObject("ListActivity", activiteServiceImpl.getAll());
 		return model ;
 		
 		
