@@ -53,10 +53,10 @@ public class ActiviteController {
 		
 		
 	}
-	@RequestMapping(value = "/AfficheActivite",params="updateByCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/ShowActivity",params="updateByCode", method = RequestMethod.GET)
 	public ModelAndView AffichAct(@RequestParam("byCode") int id){
 		
-		ModelAndView model = new ModelAndView("index") ; 
+		ModelAndView model = new ModelAndView("Process/ActiviteAffich") ; 
 	model.addObject("activite", activiteServiceImpl.getById(id));
 		
 		return model ; 
