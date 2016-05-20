@@ -210,7 +210,7 @@
 							 
 							<option value="">Select a Process</option>
 								<c:forEach items="${Listprocess}" var="group">
-							<option value="${group.activiteId}">${group.labelActivity}</option>
+							<option value="${group.procId}">${group.processus}</option>
 								</c:forEach>
 							</select>
 						

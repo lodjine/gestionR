@@ -205,14 +205,14 @@
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Informationn List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Information List  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
 							<option value="">Select an Information</option>
-								<c:forEach items="${ListInf}" var="group">
-							<option value="${group.InfId}">${group.information}</option>
+								<c:forEach items="${ListInf}" var="info">
+							<option value="${info.InforId}">${info.information}</option>
 								</c:forEach>
 							</select>
 						

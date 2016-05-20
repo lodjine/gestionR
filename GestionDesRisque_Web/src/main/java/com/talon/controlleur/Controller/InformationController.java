@@ -62,7 +62,7 @@ public class InformationController {
 	@RequestMapping(value = "/MenuInformation", method = RequestMethod.GET)
 	public ModelAndView Menuinf(){
 		
-		ModelAndView model = new ModelAndView("Process/informationMenu") ; 
+		ModelAndView model = new ModelAndView("Process/MenuInformation") ; 
 		
 		model.addObject("ListInf", informationServiceImpl.getAll());
 		return model ;
