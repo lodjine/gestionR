@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Information;
@@ -37,7 +38,7 @@ public class InformationController {
 	}
 	
 	@RequestMapping(value = "/Addinformation", method = RequestMethod.POST)
-	public ModelAndView validProcess(@ModelAttribute Information info){
+	public ModelAndView validinf(@ModelAttribute Information info){
 		
 		ModelAndView model = new ModelAndView("index") ; 
 	
@@ -46,5 +47,14 @@ public class InformationController {
 		
 		
 	}
-	
+	@RequestMapping(value = "/AffichInformation", method = RequestMethod.POST)
+	public ModelAndView Affichinf(@RequestParam int id){
+		
+		ModelAndView model = new ModelAndView("Process/informationAffiche") ; 
+		
+		model.addObject("information", informationServiceImpl.getById(id));
+		return model ;
+		
+		
+	}
 }

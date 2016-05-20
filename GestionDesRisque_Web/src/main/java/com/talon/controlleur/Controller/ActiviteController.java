@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Activite;
@@ -30,7 +31,7 @@ public class ActiviteController {
 	SousProcessusService sousProcessusServiceImpl;
 	
 	@RequestMapping(value = "/activiteAdd", method = RequestMethod.GET)
-	public ModelAndView addssProcess(){
+	public ModelAndView addAct(){
 		
 		ModelAndView model = new ModelAndView("Process/activiteAjout") ; 
 		System.out.println("---------------------------------------");
@@ -43,11 +44,21 @@ public class ActiviteController {
 		
 	}
 	@RequestMapping(value = "/Addactivite", method = RequestMethod.POST)
-	public ModelAndView validssProcess(@ModelAttribute Activite activite){
+	public ModelAndView validAct(@ModelAttribute Activite activite){
 		
-		ModelAndView model = new ModelAndView("index") ; 
+		ModelAndView model = new ModelAndView("Process/ActiviteAffich") ; 
 	
 		activiteServiceImpl.save(activite);
+		return model ; 
+		
+		
+	}
+	@RequestMapping(value = "/AfficheActivite", method = RequestMethod.POST)
+	public ModelAndView AffichAct(@RequestParam int id){
+		
+		ModelAndView model = new ModelAndView("index") ; 
+	model.addObject("activite", activiteServiceImpl.getById(id));
+		
 		return model ; 
 		
 		
