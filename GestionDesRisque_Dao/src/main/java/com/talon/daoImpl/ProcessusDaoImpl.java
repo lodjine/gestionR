@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ProcessusDaoImpl implements ProcessDao {
 	}
 	
 	public List<Processus> getAll() {
-Session session=sessionFactory.getCurrentSession();
+		Session session=sessionFactory.getCurrentSession();
 		
 		return session.createQuery("select a from Processus a").list();
 	}
@@ -35,7 +36,11 @@ Session session=sessionFactory.getCurrentSession();
 	public Processus getById(int id) {
 		Session session=sessionFactory.getCurrentSession();
 		// TODO Auto-generated method stub
-		return (Processus) session.get(Processus.class, id);
+		
+		String hql ="select a from Processus a WHERE a.procId =:id" ; 
+		Query query= session.createQuery(hql);	
+		 query.setParameter("id",id);
+		 return (Processus) query.uniqueResult() ; 
 	}
 
 	public void persist(Processus ssPro) {

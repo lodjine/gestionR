@@ -33,7 +33,7 @@ public class ProcessController {
 	}
 
 	public void setProcessServiceImpl(ProcessService processServiceImpl) {
-		processServiceImpl = processServiceImpl;
+		this.processServiceImpl = processServiceImpl;
 	}
 
 	@RequestMapping(value = "/ProcessAdd", method = RequestMethod.GET)
@@ -50,30 +50,39 @@ public class ProcessController {
 	
 	@RequestMapping(value = "/ShowProcessus", method = RequestMethod.GET)
 	public ModelAndView AfficheProcess(){
-		
+		int sizeTotal = 0 ; 
 		ModelAndView model = new ModelAndView("Process/processAffiche") ; 
-	
-		Processus proc =  processServiceImpl.getById(1);
-		List<Integer> activityList = new ArrayList<Integer>() ; 
+		List<List<Activite>> activitys = new ArrayList<List<Activite>>();
+		List<List<Information>> infoss = new ArrayList<List<Information>>();
+		Processus proc =  processServiceImpl.getById(3);
 		List<Integer> infoList = new ArrayList<Integer>() ; 
+		List<Integer> intList = new ArrayList<Integer>() ; 
+		List<Integer> activitysize = new ArrayList<Integer>();
 		List<SousProcessus> sousProcesss = new ArrayList<SousProcessus>();
 		
 		sousProcesss = proc.getSsProcs() ; 
-		List<Activite> activites = new ArrayList<Activite>();
+		
 		for(int i = 0 ; i<sousProcesss.size() ; i++){
-			activites.addAll(sousProcesss.get(i).getActivites());
-			activityList.add(sousProcesss.get(i).getActivites().size()) ;
-		}
-		List<Information> informations = new ArrayList<Information>() ; 
-		for (int i = 0 ; i<activites.size() ; i++ ) {
-			informations.addAll(activites.get(i).getInformations());
-			infoList.add(activites.get(i).getInformations().size());
+			activitys.add(i,sousProcesss.get(i).getActivites());
+			sizeTotal = 0  ;
+			for (int x = 0 ; x<activitys.get(i).size() ; x++ ) {
+				infoss.add(activitys.get(i).get(x).getInformations());
+				infoList.add(activitys.get(i).get(x).getInformations().size());
+				sizeTotal = sizeTotal+activitys.get(i).get(x).getInformations().size() ; 
+				
+			}
+			intList.add(i, sizeTotal);
+			activitysize.add(sousProcesss.get(i).getActivites().size());
 		}
 		
-		int sizeTotal = informations.size() ; 
+		
+		model.addObject("actSize",activitysize);
+		model.addObject("intList",intList) ;
+		model.addObject("addValue",infoList.size());
 		model.addObject("infoList",infoList);
-		model.addObject("activityList",activityList);
 		model.addObject("sizeTotal",sizeTotal);
+		model.addObject("activitys",activitys);
+		model.addObject("infoss",infoss);
 		model.addObject("proc",proc);
 		return model ; 
 		
@@ -102,4 +111,7 @@ public class ProcessController {
 		
 		
 	}
+	
+	
+	
 }

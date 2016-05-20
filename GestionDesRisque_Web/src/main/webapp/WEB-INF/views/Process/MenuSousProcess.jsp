@@ -2,7 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -182,7 +181,7 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: auto;">
+							<div class="x_panel" style="height: 595px;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -191,81 +190,67 @@
 								
 								        <div class="clearfix"></div>
              
-                <div class="x_content">
-
-                  <f:form class="form-horizontal form-label-left" method="get" modelAttribute="proc"  >
-
-                  
-                    <span class="section">Processus</span>
-
-                    	 <div class="x_content">
-                  <p class="text-muted font-13 m-b-30">
-                  </p>
-                 
-                      <c:set var="j" value="${0}"  scope="page"  />
-                   
-                  <table id="datatable" class="table table-striped table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Sub-Process</th>
-                        <th>Activity</th>
-                        <th>Information</th>
-                        <th>Owner</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                   <c:forEach items="${proc.ssProcs}" var="sspro" varStatus="status"> 
-                    
+              <f:form method="get" modelAttribute="Process"   style="height: 2045px;" action="ShowSubProcess">
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
+				
+				    
+                  <table id="idTable" class="table table-hover" >
+              
+                   <tr>
+                   	<td>Add New Sub-Process</td>
+                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
+						<i class="glyphicon glyphicon-plus"></i>
+						</button>
+					</td>
+                   </tr>
                     <tr>
-                    	<td rowspan="${intList[status.index]+actSize[status.index]+1}">${sspro.sousProcessus }</td><td></td><td></td><td></td>
-                 </tr>
-                 				<c:forEach items="${activitys[status.index]}" var="acts" varStatus="statuss">
-                 					<tr>
-                 						<td rowspan="${infoList[j]+1 }">
-                 							${acts.labelActivity }
-                 						</td>
-                 						<td>
-                 						</td>
-                 						<td>
-                 						</td>
-                 					</tr>
-                 						<c:forEach items="${infoss[j]}" var="inf" >
-                 							<tr>
-                 							<td>
-                 								${inf.information }
-                 							</td>
-                 							<td>
-                 								owner 1
-                 							</td>
-                 							</tr>
-                 							
-                 						</c:forEach>
-                 						<c:set var="j" value="${j + 1}" scope="page"/>
-                 				</c:forEach>
-                 				
-                  </c:forEach>
-                    </tbody>
-                    </table>
-                   
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                      <div class="col-md-6 col-md-offset-3">
-                        
-                        <button id="send" type="submit" class="btn btn-success">Submit</button>
-                      </div>
-                    </div>
-                  </f:form>
-                </div>
+                      <td style="width: 171px;padding-top: 6px;"> Sub-Process List  </td>
+                      <td>																	
+	
+							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
+							 
+							<option value="">Select an Sub-Process</option>
+								<c:forEach items="${ListSubprocess}" var="group">
+							<option value="${group.sspId}">${group.sousProcessus}</option>
+								</c:forEach>
+							</select>
+						
+					 
+                   	</td> 
+                <td style="width: 249px;">
+ 			 
+						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
+						
+						<i class="glyphicon glyphicon-search"></i>
+						</button>
+						
+					
+ 				
+						</td>
+                      
+                      
+                    </tr>
+                       
+                </table>
+                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
+		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
+                    
+                
+                </f:form>
+             
+						</div>
+						
+							</div>
+						</div>
+						</div>
+						</div>
+
 								
 					   </div>			
 								
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+						
+			
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -298,8 +283,23 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
+  $('#boutonLoop')
+  .click(
+  		function() {
 
-  	$('#datatable').DataTable();
+  			e = $('.byCodeClass').find(':selected').val();
+  			if(e != ""){
+
+  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
+
+  			$('#seekbouton').trigger("click");
+  			}
+  			
+  			
+
+  		});
+  
+  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 

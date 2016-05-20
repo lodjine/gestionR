@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Talon! | Login</title>
+  <title>Talan! | Login</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -80,7 +80,7 @@
     
 		<form name='loginForm'
 			action="<c:url value='/j_spring_security_check' />" method='POST'>
-            <h1>TALON</h1>
+            <h1>TALAN</h1>
             <div class="form-group has-feedback">
         <input type="text" class="form-control" name="email" value="" placeholder="username">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -100,9 +100,9 @@
               <div class="clearfix"></div>
               <br />
               <div>
-                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Talon</h1>
+                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Talan</h1>
 
-                <p>©2016 All Rights Reserved. TALON!</p>
+                <p>©2016 All Rights Reserved. TALAN!</p>
               </div>
             </div>
           </form>
