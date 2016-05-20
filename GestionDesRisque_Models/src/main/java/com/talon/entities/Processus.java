@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -26,6 +27,9 @@ public class Processus implements Serializable {
 	private String processus;
 	
 	private String description;
+	
+	@ManyToOne
+	private Utilisateur user;
 	
 	@OneToMany(mappedBy="processus",fetch=FetchType.EAGER)
 	private List<SousProcessus> ssProcs;
@@ -60,6 +64,14 @@ public class Processus implements Serializable {
 
 	public void setSsProcs(List<SousProcessus> ssProcs) {
 		this.ssProcs = ssProcs;
+	}
+
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
 	}
 	
 	

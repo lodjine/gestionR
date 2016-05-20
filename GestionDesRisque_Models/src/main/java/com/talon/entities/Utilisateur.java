@@ -51,7 +51,8 @@ public class Utilisateur {
 	
 	private String pwd;
 
-
+private String firstName;
+private String lastName;
 	
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
@@ -139,6 +140,22 @@ public class Utilisateur {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	
