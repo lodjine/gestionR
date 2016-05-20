@@ -58,7 +58,7 @@ public class UtilisateurController {
 		
 		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAffiche") ; 
 		
-		model.addObject("information", utilisateurServiceImpl.getById(id));
+		model.addObject("admin", utilisateurServiceImpl.getById(id));
 		return model ;
 		
 		
