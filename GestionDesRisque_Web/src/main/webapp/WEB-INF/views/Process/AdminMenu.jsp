@@ -25,9 +25,21 @@
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
+  
+  
+  
+  
 
+  <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <script src="resources/js/jquery.min.js"></script>
+   <script src="resources/js/angular.min.js"></script>
+    
+     <script src="resources/js/dataTableJsAngular.js"></script>
 
 
 
@@ -178,9 +190,9 @@
 					</div>
 					<div class="clearfix"></div>
 
-					<div class="row">
+					<div class="row" data-ng-app="risqueModule" data-ng-controller="risqueJs">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -189,10 +201,10 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get" modelAttribute="Process"   style="height: 2045px;" action="ShowAdmin">
+              
 				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
 				
-				    
+				    <f:form method="get" modelAttribute="Process"   style="height: auto;" action="ShowAdmin">
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
@@ -233,22 +245,98 @@
                 </table>
                 <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
 		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
+		
+		</f:form>
+		
+		<br />
+<br />
+
+<div ng-app="myApp">
+    <div ng-controller="TableCtrl">
+        <div class="input-group">
+            <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+</span>
+        </div>
+        <table class="table  table-hover data-table myTable">
+            <thead>
+                <tr>
+                    <th class="email"> <a href="#" ng-click="sort('email',$event)">EmpId
+                         <span class="{{Header[0]}}"></span>
+                         </a>
+
+                    </th>
+                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Name
+                         <span class="{{Header[1]}}"></span></a>
+                    </th>
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Email
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
+                    <td>{{item.email}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{item.firstName}}</td>
+                    <td>{{item.userType}}
+                    <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="pagination pagination-sm">
+            <li ng-class="{active:0}"><a href="#" ng-click="firstPage()">First</a>
+
+            </li>
+            <li ng-repeat="n in range(ItemsByPage.length)"> <a href="#" ng-click="setPage()" ng-bind="n+1">1</a>
+
+            </li>
+            <li><a href="#" ng-click="lastPage()">Last</a>
+
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-xs-3">
+                <input type="text" ng-model="email" class="form-control" placeholder="email">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="lastName" class="form-control" placeholder="lastName">
+            </div>
+            <div class="col-xs-4">
+                <input type="text" ng-model="firstName" class="form-control" placeholder="firstName">
+            </div>
+            <div class="col-xs-1">
+                <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+               
+
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Ends Controller -->
+</div>
+
+                 
+                </div>
                 
-                </f:form>
+              
              
 						</div>
 						
 							</div>
+							
 						</div>
-						</div>
-						</div>
-
-								
-					   </div>			
-								
-							</div>
 						
+						</div>
+				
+								
+					   			
+								
+						
+						 
 			
 			<!-- /page content -->
 
@@ -281,7 +369,26 @@
   <script src="resources/js/custom.js"></script>
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
+  <script src="resources/js/datatables/jquery.dataTables.min.js"></script>
+        <script src="resources/js/datatables/dataTables.bootstrap.js"></script>
+        <script src="resources/js/datatables/dataTables.buttons.min.js"></script>
+        <script src="resources/js/datatables/buttons.bootstrap.min.js"></script>
+        <script src="resources/js/datatables/jszip.min.js"></script>
+        <script src="resources/js/datatables/pdfmake.min.js"></script>
+        <script src="resources/js/datatables/vfs_fonts.js"></script>
+        <script src="resources/js/datatables/buttons.html5.min.js"></script>
+        <script src="resources/js/datatables/buttons.print.min.js"></script>
+        <script src="resources/js/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="resources/js/datatables/dataTables.keyTable.min.js"></script>
+        <script src="resources/js/datatables/dataTables.responsive.min.js"></script>
+        <script src="resources/js/datatables/responsive.bootstrap.min.js"></script>
+        <script src="resources/js/datatables/dataTables.scroller.min.js"></script>
   <script>
+  $(document).ready(function() {
+      $('#datatable').dataTable();
+     });
+		
+  
   $('#boutonLoop')
   .click(
   		function() {

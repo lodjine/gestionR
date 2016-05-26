@@ -50,7 +50,8 @@ public class Utilisateur {
 	private String poste;
 	
 	private String pwd;
-
+	@Column(name="ACC_Type", insertable = false, updatable = false)
+	 private String userType ; 
 private String firstName;
 private String lastName;
 	
@@ -67,7 +68,19 @@ private String lastName;
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	
+		
+	public String getUserType() {
+		return userType;
+	}
+
 	
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
