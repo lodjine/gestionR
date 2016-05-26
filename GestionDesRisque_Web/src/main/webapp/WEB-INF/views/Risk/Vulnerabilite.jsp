@@ -178,7 +178,7 @@
 			<div class="right_col" role="main" style="height: auto;">
 
 				<div class="" style="height: auto;">
-					<div class="page-title">
+					<div class="page-title" style="height: auto;">
 
 
 						<div class="title_right" style="height: auto;">
@@ -207,7 +207,7 @@
 		<br />
 
 	<div ng-app="VunApp" style="height: auto;">
-    <div ng-controller="TableCtrl">
+    <div ng-controller="TableCtrl" style="height: auto;">
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
       <span class="glyphicon glyphicon-search"></span>
