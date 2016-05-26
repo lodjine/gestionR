@@ -80,11 +80,11 @@ public class ImpactController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteImpact/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/PersisteImpact/{label}/{value}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
 		
 			ImpactC impactC = new ImpactC() ; 
-			impactC.setImpactId(id);
+			
 			impactC.setImpactLabel(label);
 			impactC.setValue(value);
 			impactCServiceImpl.persist(impactC);

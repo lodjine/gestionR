@@ -34,7 +34,7 @@ public class VulnerabiliteDaoImpl implements VulnerabiliteDao {
 
 	public Vulnerabilite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();
-		return (Vulnerabilite) session.createQuery("select a from Vulnerabilite a where a.vulnId").uniqueResult();
+		return (Vulnerabilite) session.createQuery("select a from Vulnerabilite a where a.vulnId =:id").setParameter("id", id).uniqueResult();
 	}
 
 	public void persist(Vulnerabilite vulner) {

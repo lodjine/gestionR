@@ -39,7 +39,7 @@
   <script src="resources/js/jquery.min.js"></script>
    <script src="resources/js/angular.min.js"></script>
     
-     <script src="resources/js/Impact.Angular.js"></script>
+     <script src="resources/js/Vun.Angular.js"></script>
 
 
 
@@ -202,11 +202,11 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Impact/Consequence</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Vulnerabilite</h3>
 				
 		<br />
 
-	<div ng-app="ImpactApp" style="height: auto;">
+	<div ng-app="VunApp" style="height: auto;">
     <div ng-controller="TableCtrl">
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
@@ -216,12 +216,12 @@
         <table class="table  table-hover data-table myTable">
             <thead>
                 <tr>
-                    <th class="id"> <a href="#" ng-click="sort('impactId',$event)">ID
+                    <th class="id"> <a href="#" ng-click="sort('vulnId',$event)">ID
                          <span class="{{Header[0]}}"></span>
                          </a>
 
                     </th>
-                    <th class="label"> <a ng-click="sort('impactLabel')" href="#"> Label
+                    <th class="label"> <a ng-click="sort('vulnLabel')" href="#"> Label
                          <span class="{{Header[1]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value
@@ -231,8 +231,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
-                    <td>{{item.impactId}}</td>
-                    <td>{{item.impactLabel}}</td>
+                    <td>{{item.vulnId}}</td>
+                    <td>{{item.vulnLabel}}</td>
                     <td>{{item.value}}</td>
                     
                     <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
@@ -254,10 +254,10 @@
         </ul>
         <div class="row">
             <div class="col-xs-3">
-                <input type="hidden" ng-model="impactId" class="form-control" placeholder="id" hidden="true">
+                <input type="hidden" ng-model="vulnId" class="form-control" placeholder="id" hidden="true">
             </div>
             <div class="col-xs-3">
-                <input type="text" ng-model="impactLabel" class="form-control" placeholder="value">
+                <input type="text" ng-model="vulnLabel" class="form-control" placeholder="value">
             </div>
             <div class="col-xs-4">
                 <input type="number" ng-model="value" class="form-control" placeholder="value">

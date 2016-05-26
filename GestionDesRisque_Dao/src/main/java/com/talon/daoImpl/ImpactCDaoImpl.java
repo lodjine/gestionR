@@ -37,7 +37,13 @@ public class ImpactCDaoImpl implements ImpactDao {
 
 	public ImpactC getById(int id) {
 		Session session=sessionFactory.getCurrentSession();
-		return (ImpactC) session.createQuery("select a from ImpactC a where a.vulnId").uniqueResult();
+		
+		String hql = "select a from ImpactC a where a.impactId =:id" ; 
+		Query query = session.createQuery(hql) ; 
+		query.setParameter("id", id);
+		
+		return (ImpactC) query.uniqueResult() ;
+		
 	}
 
 	public void persist(ImpactC impactC) {

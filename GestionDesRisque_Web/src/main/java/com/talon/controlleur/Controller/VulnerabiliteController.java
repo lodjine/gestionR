@@ -74,11 +74,11 @@ public class VulnerabiliteController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteVulnerabilite/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/PersisteVulnerabilite/{label}/{value}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
 		
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
-		vulnerabilite.setVulnId(id);
+		
 		vulnerabilite.setVulnLabel(label);
 		vulnerabilite.setValue(value);
 		vulnerabiliteServiceImpl.persist(vulnerabilite);

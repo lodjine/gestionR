@@ -1,6 +1,6 @@
 //Demo of Searching Sorting and Pagination of Table with AngularJS - Advance Example
 
-var myApp = angular.module('ImpactApp', []);
+var myApp = angular.module('VunApp', []);
 
 //Not Necessary to Create Service, Same can be done in COntroller also as method like add() method
 myApp.service('filteredListService', function () {
@@ -40,8 +40,8 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
 
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
-        $scope.impactId = '';
-        $scope.impactLabel = '';
+        $scope.vulnId = '';
+        $scope.vulnLabel = '';
         $scope.value = '';
         $scope.searchText = '';
         $scope.currentPage = 0;
@@ -52,20 +52,20 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	var bool = false ;
     	
     	for(var i = 0 ; i<$scope.allItems.length ; i++) {
-    				if ($scope.allItems[i].impactId == $scope.impactId){
+    				if ($scope.allItems[i].vulnId == $scope.vulnId){
     					bool = true ; 
     				}
     	}
     	if(bool == false){
         $scope.allItems.push({
-            id: $scope.impactId,
-            label: $scope.impactLabel,
+            id: $scope.vulnId,
+            label: $scope.vulnLabel,
             value: $scope.value
         });
-            saveUser($scope.impactLabel,$scope.value);
+            saveUser($scope.vulnLabel,$scope.value);
          
     	}else{
-    		updateUser($scope.impactId,$scope.impactLabel,$scope.value);
+    		updateUser($scope.vulnId,$scope.vulnLabel,$scope.value);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -105,15 +105,15 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     
     $scope.modifyUser= function (index) {
     	
-    	$scope.impactId = $scope.allItems[index].impactId;
-        $scope.impactLabel = $scope.allItems[index].impactLabel ;
+    	$scope.vulnId = $scope.allItems[index].vulnId;
+        $scope.vulnLabel = $scope.allItems[index].vulnLabel ;
         $scope.value =  $scope.allItems[index].value;
         
     }
     
     $scope.deleteUser = function(index){
     	
-    	deleteUser($scope.allItems[index].impactId);
+    	deleteUser($scope.allItems[index].vulnId);
     	$scope.allItems.splice(index, 1);
     	
     	 $scope.filteredList = $scope.allItems;
@@ -177,7 +177,7 @@ function searchUtil(item, toSearch) {
 function getDummyData() {
 	var xxx = "" ; 
 	$.ajax({
-	    url:'/GestionDesRisque_Web/SeekImpact',
+	    url:'/GestionDesRisque_Web/SeekVulnerabilite',
 	    dataType:'json',
 	    type:'get',
 	    async:false,
@@ -195,7 +195,7 @@ function getDummyData() {
 
 function saveUser(label,value){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteImpact/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/PersisteVulnerabilite/'+label+'/'+value+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -205,7 +205,7 @@ function saveUser(label,value){
 function updateUser(id,label,value){
 	
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateImpact/'+id+'/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/updateVulnerabilite/'+id+'/'+label+'/'+value+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -215,7 +215,7 @@ function updateUser(id,label,value){
 
 function deleteUser(id){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/deleteImpact/'+id+'/',
+	    url:'/GestionDesRisque_Web/deleteVulnerabilite/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
