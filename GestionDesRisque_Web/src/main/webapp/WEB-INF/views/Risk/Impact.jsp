@@ -202,11 +202,11 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Mesure</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Impact/Consequence</h3>
 				
 		<br />
 
-	<div ng-app="MesureApp" style="height: auto;">
+	<div ng-app="ImpactApp" style="height: auto;">
     <div ng-controller="TableCtrl">
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">

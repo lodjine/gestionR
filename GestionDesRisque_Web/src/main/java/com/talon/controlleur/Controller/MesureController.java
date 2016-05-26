@@ -68,11 +68,11 @@ public class MesureController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteMesure/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/PersisteMesure/{label}/{value}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
 		
 			MesureEx mesure = new MesureEx() ; 
-			mesure.setMesureId(id);
+			
 			mesure.setMesureLabel(label);
 			mesure.setValue(value);
 			mesureExServiceImpl.persisteMesure(mesure);

@@ -251,7 +251,7 @@
 		<br />
 <br />
 
-<div ng-app="myApp">
+<div ng-app="myApp" >
     <div ng-controller="TableCtrl">
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">

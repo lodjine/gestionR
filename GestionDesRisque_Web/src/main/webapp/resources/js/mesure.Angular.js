@@ -40,9 +40,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
 
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
-        $scope.email = '';
-        $scope.lastName = '';
-        $scope.firstName = '';
+        $scope.mesureId = '';
+        $scope.mesureLabel = '';
+        $scope.value = '';
         $scope.searchText = '';
         $scope.currentPage = 0;
         $scope.Header = ['', '', ''];
@@ -52,20 +52,20 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	var bool = false ;
     	
     	for(var i = 0 ; i<$scope.allItems.length ; i++) {
-    				if ($scope.allItems[i].email == $scope.email){
+    				if ($scope.allItems[i].mesureId == $scope.mesureId){
     					bool = true ; 
     				}
     	}
     	if(bool == false){
         $scope.allItems.push({
-            email: $scope.email,
-            lastName: $scope.lastName,
-            firstName: $scope.firstName
+            id: $scope.mesureId,
+            label: $scope.mesureLabel,
+            value: $scope.value
         });
-            saveUser($scope.email,$scope.firstName,$scope.lastName);
+            saveUser($scope.mesureLabel,$scope.value);
          
     	}else{
-    		updateUser($scope.email,$scope.firstName,$scope.lastName);
+    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -105,15 +105,15 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     
     $scope.modifyUser= function (index) {
     	
-    	$scope.email = $scope.allItems[index].email;
-        $scope.firstName = $scope.allItems[index].firstName ;
-        $scope.lastName =  $scope.allItems[index].lastName;
+    	$scope.mesureId = $scope.allItems[index].mesureId;
+        $scope.mesureLabel = $scope.allItems[index].mesureLabel ;
+        $scope.value =  $scope.allItems[index].value;
         
     }
     
     $scope.deleteUser = function(index){
     	
-    	deleteUser($scope.allItems[index].email);
+    	deleteUser($scope.allItems[index].mesureId);
     	$scope.allItems.splice(index, 1);
     	
     	 $scope.filteredList = $scope.allItems;
@@ -164,13 +164,13 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     };
 
     //By Default sort ny Name
-    $scope.sort('email');
+    $scope.sort('id');
 
 });
 
 function searchUtil(item, toSearch) {
     /* Search Text in all 3 fields */
-    return (item.lastName.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 || item.email.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 || item.firstName == toSearch) ? true : false;
+    return (item.id.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 || item.label.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 || item.value == toSearch) ? true : false;
 }
 
 /*Get Dummy Data for Example*/
@@ -193,18 +193,18 @@ function getDummyData() {
  
 }
 
-function saveUser(email,firstName,lastName){
+function saveUser(label,value){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteUser/'+email+'/'+firstName+'/'+lastName+'/',
+	    url:'/GestionDesRisque_Web/PersisteMesure/'+label+'/'+value+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
 	
 	});
 }
-function updateUser(email,firstName,lastName){
+function updateUser(id,label,value){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateUser/'+email+'/'+firstName+'/'+lastName+'/',
+	    url:'/GestionDesRisque_Web/updateMesure/'+id+'/'+label+'/'+value+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -212,9 +212,9 @@ function updateUser(email,firstName,lastName){
 	});
 }
 
-function deleteUser(email){
+function deleteUser(id){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/deleteUser/'+email+'/',
+	    url:'/GestionDesRisque_Web/deleteMesure/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
