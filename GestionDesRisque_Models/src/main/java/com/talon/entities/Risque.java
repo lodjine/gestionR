@@ -15,12 +15,7 @@ public class Risque implements Serializable{
 	private int risqueId;
 	
 	private String risqueLabel;
-	@ManyToOne
-	private Confidentialite conf;
-	@ManyToOne
-	private Integrite integ;
-	@ManyToOne
-	private Disponibilite dispo;
+
 	public int getRisqueId() {
 		return risqueId;
 	}
@@ -32,24 +27,6 @@ public class Risque implements Serializable{
 	}
 	public void setRisqueLabel(String risqueLabel) {
 		this.risqueLabel = risqueLabel;
-	}
-	public Confidentialite getConf() {
-		return conf;
-	}
-	public void setConf(Confidentialite conf) {
-		this.conf = conf;
-	}
-	public Integrite getInteg() {
-		return integ;
-	}
-	public void setInteg(Integrite integ) {
-		this.integ = integ;
-	}
-	public Disponibilite getDispo() {
-		return dispo;
-	}
-	public void setDispo(Disponibilite dispo) {
-		this.dispo = dispo;
 	}
 	
 }
