@@ -54,7 +54,7 @@
 
           <br />
 
-                  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
@@ -81,11 +81,11 @@
                     </li>
                     <li><a href="form_wizards.html">Disponibilite</a>
                     </li>
-                    <li><a href="form_upload.html">Mesure</a>
+                    <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
-                    <li><a href="form_buttons.html">Vulnerabilite</a>
+                    <li><a href="/GestionDesRisque_Web/showVulnerabiliteMenu">Vulnerabilite</a>
                     </li>
-                     <li><a href="form_buttons.html">Impact/Consequence</a>
+                     <li><a href="/GestionDesRisque_Web/showImpactMenu">Impact/Consequence</a>
                     </li>
                   
                   </ul>
@@ -110,9 +110,6 @@
                 </li>
               </ul>
             </div>
-            
-
-         
             
 
           </div>
