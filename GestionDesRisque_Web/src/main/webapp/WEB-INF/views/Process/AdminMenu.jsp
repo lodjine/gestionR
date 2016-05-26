@@ -204,7 +204,7 @@
               
 				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
 				
-				    <f:form method="get" modelAttribute="Process"   style="height: auto;" action="ShowAdmin">
+				    <f:form method="get" modelAttribute="Process"    action="ShowAdmin">
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
