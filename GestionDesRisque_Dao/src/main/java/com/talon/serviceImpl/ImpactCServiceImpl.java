@@ -2,12 +2,16 @@ package com.talon.serviceImpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.talon.dao.ImpactDao;
 import com.talon.entities.ImpactC;
 import com.talon.service.ImpactCService;
-
+@Service
+@Transactional
 public class ImpactCServiceImpl implements ImpactCService {
 
 	
