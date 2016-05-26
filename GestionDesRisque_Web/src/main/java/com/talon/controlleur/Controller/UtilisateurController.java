@@ -1,7 +1,9 @@
 package com.talon.controlleur.Controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +21,7 @@ import com.talon.entities.Administrateur;
 import com.talon.entities.Processus;
 import com.talon.entities.Responsable;
 import com.talon.entities.SousProcessus;
+import com.talon.entities.UserRole;
 import com.talon.entities.Utilisateur;
 import com.talon.service.UtilisateurService;
 
@@ -89,12 +92,19 @@ public class UtilisateurController {
 		 
 		List<Utilisateur> userJs = new ArrayList<>()  ;
 		for (Utilisateur u:users ){
+			Set<UserRole> hset = new HashSet<UserRole>() ;  
+			for(UserRole ur:u.getUserRole()){
+				UserRole usrr = new UserRole() ; 
+				usrr.setRole(ur.getRole());
+				usrr.setUserRoleId(ur.getUserRoleId());
+				hset.add(usrr);
+			}
 			Utilisateur user = new Utilisateur() ; 
 			user.setUserType(u.getUserType());
 			user.setEmail(u.getEmail());
 			user.setFirstName(u.getFirstName());
 			user.setLastName(u.getLastName());
-			
+			user.setUserRole(hset);
 			userJs.add(user) ; 
 		}
 		

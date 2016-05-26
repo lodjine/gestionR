@@ -276,14 +276,12 @@
         </ul>
         <div class="row">
             <div class="col-xs-3">
-                <input type="hidden" ng-model="impactId" class="form-control" placeholder="id" hidden="true">
+                <input type="hidden" ng-model="risqueId" class="form-control" placeholder="id" hidden="true">
             </div>
             <div class="col-xs-3">
-                <input type="text" ng-model="impactLabel" class="form-control" placeholder="value">
+                <input type="text" ng-model="risqueLabel" class="form-control" placeholder="value">
             </div>
-            <div class="col-xs-4">
-                <input type="number" ng-model="value" class="form-control" placeholder="value">
-            </div>
+            
             <div class="col-xs-1">
                 <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
                 <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>

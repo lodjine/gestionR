@@ -52,7 +52,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	var bool = false ;
     	
     	for(var i = 0 ; i<$scope.allItems.length ; i++) {
-    				if ($scope.allItems[i].impactId == $scope.impactId){
+    				if ($scope.allItems[i].risqueId == $scope.risqueId){
     					bool = true ; 
     				}
     	}
