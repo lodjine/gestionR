@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.talon.dao.UtilisateurDao;
-
+import com.talon.entities.Responsable;
 import com.talon.entities.Utilisateur;
 
 @Repository
@@ -59,25 +59,7 @@ session.save(utili);
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 
-
-	
-
-	
-	
-	
-	
-	
- 
-	
-	
-	
 	
 	private boolean isUserExists(String username) {
  
@@ -99,6 +81,16 @@ session.save(utili);
 	  }
  
 	  return result;
+	}
+	
+	
+	
+	public List<Responsable> getAllResp() {
+		Session session=sessionFactory.getCurrentSession();
+		String hql = "select a from Responsable a" ; 
+		Query query = session.createQuery(hql) ;  
+		
+		return query.list() ; 
 	}
 
 

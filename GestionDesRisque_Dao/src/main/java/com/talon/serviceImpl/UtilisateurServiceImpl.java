@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.talon.dao.UtilisateurDao;
 import com.talon.entities.Integrite;
-
+import com.talon.entities.Responsable;
 import com.talon.entities.Utilisateur;
 import com.talon.service.UtilisateurService;
 @Transactional
@@ -56,6 +56,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public void save(Utilisateur utili) {
 		// TODO Auto-generated method stub
 		utilisateurDaoImpl.save(utili);
+	}
+
+	public List<Responsable> getAllResp() {
+		// TODO Auto-generated method stub
+		return utilisateurDaoImpl.getAllResp();
 	}
 
 

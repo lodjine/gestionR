@@ -3,7 +3,7 @@ package com.talon.dao;
 import java.util.List;
 
 import com.talon.entities.Integrite;
-
+import com.talon.entities.Responsable;
 import com.talon.entities.Utilisateur;
 
 public interface UtilisateurDao {
@@ -14,7 +14,7 @@ public interface UtilisateurDao {
 	public void delete(Utilisateur utili);
 	public void save(Utilisateur utili);
 	
-	
+	public List<Responsable> getAllResp();
 	
 
 
