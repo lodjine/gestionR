@@ -85,11 +85,11 @@
                     </li>
                     <li><a href="form_wizards.html">Disponibilite</a>
                     </li>
-                    <li><a href="form_upload.html">Mesure</a>
+                    <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
-                    <li><a href="form_buttons.html">Vulnerabilite</a>
+                    <li><a href="/GestionDesRisque_Web/showVulnerabiliteMenu">Vulnerabilite</a>
                     </li>
-                     <li><a href="form_buttons.html">Impact/Consequence</a>
+                     <li><a href="/GestionDesRisque_Web/showImpactMenu">Impact/Consequence</a>
                     </li>
                   
                   </ul>
