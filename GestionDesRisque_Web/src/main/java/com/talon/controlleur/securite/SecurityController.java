@@ -4,6 +4,7 @@ package com.talon.controlleur.securite;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -22,12 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.talon.entities.Utilisateur;
+import com.talon.service.UtilisateurService;
+
 
 
 @Controller
 
 public class SecurityController {
-
+@Autowired
+UtilisateurService utilisateurServiceImpl;
 	
 	public HttpSession session(HttpServletRequest request){
 
@@ -38,9 +43,14 @@ public class SecurityController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() {
-
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
 		 
 		ModelAndView model=new ModelAndView();
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
 		model.setViewName("index");
 		return model;
 		}

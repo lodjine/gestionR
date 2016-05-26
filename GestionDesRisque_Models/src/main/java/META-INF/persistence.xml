@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="GestionDesRisque_Models">
+		<class>com.talon.entities.Action</class>
+		<class>com.talon.entities.Activite</class>
+		<class>com.talon.entities.Administrateur</class>
+		<class>com.talon.entities.Alerte</class>
+		<class>com.talon.entities.AnalyseDesRisques</class>
+		<class>com.talon.entities.Classification</class>
+		<class>com.talon.entities.Confidentialite</class>
+		<class>com.talon.entities.Disponibilite</class>
+		<class>com.talon.entities.ImpactC</class>
+		<class>com.talon.entities.Information</class>
+		<class>com.talon.entities.Integrite</class>
+		<class>com.talon.entities.MesureEx</class>
+		<class>com.talon.entities.Poste</class>
+		<class>com.talon.entities.Processus</class>
+		<class>com.talon.entities.Responsable</class>
+		<class>com.talon.entities.Risque</class>
+		<class>com.talon.entities.SousProcessus</class>
+		<class>com.talon.entities.UserRole</class>
+		<class>com.talon.entities.Utilisateur</class>
+		<class>com.talon.entities.Vulnerabilite</class>
+	</persistence-unit>
+</persistence>
