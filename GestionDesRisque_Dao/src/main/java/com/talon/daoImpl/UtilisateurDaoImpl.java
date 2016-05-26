@@ -25,9 +25,13 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	@SuppressWarnings("unchecked")
 	public List<Utilisateur> getAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createQuery("select a from Utilisateur a").list();
+		String hql = "select a from Utilisateur a" ; 
+		Query query = session.createQuery(hql) ;  
+		
+		return query.list() ; 
 	}
 	public Utilisateur getById(String id) {
 		Session session=sessionFactory.getCurrentSession();
