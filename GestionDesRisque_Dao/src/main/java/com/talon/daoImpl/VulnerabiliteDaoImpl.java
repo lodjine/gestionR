@@ -6,11 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.talon.dao.VulnerabiliteDao;
 import com.talon.entities.Utilisateur;
 import com.talon.entities.Vulnerabilite;
-
+@Repository
 public class VulnerabiliteDaoImpl implements VulnerabiliteDao {
 	@Autowired
 	SessionFactory sessionFactory;
