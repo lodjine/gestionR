@@ -191,7 +191,7 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get" modelAttribute="Process"   style="height: 2045px;" action="ShowInformation">
+              <f:form method="get"   action="ShowInformation">
 				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
 				
 				    
