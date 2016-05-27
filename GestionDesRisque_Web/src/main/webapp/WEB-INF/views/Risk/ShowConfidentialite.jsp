@@ -27,9 +27,10 @@
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
   
   
+  <link href="resources/css/select/select2.min.css" rel="stylesheet">
   
-  
-
+	
+ 
   <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -40,7 +41,7 @@
    <script src="resources/js/angular.min.js"></script>
     
      <script src="resources/js/Confidentiality.Angular.js"></script>
-
+ <script src="resources/js/select/select2.full.js"></script>
 
 
 </head>
@@ -62,7 +63,7 @@
           <div class="clearfix"></div>
 
 
-          <input type="hidden" value="${id}" class="idConf">
+          <input type="hidden" value="1" class="idConf">
           <br />
 
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -215,12 +216,12 @@
         <table class="table  table-hover data-table myTable">
             <thead>
                 <tr>
-                    <th class="id"> <a href="#" ng-click="sort('impactId',$event)">Scénarios des Risques  & Références Scénarios pertinents 
+                    <th class="id"> <a href="#" ng-click="sort('impactId',$event)">Scénarios des Risques
                          <span class="{{Header[0]}}"></span>
                          </a>
 
                     </th>
-                    <th class="label"> <a ng-click="sort('impactLabel')" href="#"> Mesures existantes
+                    <th class="mesure"> <a ng-click="sort('impactLabel')" href="#"> Mesures existantes
                          <span class="{{Header[1]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> Vulnérabilités
@@ -248,18 +249,20 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
-                    <td hidden="true">{{item.impactId}}</td>
-                    <td><ng-repeat ng-repeat="mesure in ItemsByPage[currentPage].mesures">{{mesure.mesureLabel}} || <br></ng-repeat></td>
-                     <td><ng-repeat ng-repeat="vulnerabs in ItemsByPage[currentPage].vulnerabs">{{vulnerabs.VulnLabel}} || <br></ng-repeat></td>
-                     <td><ng-repeat ng-repeat="impacts in ItemsByPage[currentPage].impacts">{{impacts.impactLabel}} || <br></ng-repeat></td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <td><label>{{item.risque.risqueLabel}}</label></td>
+                    <td><ng-repeat ng-repeat="mesure in MesuresByPage[$index] | orderBy:columnToOrder:reverse"><label>{{mesure.mesureLabel}}</label> <button type="button" ng-click="modifyMesure($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+					
+                     <td><ng-repeat ng-repeat="vulnerabs in vulnerabsByPage[$index]"><label>{{vulnerabs.vulnLabel}}</label><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+                     <td><ng-repeat ng-repeat="impacts in impactsByPage[$index]"><label>{{impacts.impactLabel}}</label><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button><br></ng-repeat></td>
+                    <td>{{mesureValue}}</td>
+                    <td>{{vulnValue}}</td>
+                    <td>{{impactsValue}}</td>
+                    <td>{{total}}</td>
                     
-                    <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                    </td>
+                    
                 </tr>
             </tbody>
         </table>
@@ -274,17 +277,76 @@
 
             </li>
         </ul>
+        
+        
         <div class="row">
-            <div class="col-xs-3">
-                <input type="hidden" ng-model="risqueId" class="form-control" placeholder="id" hidden="true">
-            </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="risqueLabel" class="form-control" placeholder="value">
-            </div>
-            
             <div class="col-xs-1">
-                <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+                <input type="hidden" ng-model="MesureId" class="form-control" placeholder="id" hidden="true"><label> Mesure</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="MesureLabel" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-2">
+                <input type="text" ng-model="MesureValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="mSelect" class="select2"id="mSelect" ng-model="MesureSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Mesure</option>
+     				 <option ng-repeat="mesureS in MesureSelect.availableOptions" value="{{mesureS.mesureId}}">{{mesureS.mesureLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
+                <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+              
+               
+
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="hidden" ng-model="vulId" class="form-control" placeholder="id" hidden="true"><label>Vulnérabilités</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="vulLabel" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-2">
+                <input type="text" ng-model="vulValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Vulnerabilité</option>
+     				 <option ng-repeat="vulS in vulSelect.availableOptions" value="{{vulS.vulnId}}">{{vulS.vulnLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
+                <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+              
+               
+
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="hidden" ng-model="impId" class="form-control" placeholder="id" hidden="true"><label>Impacts</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="impLabel" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-2">
+                <input type="text" ng-model="impValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="impSelect" class="select2"id="impSelect" ng-model="impSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Impacte</option>
+     				 <option ng-repeat="impS in impSelect.availableOptions" value="{{impS.impactId}}">{{impS.impactLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
+                <button ng-click="addImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+              
                
 
                 </button>

@@ -57,12 +57,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     				}
     	}
     	if(bool == false){
-        $scope.allItems.push({
-            email: $scope.email,
-            lastName: $scope.lastName,
-            firstName: $scope.firstName
-        });
+      
             saveUser($scope.email,$scope.firstName,$scope.lastName);
+            $scope.allItems=getDummyData() ;
          
     	}else{
     		updateUser($scope.email,$scope.firstName,$scope.lastName);

@@ -23,12 +23,12 @@ public class ConfidentialiteDaoImpl implements ConfidentialiteDao {
 	}
 	public List<Confidentialite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createQuery("select a from Confidentialité a").list();
+		return session.createQuery("select a from Confidentialite a").list();
 		
 	}
 	public Confidentialite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();	
-		return (Confidentialite) session.get(Confidentialite.class, id);
+		return (Confidentialite) session.createQuery("select a from Confidentialite a WHERE ConfId =:id").setParameter("id", id).uniqueResult();
 	}
 	public void persist(Confidentialite conf) {
 		Session session=sessionFactory.getCurrentSession();

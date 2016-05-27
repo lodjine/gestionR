@@ -34,8 +34,41 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
 
     $scope.pageSize = 10;
   
-    $scope.allItems = getDummyData();
-   
+    $scope.allItems = getDummyData(9);
+    var mesureValue = 0 ; 
+    for (var i = 0 ; i<$scope.allItems[0].mesures.length ; i++){
+    	mesureValue = mesureValue + $scope.allItems[0].mesures[i].value ;  
+    	
+    }
+    var vulnValue = 0 ; 
+    for (var i = 0 ; i<$scope.allItems[0].vulnerabs.length ; i++){
+    	vulnValue = vulnValue + $scope.allItems[0].vulnerabs[i].value ;  
+    	
+    }
+    var impactsValue = 0 ; 
+    for (var i = 0 ; i<$scope.allItems[0].impacts.length ; i++){
+    	impactsValue = impactsValue + $scope.allItems[0].impacts[i].value ;  
+    	
+    }
+    
+    $scope.MesureSelect = {
+    	    repeatSelect: null,
+    	    availableOptions: getMesure(),
+    	   };
+    $scope.vulSelect = {
+    	    repeatSelect: null,
+    	    availableOptions: getVul(),
+    	   };
+    $scope.impSelect = {
+    	    repeatSelect: null,
+    	    availableOptions: getImp(),
+    	   };
+    
+    
+    $scope.mesureValue = mesureValue ;
+    $scope.vulnValue = vulnValue ;
+    $scope.impactsValue = impactsValue ;
+    $scope.total = mesureValue + vulnValue + impactsValue ;
     $scope.reverse = false;
 
     $scope.resetAll = function () {
@@ -49,26 +82,23 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     }
 
     $scope.add = function () {
-    	var bool = false ;
     	
-    	for(var i = 0 ; i<$scope.allItems.length ; i++) {
-    				if ($scope.allItems[i].risqueId == $scope.risqueId){
-    					bool = true ; 
-    				}
-    	}
-    	if(bool == false){
-        $scope.allItems.push({
-            id: $scope.impactId,
-            label: $scope.impactLabel,
-            value: $scope.value
-        });
-            saveUser($scope.impactLabel,$scope.value);
-         
-    	}else{
-    		updateUser($scope.impactId,$scope.impactLabel,$scope.value);
-    	}
+    		
+    		var i = 0 ; 
+    		alert($scope.allItems.confId);
+    		 if($scope.allItems.confId == 0){
+          i=  saveRisk($scope.risqueLabel,$scope.allItems.confId);
+          
+          	//   $scope.allItems=getDummyData(9) ;
+            	
+            }else{
+            	 i=  saveRisk($scope.risqueLabel,$scope.allItems.confId);
+            //	 $scope.allItems=getDummyData(9) ;
+            }
+            
+    	
       
-    	$scope.allItems=getDummyData() ;
+    	
 
        
             $scope.filteredList = $scope.allItems;
@@ -89,6 +119,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     // Calculate Total Number of Pages based on Search Result
     $scope.pagination = function () {
         $scope.ItemsByPage = filteredListService.paged($scope.filteredList, $scope.pageSize);
+        $scope.MesuresByPage = filteredListService.paged($scope.filteredList[0].mesures, $scope.pageSize);
+        $scope.vulnerabsByPage = filteredListService.paged($scope.filteredList[0].vulnerabs, $scope.pageSize);
+        $scope.impactsByPage = filteredListService.paged($scope.filteredList[0].impacts, $scope.pageSize);
     };
 
     $scope.setPage = function () {
@@ -103,12 +136,27 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
         $scope.currentPage = $scope.ItemsByPage.length - 1;
     };
     
-    $scope.modifyUser= function (index) {
-    	
-    	$scope.impactId = $scope.allItems[index].impactId;
-        $scope.impactLabel = $scope.allItems[index].impactLabel ;
-        $scope.value =  $scope.allItems[index].value;
+    $scope.modifyMesure= function (index) {
+    		
+    	$scope.MesureId = $scope.allItems[0].mesures[index].mesureId;
+    	$scope.MesureLabel = $scope.allItems[0].mesures[index].mesureLabel;
+        $scope.MesureValue =  $scope.allItems[0].mesures[index].value;
         
+    }
+    
+    $scope.updateMesure = function(){
+    	if($scope.MesureSelect.repeatSelect == ''){
+    		updateMesure($scope.MesureId,$scope.MesureLabel,$scope.MesureValue) ; 
+    	}else{
+    		UpdateConfWithOldObject($scope.MesureLabel,$scope.allItems[0].confId,$scope.MesureValue,"Mesure",$scope.MesureSelect.repeatSelect)
+    	}
+    	$scope.mesureValue =$scope.mesureValue +$scope.MesureValue ;
+    	$scope.total = $scope.mesureValue + $scope.vulnValue+ $scope.impactsValue ;
+    	$scope.allItems = getDummyData($scope.allItems[0].confId) ;
+    	$scope.filteredList = $scope.allItems;
+         
+         $scope.pagination();
+         $scope.resetAll();
     }
     
     $scope.deleteUser = function(index){
@@ -174,8 +222,8 @@ function searchUtil(item, toSearch) {
 }
 
 /*Get Dummy Data for Example*/
-function getDummyData() {
-	var confId = $('.idConf').val();
+function getDummyData(confId) {
+	
 	var xxx = "" ; 
 	$.ajax({
 	    url:'/GestionDesRisque_Web/SeekConf/'+confId+'/',
@@ -194,14 +242,32 @@ function getDummyData() {
  
 }
 
-function saveUser(label,value){
+
+function UpdateConfWithNewObeject(label,confId,value,type){
+	var xd = 0 ;
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteImpact/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/updateConf/'+label+'/'+confId+'/'+value+'/'+type+'/',
 	    dataType:'json',
 	    type:'get',
-	    async:false
-	
+	    async:false,
+	    success: function(data) {
+		      xd= data ; 
+		    }
 	});
+	return xd ;
+}
+function UpdateConfWithOldObject(label,confId,value,type,id){
+	var xd = 0 ;
+	$.ajax({
+	    url:'/GestionDesRisque_Web/updateConfWithOldObject/'+label+'/'+confId+'/'+value+'/'+type+'/'+id+'/',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+		      xd= data ; 
+		    }
+	});
+	return xd ;
 }
 function updateUser(id,label,value){
 	
@@ -217,6 +283,74 @@ function updateUser(id,label,value){
 function deleteUser(id){
 	$.ajax({
 	    url:'/GestionDesRisque_Web/deleteImpact/'+id+'/',
+	    dataType:'json',
+	    type:'get',
+	    async:false
+	
+	});
+}
+
+function getMesure() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/SeekMesure',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+ 
+}
+function getVul() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/SeekVulnerabilite',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+ 
+}
+function getImp() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/SeekImpact',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+ 
+}
+
+function updateMesure(id,label,value){
+	$.ajax({
+	    url:'/GestionDesRisque_Web/updateMesure/'+id+'/'+label+'/'+value+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
