@@ -321,7 +321,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-                <button ng-click="updateVul" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+                <button ng-click="updateVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
 
@@ -345,7 +345,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-               <button ng-click="updateImp" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+               <button ng-click="updateImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
 
