@@ -86,7 +86,7 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="form.html">Risque</a>
                     </li>
-                    <li><a href="form_advanced.html">Confidentialite</a>
+                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
                     <li><a href="form_validation.html">Integrite</a>
                     </li>
