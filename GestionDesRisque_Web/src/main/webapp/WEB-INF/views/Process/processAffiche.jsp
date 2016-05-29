@@ -192,7 +192,7 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="get" modelAttribute="proc"  >
+                  <f:form class="form-horizontal form-label-left" action="ProcessExcel" method="get" modelAttribute="proc"  >
 
                   
                     <span class="section">Processus</span>
@@ -252,7 +252,7 @@
                     <div class="form-group">
                       <div class="col-md-6 col-md-offset-3">
                         
-                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
                       </div>
                     </div>
                   </f:form>
