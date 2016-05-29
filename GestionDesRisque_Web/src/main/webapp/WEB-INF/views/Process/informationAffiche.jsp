@@ -200,7 +200,7 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label Information <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="labelActivity" placeholder="Label" required="required" type="text" />
+                        <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="information" placeholder="Label" required="required" type="text" />
                       </div>
                     </div>
                     

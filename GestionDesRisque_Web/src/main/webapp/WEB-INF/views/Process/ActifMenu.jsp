@@ -189,8 +189,8 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get" modelAttribute="Process"   action="AfficheActivite">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Activite</h3>
+              <f:form method="get" modelAttribute="Process"   action="ShowProcessus">
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
 				
 				    
                   <table id="idTable" class="table table-hover" >

@@ -1,5 +1,7 @@
 package com.talon.controlleur.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,7 +31,7 @@ public class InformationController {
 		
 		
 		
-		ModelAndView model = new ModelAndView("Process/MenuInformation") ; 
+		ModelAndView model = new ModelAndView("Process/InformationAjout") ; 
 		model.addObject("information", new Information());
 		model.addObject("activiteList", activiteServiceImpl.getAll());
 		return model ; 
@@ -63,8 +65,9 @@ public class InformationController {
 	public ModelAndView Menuinf(){
 		
 		ModelAndView model = new ModelAndView("Process/MenuInformation") ; 
+		List<Information> informations=informationServiceImpl.getAll();
 		
-		model.addObject("ListInf", informationServiceImpl.getAll());
+		model.addObject("ListInf", informations);
 		return model ;
 		
 		
