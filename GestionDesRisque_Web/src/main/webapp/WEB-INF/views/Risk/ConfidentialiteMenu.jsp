@@ -189,7 +189,7 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get"   action="ShowInformation">
+              <f:form method="get"   action="updateConfidentialite">
 				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Confidentialite Menu</h3>
 				
 				    
@@ -208,9 +208,9 @@
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select an Information</option>
+							<option value="">Select a risk</option>
 								<c:forEach items="${ListConf}" var="conf">
-								<option value="${ conf.ConfId }">${conf.risque.risqueLabel}</option>
+								<option value="${ conf.confId }">${conf.risque.risqueLabel}</option>
 								</c:forEach>
 							</select>
 						

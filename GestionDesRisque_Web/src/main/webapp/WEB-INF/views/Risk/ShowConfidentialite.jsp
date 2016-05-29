@@ -63,7 +63,7 @@
           <div class="clearfix"></div>
 
 
-          <input type="hidden" value="1" class="idConf">
+          <input type="hidden" value="${id}" class="idConf">
           <br />
 
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -251,12 +251,12 @@
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
                     <td><label>{{item.risque.risqueLabel}}</label></td>
                     <td><ng-repeat ng-repeat="mesure in MesuresByPage[$index] | orderBy:columnToOrder:reverse"><label>{{mesure.mesureLabel}}</label> <button type="button" ng-click="modifyMesure($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+                     <button type="button" ng-click="deleteMesure($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
 					
-                     <td><ng-repeat ng-repeat="vulnerabs in vulnerabsByPage[$index]"><label>{{vulnerabs.vulnLabel}}</label><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
-                     <td><ng-repeat ng-repeat="impacts in impactsByPage[$index]"><label>{{impacts.impactLabel}}</label><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button><br></ng-repeat></td>
+                     <td><ng-repeat ng-repeat="vulnerabs in vulnerabsByPage[$index]"><label>{{vulnerabs.vulnLabel}}</label><button type="button" ng-click="modifyVul($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteVul($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+                     <td><ng-repeat ng-repeat="impacts in impactsByPage[$index]"><label>{{impacts.impactLabel}}</label><button type="button" ng-click="modifyImp($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteImp($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button><br></ng-repeat></td>
                     <td>{{mesureValue}}</td>
                     <td>{{vulnValue}}</td>
                     <td>{{impactsValue}}</td>
@@ -296,7 +296,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-                <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+               
                 <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
@@ -306,13 +306,13 @@
         </div>
         <div class="row">
             <div class="col-xs-1">
-                <input type="hidden" ng-model="vulId" class="form-control" placeholder="id" hidden="true"><label>Vulnérabilités</label>
+                <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" hidden="true"><label>Vulnérabilités</label>
             </div>
             <div class="col-xs-3">
-                <input type="text" ng-model="vulLabel" class="form-control" placeholder="value">
+                <input type="text" ng-model="VulLabel" class="form-control" placeholder="value">
             </div>
              <div class="col-xs-2">
-                <input type="text" ng-model="vulValue" class="form-control" placeholder="value">
+                <input type="text" ng-model="VulValue" class="form-control" placeholder="value">
             </div>
              <div class="col-xs-3">
                 <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%">
@@ -321,7 +321,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-                <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                <button ng-click="updateVul" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
 
@@ -330,13 +330,13 @@
         </div>
         <div class="row">
             <div class="col-xs-1">
-                <input type="hidden" ng-model="impId" class="form-control" placeholder="id" hidden="true"><label>Impacts</label>
+                <input type="hidden" ng-model="ImpId" class="form-control" placeholder="id" hidden="true"><label>Impacts</label>
             </div>
             <div class="col-xs-3">
-                <input type="text" ng-model="impLabel" class="form-control" placeholder="value">
+                <input type="text" ng-model="ImpLabel" class="form-control" placeholder="value">
             </div>
              <div class="col-xs-2">
-                <input type="text" ng-model="impValue" class="form-control" placeholder="value">
+                <input type="text" ng-model="ImpValue" class="form-control" placeholder="value">
             </div>
              <div class="col-xs-3">
                 <select name="impSelect" class="select2"id="impSelect" ng-model="impSelect.repeatSelect" style="width: 100%">
@@ -345,7 +345,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-                <button ng-click="addImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+               <button ng-click="updateImp" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
 

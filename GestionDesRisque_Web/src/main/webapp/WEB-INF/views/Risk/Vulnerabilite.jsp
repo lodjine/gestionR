@@ -220,7 +220,7 @@
                          </a>
 
                     </th>
-                    <th class="label"> <a ng-click="sort('vulnLabel')" href="#"> Label
+                    <th class="Vullabel"> <a ng-click="sort('vulnLabel')" href="#"> Label
                          <span class="{{Header[1]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value

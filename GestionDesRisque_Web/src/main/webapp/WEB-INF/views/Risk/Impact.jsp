@@ -221,7 +221,7 @@
                          </a>
 
                     </th>
-                    <th class="label"> <a ng-click="sort('impactLabel')" href="#"> Label
+                    <th class="Implabel"> <a ng-click="sort('impactLabel')" href="#"> Label
                          <span class="{{Header[1]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value

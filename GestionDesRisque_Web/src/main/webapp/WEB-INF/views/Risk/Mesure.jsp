@@ -221,7 +221,7 @@
                          </a>
 
                     </th>
-                    <th class="label"> <a ng-click="sort('mesureLabel')" href="#"> Label
+                    <th class="Mlabel"> <a ng-click="sort('mesureLabel')" href="#"> Label
                          <span class="{{Header[1]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value
