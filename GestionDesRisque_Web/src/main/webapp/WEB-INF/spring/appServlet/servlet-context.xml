@@ -21,11 +21,11 @@ http://www.springframework.org/schema/mvc
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	 <tx:annotation-driven />
 	
-	<context:component-scan base-package="com.talon.dao" />
-	<context:component-scan base-package="com.talon.daoImpl" />
-	<context:component-scan base-package="com.talon.service" />
+	<context:component-scan base-package="com.talan.dao" />
+	<context:component-scan base-package="com.talan.daoImpl" />
+	<context:component-scan base-package="com.talan.service" />
 
-	<context:component-scan base-package="com.talon.serviceImpl"></context:component-scan>
+	<context:component-scan base-package="com.talan.serviceImpl"></context:component-scan>
 
  
  
@@ -36,8 +36,8 @@ http://www.springframework.org/schema/mvc
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.talon.controlleur.securite"></context:component-scan>
-	<context:component-scan base-package="com.talon.controlleur"></context:component-scan>
+	<context:component-scan base-package="com.talan.controlleur.securite"></context:component-scan>
+	<context:component-scan base-package="com.talan.controlleur"></context:component-scan>
 	
 	
 	

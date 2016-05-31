@@ -18,12 +18,12 @@
 
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.talon.dao" />
-	<context:component-scan base-package="com.talon.daoImpl" ></context:component-scan>
-	<context:component-scan base-package="com.talon.service" />
+	<context:component-scan base-package="com.talan.dao" />
+	<context:component-scan base-package="com.talan.daoImpl" ></context:component-scan>
+	<context:component-scan base-package="com.talan.service" />
 
-	<context:component-scan base-package="com.talon.controlleur" />
-	<context:component-scan base-package="com.talon.serviceImpl"></context:component-scan>
+	<context:component-scan base-package="com.talan.controlleur" />
+	<context:component-scan base-package="com.talan.serviceImpl"></context:component-scan>
 
 
 
@@ -68,26 +68,26 @@
 
 
 
-	<value>com.talon.entities.Activite</value>
-	<value>com.talon.entities.Action</value>
-	<value>com.talon.entities.Confidentialite</value>
-	<value>com.talon.entities.Disponibilite</value>
-	<value>com.talon.entities.ImpactC</value>
-	<value>com.talon.entities.Integrite</value>
-	<value>com.talon.entities.MesureEx</value>
-	<value>com.talon.entities.Processus</value>
-	<value>com.talon.entities.Administrateur</value>
-	<value>com.talon.entities.Alerte</value>
-	<value>com.talon.entities.AnalyseDesRisques</value>
-	<value>com.talon.entities.Classification</value>
-	<value>com.talon.entities.Information</value>
-	<value>com.talon.entities.Poste</value>
-	<value>com.talon.entities.Responsable</value>
-	<value>com.talon.entities.Risque</value>
-	<value>com.talon.entities.SousProcessus</value>
-	<value>com.talon.entities.Utilisateur</value>
-	<value>com.talon.entities.UserRole</value>
-	<value>com.talon.entities.Vulnerabilite</value>
+	<value>com.talan.entities.Activite</value>
+	<value>com.talan.entities.Action</value>
+	<value>com.talan.entities.Confidentialite</value>
+	<value>com.talan.entities.Disponibilite</value>
+	<value>com.talan.entities.ImpactC</value>
+	<value>com.talan.entities.Integrite</value>
+	<value>com.talan.entities.MesureEx</value>
+	<value>com.talan.entities.Processus</value>
+	<value>com.talan.entities.Administrateur</value>
+	<value>com.talan.entities.Alerte</value>
+	<value>com.talan.entities.AnalyseDesRisques</value>
+	<value>com.talan.entities.Classification</value>
+	<value>com.talan.entities.Information</value>
+	<value>com.talan.entities.Poste</value>
+	<value>com.talan.entities.Responsable</value>
+	<value>com.talan.entities.Risque</value>
+	<value>com.talan.entities.SousProcessus</value>
+	<value>com.talan.entities.Utilisateur</value>
+	<value>com.talan.entities.UserRole</value>
+	<value>com.talan.entities.Vulnerabilite</value>
 
 	
 
