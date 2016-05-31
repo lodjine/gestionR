@@ -22,7 +22,7 @@ public class DisponibiliteDaoImpl implements DisponibiliteDao {
 	}
 	public List<Disponibilite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createQuery("select a from Disponibilité a").list();
+		return session.createQuery("select a from Disponibilite a").list();
 	}
 	public Disponibilite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();

@@ -1,13 +1,11 @@
-package com.talan.dao;
-
-
+package com.talan.service;
 
 import java.util.List;
 
 import com.talan.entities.Confidentialite;
 import com.talan.entities.Disponibilite;
 
-public interface DisponibiliteDao {
+public interface DisponibiliteService {
 
 	
 	public List<Disponibilite> getAll();
