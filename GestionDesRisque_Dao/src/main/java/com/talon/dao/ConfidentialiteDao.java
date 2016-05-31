@@ -15,4 +15,5 @@ public interface ConfidentialiteDao {
 	public void update(Confidentialite conf);
 	public void delete(Confidentialite conf);
 	public void save(Confidentialite conf);
+	public int merge(Confidentialite conf);
 }

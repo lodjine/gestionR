@@ -1,6 +1,6 @@
 //Demo of Searching Sorting and Pagination of Table with AngularJS - Advance Example
 
-var myApp = angular.module('ConfApp', []);
+var myApp = angular.module('dispApp', []);
 
 //Not Necessary to Create Service, Same can be done in COntroller also as method like add() method
 myApp.service('filteredListService', function () {
@@ -50,7 +50,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	impactsValue = impactsValue + $scope.allItems[0].impacts[i].value ;  
     	
     }
-    $scope.ic = $scope.allItems[0].iC ;
+    $scope.ic = $scope.allItems[0].iDisp ;
     $scope.mesureValue = mesureValue ;
     $scope.vulnValue = vulnValue ;
     $scope.impactsValue = impactsValue ;
@@ -103,10 +103,10 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
 
     $scope.add = function () {
     	var i = 0 ; 
-    		if($scope.allItems.confId == 0){
-          i=  saveRisk($scope.risqueLabel,$scope.allItems[0].confId);
+    		if($scope.allItems[0].DispId == 0){
+          i=  saveRisk($scope.risqueLabel,$scope.allItems[0].DispId);
            }else{
-            	 i=  saveRisk($scope.risqueLabel,$scope.allItems[0].confId);
+            	 i=  saveRisk($scope.risqueLabel,$scope.allItems[0].DispId);
            }
           $scope.filteredList = $scope.allItems;
           $scope.pagination();
@@ -114,21 +114,21 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     }
     $scope.addMesure = function () {
     	
-    	UpdateConfWithNewObeject($scope.MesureLabel,$scope.allItems[0].confId,$scope.MesureValue,"Mesure") ;
+    	UpdateConfWithNewObeject($scope.MesureLabel,$scope.allItems[0].DispId,$scope.MesureValue,"Mesure") ;
     	 $scope.allItems = getDummyData();
     	 $scope.filteredList = $scope.allItems;
          $scope.pagination();
          $scope.resetAll();
     }
     $scope.addVul = function () {
-    	UpdateConfWithNewObeject($scope.VulLabel,$scope.allItems[0].confId,$scope.VulValue,"Vul") ;
+    	UpdateConfWithNewObeject($scope.VulLabel,$scope.allItems[0].DispId,$scope.VulValue,"Vul") ;
     	$scope.allItems = getDummyData();
    	 $scope.filteredList = $scope.allItems;
         $scope.pagination();
         $scope.resetAll();
     }
     $scope.addImp = function () {
-    	UpdateConfWithNewObeject($scope.ImpLabel,$scope.allItems[0].confId,$scope.ImpValue,"impl") ;
+    	UpdateConfWithNewObeject($scope.ImpLabel,$scope.allItems[0].DispId,$scope.ImpValue,"impl") ;
     	$scope.allItems = getDummyData();
    	 $scope.filteredList = $scope.allItems;
         $scope.pagination();
@@ -202,7 +202,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
  		}
  		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
      	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
- 		UpdateConfWithOldObject($scope.allItems[0].confId,"Mesure",$scope.MesureSelect.repeatSelect) ; 
+ 		UpdateConfWithOldObject($scope.allItems[0].DispId,"Mesure",$scope.MesureSelect.repeatSelect) ; 
  	}
  	
  	$scope.allItems = getDummyData() ;
@@ -225,7 +225,7 @@ $scope.updateVul = function(){
  		}
  		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
      	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
- 		UpdateConfWithOldObject($scope.allItems[0].confId,"Vul",$scope.vulSelect.repeatSelect) ; 
+ 		UpdateConfWithOldObject($scope.allItems[0].DispId,"Vul",$scope.vulSelect.repeatSelect) ; 
  	}
  	
  	$scope.allItems = getDummyData() ;
@@ -248,7 +248,7 @@ $scope.updateImp = function(){
 		}
 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
   	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
-		UpdateConfWithOldObject($scope.allItems[0].confId,"Imp",$scope.impSelect.repeatSelect) ; 
+		UpdateConfWithOldObject($scope.allItems[0].DispId,"Imp",$scope.impSelect.repeatSelect) ; 
 	}
 	
 	$scope.allItems = getDummyData() ;
@@ -260,7 +260,7 @@ $scope.updateImp = function(){
     
     $scope.deleteMesure= function(index){
     	 
-    	deleteObject($scope.allItems[0].mesures[index].mesureId,"Mesure",$scope.allItems[0].confId);
+    	deleteObject($scope.allItems[0].mesures[index].mesureId,"Mesure",$scope.allItems[0].DispId);
     	$scope.allItems[0].mesures.splice(index, 1);
     	
     	var mesureValue = 0 ; 
@@ -293,7 +293,7 @@ $scope.updateImp = function(){
     }
     
     $scope.deleteVul= function(index){
-    	deleteObject($scope.allItems[0].mesures[index].vulnId,"Vul",$scope.allItems[0].confId);
+    	deleteObject($scope.allItems[0].mesures[index].vulnId,"Vul",$scope.allItems[0].DispId);
     	$scope.allItems[0].vulnerabs.splice(index, 1);
     	
     	var mesureValue = 0 ; 
@@ -415,7 +415,7 @@ function getDummyData() {
 	
 	var xxx = "" ; 
 	$.ajax({
-	    url:'/GestionDesRisque_Web/SeekConf/'+confId+'/',
+	    url:'/GestionDesRisque_Web/SeekDisp/'+confId+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,
@@ -435,7 +435,7 @@ function getDummyData() {
 function UpdateConfWithNewObeject(label,confId,value,type){
 	var xd = 0 ;
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateConf/'+label+'/'+confId+'/'+value+'/'+type+'/',
+	    url:'/GestionDesRisque_Web/updateConfdisp/'+label+'/'+confId+'/'+value+'/'+type+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,
@@ -448,7 +448,7 @@ function UpdateConfWithNewObeject(label,confId,value,type){
 function UpdateConfWithOldObject(confId,type,id){
 	var xd = 0 ;
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateConfWithOldObject/'+confId+'/'+type+'/'+id+'/',
+	    url:'/GestionDesRisque_Web/updateConfWithOldObjectdisp/'+confId+'/'+type+'/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,
@@ -462,7 +462,7 @@ function UpdateConfWithOldObject(confId,type,id){
 
 function deleteObject(id,type,confId){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/deleteObject/'+id+'/'+type+'/'+confId+'/',
+	    url:'/GestionDesRisque_Web/deleteObjectdisp/'+id+'/'+type+'/'+confId+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false

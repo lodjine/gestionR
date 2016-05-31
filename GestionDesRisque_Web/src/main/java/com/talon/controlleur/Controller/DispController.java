@@ -16,22 +16,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talon.entities.Confidentialite;
+import com.talon.entities.Disponibilite;
 import com.talon.entities.ImpactC;
 import com.talon.entities.MesureEx;
 import com.talon.entities.Processus;
 import com.talon.entities.Risque;
 import com.talon.entities.Vulnerabilite;
 import com.talon.service.ConfidentialiteService;
+import com.talon.service.DisponibiliteService;
 import com.talon.service.ImpactCService;
 import com.talon.service.MesureExService;
 import com.talon.service.ProcessService;
 import com.talon.service.RisqueService;
 import com.talon.service.VulnerabiliteService;
 @Controller
-public class ConfidentialiteController {
+public class DispController {
 	
 	@Autowired
-	ConfidentialiteService confidentialiteServiceImpl;
+	DisponibiliteService dispServiceImpl ; ;
 	@Autowired
 	MesureExService mesureServiceImpl ; 
 	@Autowired
@@ -75,62 +77,48 @@ public class ConfidentialiteController {
 	public void setVulServiceImpl(VulnerabiliteService vulServiceImpl) {
 		this.vulServiceImpl = vulServiceImpl;
 	}
-	public ConfidentialiteService getConfidentialiteServiceImpl() {
-		return confidentialiteServiceImpl;
+	public DisponibiliteService getConfidentialiteServiceImpl() {
+		return dispServiceImpl;
 	}
-	public void setConfidentialiteServiceImpl(ConfidentialiteService confidentialiteServiceImpl) {
-		this.confidentialiteServiceImpl = confidentialiteServiceImpl;
+	public void setConfidentialiteServiceImpl(DisponibiliteService dispServiceImpl) {
+		this.dispServiceImpl = dispServiceImpl;
 	}
-	@RequestMapping(value = "/showConfidentialiteMenu", method = RequestMethod.GET)
+	@RequestMapping(value = "/showdispMenu", method = RequestMethod.GET)
 	public ModelAndView ConfMenu(HttpSession session){
 		
-		ModelAndView model = new ModelAndView("Risk/ConfidentialiteMenu") ; 
-		List<Confidentialite> confidentialites=confidentialiteServiceImpl.getAll();
+		ModelAndView model = new ModelAndView("Risk/dispMenu") ; 
+		List<Disponibilite> confidentialites=dispServiceImpl.getAll();
 	model.addObject("ListConf",confidentialites) ;
 		return model ; 
 		
 		
 	}
-	@RequestMapping(value = "/updateConfidentialite",params="updateByCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/updatedisp",params="updateByCode", method = RequestMethod.GET)
 	public ModelAndView showConf(@RequestParam("byCode") int id){
 		
-		ModelAndView model = new ModelAndView("Risk/ShowConfidentialite") ; 
+		ModelAndView model = new ModelAndView("Risk/Showdisp") ; 
 	    model.addObject("id", id);
 		return model ; 
 		
 		
 	}
-	@RequestMapping(value = "/updateConfidentialite",params="newRecord", method = RequestMethod.GET)
+	@RequestMapping(value = "/updatedisp",params="newRecord", method = RequestMethod.GET)
 	public ModelAndView adDConf(){
-		ModelAndView model = new ModelAndView("Risk/AddConfidentialite") ; 
+		ModelAndView model = new ModelAndView("Risk/Adddisp") ; 
 		
 		return model ;
 		
 		
 		
 	}
-	@RequestMapping(value = "/seekProcesForConf" ,method = RequestMethod.GET)
-	public @ResponseBody List<Processus> seekProcess(){
-		
-		List<Processus> procList = processServiceImpl.getAll() ; 
-		List<Processus> procLists = new ArrayList<>() ; 
-		for(int i=0 ; i< procList.size(); i++){
-			Processus p = new Processus() ; 
-			p.setProcId(procList.get(i).getProcId());
-			p.setDescription(procList.get(i).getDescription());
-			p.setProcessus(procList.get(i).getProcessus());
-			procLists.add(p) ; 
-		}
-		return procLists ;
-		
-	}
+
 	
-	@RequestMapping(value = "/SeekConf/{id}/", method = RequestMethod.GET)
-    public @ResponseBody List<Confidentialite> CheckRcode(@PathVariable("id") int id, HttpSession session) {
+	@RequestMapping(value = "/SeekDisp/{id}/", method = RequestMethod.GET)
+    public @ResponseBody List<Disponibilite> CheckRcode(@PathVariable("id") int id, HttpSession session) {
 		if(id== 0){
-			 List<Confidentialite> confList = new ArrayList<>();
-			 Confidentialite conf = new Confidentialite() ; 
-			 conf.setiC(0);
+			 List<Disponibilite> confList = new ArrayList<>();
+			 Disponibilite conf = new Disponibilite() ; 
+			 conf.setiDisp(0);
 			 
 			 List<MesureEx> mesList = new ArrayList<>() ;
 			 List<ImpactC> impList = new ArrayList<>() ; 
@@ -141,8 +129,8 @@ public class ConfidentialiteController {
 			 confList.add(conf);
 			return confList ;
 		}else{
-			Confidentialite conf = new Confidentialite() ; 
-			conf = confidentialiteServiceImpl.getById(id) ; 
+			Disponibilite conf = new Disponibilite() ; 
+			conf = dispServiceImpl.getById(id) ; 
 			
 			List<MesureEx> mes = conf.getMesures() ; 
 			List<MesureEx> newMes = new ArrayList<>() ; 
@@ -173,8 +161,8 @@ public class ConfidentialiteController {
 				ipms.setValue(i.getValue());
 				newImp.add(ipms) ;
 			}
-			Confidentialite confJson = new Confidentialite() ; 
-			confJson.setConfId(conf.getConfId());
+			Disponibilite confJson = new Disponibilite() ; 
+			confJson.setDispId(conf.getDispId());
 			confJson.setImpacts(newImp);
 			confJson.setMesures(newMes);
 			confJson.setVulnerabs(newVul);
@@ -185,17 +173,17 @@ public class ConfidentialiteController {
 			r.setRisqueLabel(conf.getRisque().getRisqueLabel());
 			confJson.setRisque(r);
 			
-			List<Confidentialite> confList = new ArrayList<>();
+			List<Disponibilite> confList = new ArrayList<>();
 			confList.add(confJson) ;
 		return confList ; 
 		}
 		
     }
-	@RequestMapping(value = "/deleteObject/{id}/{type}/{idConf}/", method = RequestMethod.GET)
-    public @ResponseBody List<Confidentialite> DeleteMesure(@PathVariable("id") int id,@PathVariable("type") String type,@PathVariable("idConf") int confId, HttpSession session) {
+	@RequestMapping(value = "/deleteObjectdisp/{id}/{type}/{idConf}/", method = RequestMethod.GET)
+    public @ResponseBody List<Disponibilite> DeleteMesure(@PathVariable("id") int id,@PathVariable("type") String type,@PathVariable("idConf") int confId, HttpSession session) {
 		
-			Confidentialite conf = new Confidentialite() ; 
-			conf = confidentialiteServiceImpl.getById(confId) ; 
+		Disponibilite conf = new Disponibilite() ; 
+			conf = dispServiceImpl.getById(confId) ; 
 			if(type.equals("risk") ){
 				
 					conf.setRisque(null);
@@ -248,8 +236,8 @@ public class ConfidentialiteController {
 			}
 			}
 			conf.setResultat(mesTotal+vulTotal+impTotal);
-			confidentialiteServiceImpl.update(conf);
-			conf = confidentialiteServiceImpl.getById(confId) ;
+			dispServiceImpl.update(conf);
+			conf = dispServiceImpl.getById(confId) ;
 			List<MesureEx> mes = conf.getMesures() ; 
 			List<MesureEx> newMes = new ArrayList<>() ;
 			
@@ -283,24 +271,24 @@ public class ConfidentialiteController {
 				ipms.setValue(i.getValue());
 				newImp.add(ipms) ;
 			}
-			Confidentialite confJson = new Confidentialite() ; 
-			confJson.setConfId(conf.getConfId());
+			Disponibilite confJson = new Disponibilite() ; 
+			confJson.setDispId(conf.getDispId());
 			confJson.setImpacts(newImp);
 			confJson.setMesures(newMes);
 			confJson.setVulnerabs(newVul);
 			confJson.setRisque(conf.getRisque());
 			
-			List<Confidentialite> confList = new ArrayList<>();
+			List<Disponibilite> confList = new ArrayList<>();
 			confList.add(confJson) ;
 		return confList ; 
 		
 		
     }
-	@RequestMapping(value = "/updateConf/{label}/{confId}/{value}/{type}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateConfdisp/{label}/{confId}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int SaveConf(@PathVariable("label") String label,@PathVariable("confId") int id,@PathVariable("value") int value , @PathVariable("type") String type, HttpSession session) {
-		Confidentialite conf = confidentialiteServiceImpl.getById(id);
+		Disponibilite conf = dispServiceImpl.getById(id);
 		if(type.equals("Resultat")){
-			conf.setiC(value);
+			conf.setiDisp(value);
 		}else
 		if(type.equals("risk") ){
 			
@@ -346,17 +334,17 @@ for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
 conf.setResultat(mesTotal+vulTotal+impTotal);
-		confidentialiteServiceImpl.update(conf);
-		return conf.getConfId() ; 
+		dispServiceImpl.update(conf);
+		return conf.getDispId() ; 
 		
     }
 	
 	
 	
 	
-	@RequestMapping(value = "/updateConfWithOldObject/{confId}/{type}/{id}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateConfWithOldObjectdisp/{confId}/{type}/{id}/", method = RequestMethod.GET)
     public @ResponseBody int UpdateConf(@PathVariable("confId") int id, @PathVariable("type") String type,@PathVariable("id") int idObject,  HttpSession session) {
-		Confidentialite conf = confidentialiteServiceImpl.getById(id);
+		Disponibilite conf = dispServiceImpl.getById(id);
 		if(type.equals("risk") ){
 			
 			Risque ris =risqueServiceImpl.getById(id) ; 
@@ -408,16 +396,16 @@ for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
 conf.setResultat(mesTotal+vulTotal+impTotal);
-		confidentialiteServiceImpl.update(conf);
-		return conf.getConfId() ; 
+		dispServiceImpl.update(conf);
+		return conf.getDispId() ; 
 		
     }
 	
-	@RequestMapping(value = "/PersisteupdateConf/{label}/{value}/{type}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/PersisteupdateConfdisp/{label}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int PersisteupdateConf(@PathVariable("label") String label,@PathVariable("value") int value , @PathVariable("type") String type) {
-		Confidentialite conf = new Confidentialite() ;
+		Disponibilite conf = new Disponibilite() ;
 		if(type.equals("Resultat")){
-			conf.setiC(value);
+			conf.setiDisp(value);
 		}else
 		if(type.equals("risk") ){
 			
@@ -482,11 +470,11 @@ for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
 
-if(!(conf.getiC() >= 0)){
-conf.setiC(0);
+if(!(conf.getiDisp() >= 0)){
+conf.setiDisp(0);
 }
 conf.setResultat(mesTotal+vulTotal+impTotal);
-	int x =	confidentialiteServiceImpl.merge(conf);
+	int x =	dispServiceImpl.merge(conf);
 		
 		return x ;
     }
@@ -494,9 +482,9 @@ conf.setResultat(mesTotal+vulTotal+impTotal);
 	
 	
 	
-	@RequestMapping(value = "/PersisteConfWithOldObject/{type}/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/PersisteConfWithOldObjectdisp/{type}/{id}", method = RequestMethod.GET)
     public @ResponseBody int PersisteConfWithOldObject( @PathVariable("type") String type,@PathVariable("id") int idObject,  HttpSession session) {
-		Confidentialite conf = new Confidentialite();
+		Disponibilite conf = new Disponibilite();
 		if(type.equals("risk") ){
 			
 			Risque ris =risqueServiceImpl.getById(idObject) ; 
@@ -565,12 +553,12 @@ int impTotal = 0 ;
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
-if(!(conf.getiC() >= 0)){
-conf.setiC(0);
+if(!(conf.getiDisp() >= 0)){
+conf.setiDisp(0);
 }
 conf.setResultat(mesTotal+vulTotal+impTotal);
 	
-int x = confidentialiteServiceImpl.merge(conf);
+int x = dispServiceImpl.merge(conf);
 		return x ; 
 		
     }

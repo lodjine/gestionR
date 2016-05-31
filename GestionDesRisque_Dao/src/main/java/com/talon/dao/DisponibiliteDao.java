@@ -14,4 +14,5 @@ public interface DisponibiliteDao {
 	public void update(Disponibilite dispo);
 	public void delete(Disponibilite dispo);
 	public void save(Disponibilite dispo);
+	public int merge(Disponibilite disp );
 }

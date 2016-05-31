@@ -89,9 +89,9 @@
                     </li>
                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
-                    <li><a href="form_validation.html">Integrite</a>
+                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
-                    <li><a href="form_wizards.html">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -241,6 +241,9 @@
                     <th class="value"> <a ng-click="sort('value')" href="#"> P
                      <span class="{{Header[6]}}"></span></a>
                     </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> I(C)
+                     <span class="{{Header[6]}}"></span></a>
+                    </th>
                     
                     <th class="value"> <a ng-click="sort('value')" href="#"> R
                      <span class="{{Header[7]}}"></span></a>
@@ -260,6 +263,7 @@
                     <td>{{mesureValue}}</td>
                     <td>{{vulnValue}}</td>
                     <td>{{impactsValue}}</td>
+                    <td>{{iC}}
                     <td>{{total}}</td>
                     
                     
@@ -281,7 +285,7 @@
         
         <div class="row">
             <div class="col-xs-1">
-                <input type="hidden" ng-model="MesureId" class="form-control" placeholder="id" hidden="true"><label> Mesure</label>
+                <input type="hidden" ng-model="MesureId" class="form-control" value="0"  placeholder="id" hidden="true"><label> Mesure</label>
             </div>
             <div class="col-xs-3">
                 <input type="text" ng-model="MesureLabel" class="form-control" placeholder="value">
@@ -296,7 +300,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
-               
+               <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
                 <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
@@ -306,7 +310,7 @@
         </div>
         <div class="row">
             <div class="col-xs-1">
-                <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" hidden="true"><label>Vulnérabilités</label>
+                <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" value="0" hidden="true"><label>Vulnérabilités</label>
             </div>
             <div class="col-xs-3">
                 <input type="text" ng-model="VulLabel" class="form-control" placeholder="value">
@@ -315,12 +319,13 @@
                 <input type="text" ng-model="VulValue" class="form-control" placeholder="value">
             </div>
              <div class="col-xs-3">
-                <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%">
+                <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%" >
                 	 <option value="">Vulnerabilité</option>
      				 <option ng-repeat="vulS in vulSelect.availableOptions" value="{{vulS.vulnId}}">{{vulS.vulnLabel}}</option>
    			   </select>
             </div>
             <div class="col-xs-1">
+            <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
                 <button ng-click="updateVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                
@@ -330,7 +335,7 @@
         </div>
         <div class="row">
             <div class="col-xs-1">
-                <input type="hidden" ng-model="ImpId" class="form-control" placeholder="id" hidden="true"><label>Impacts</label>
+                <input type="hidden" ng-model="ImpId" class="form-control" value="0"  placeholder="id" hidden="true"><label>Impacts</label>
             </div>
             <div class="col-xs-3">
                 <input type="text" ng-model="ImpLabel" class="form-control" placeholder="value">
@@ -345,6 +350,7 @@
    			   </select>
             </div>
             <div class="col-xs-1">
+            <button ng-click="addImp" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
                <button ng-click="updateImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
               
                

@@ -47,4 +47,12 @@ public class DisponibiliteDaoImpl implements DisponibiliteDao {
 		session.save(dispo);
 		
 	}
+	public int merge(Disponibilite disp) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession() ; 
+		Disponibilite disps = new Disponibilite() ; 
+		disps = (Disponibilite) session.merge(disp) ; 
+		return disps.getDispId() ;
+		
+	}
 }

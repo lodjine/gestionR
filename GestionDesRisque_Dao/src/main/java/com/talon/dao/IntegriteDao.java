@@ -14,4 +14,5 @@ public interface IntegriteDao {
 	public void update(Integrite integ);
 	public void delete(Integrite integ);
 	public void save(Integrite integ);
+	public int merge(Integrite intg);
 }

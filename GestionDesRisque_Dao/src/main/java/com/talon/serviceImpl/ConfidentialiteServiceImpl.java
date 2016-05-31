@@ -52,6 +52,11 @@ confidentialiteDaoImpl.delete(conf);
 public void save(Confidentialite conf) {
 confidentialiteDaoImpl.save(conf);	
 }
+
+public int merge(Confidentialite conf) {
+	// TODO Auto-generated method stub
+	return confidentialiteDaoImpl.merge(conf);
+}
 	
 	
 }

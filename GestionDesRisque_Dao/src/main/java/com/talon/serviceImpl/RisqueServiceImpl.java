@@ -38,9 +38,9 @@ public class RisqueServiceImpl implements RisqueService {
 		return risqueDaoImpl.getById(id);
 	}
 
-	public void persist(Risque risque) {
+	public int persist(Risque risque) {
 		// TODO Auto-generated method stub
-		risqueDaoImpl.persist(risque);
+		return risqueDaoImpl.persist(risque);
 	}
 
 	public void update(Risque risque) {

@@ -28,9 +28,10 @@ public class RisqueDaoImpl implements RisqueDao{
 		Session session=sessionFactory.getCurrentSession();
 		return (Risque) session.get(Risque.class, id);
 	}
-	public void persist(Risque risque) {
+	public int persist(Risque risque) {
 		Session session=sessionFactory.getCurrentSession();
-session.persist(risque);		
+		session.persist(risque);	
+		return risque.getRisqueId();
 	}
 	public void update(Risque risque) {
 		Session session=sessionFactory.getCurrentSession();

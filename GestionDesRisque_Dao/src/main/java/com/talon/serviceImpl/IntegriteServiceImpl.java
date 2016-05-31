@@ -61,6 +61,11 @@ public void setIntegriteDaoImpl(IntegriteDao integriteDaoImpl) {
 		integriteDaoImpl.save(integ);
 	}
 
+	public int merge(Integrite intg) {
+		// TODO Auto-generated method stub
+		return integriteDaoImpl.merge(intg);
+	}
+
 	
 	
 }

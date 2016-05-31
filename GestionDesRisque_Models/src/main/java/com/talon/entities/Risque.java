@@ -2,11 +2,14 @@ package com.talon.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Risque implements Serializable{
@@ -15,7 +18,9 @@ public class Risque implements Serializable{
 	private int risqueId;
 	
 	private String risqueLabel;
-
+	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@JoinColumn(name="proc")
+	private Processus proc ;
 	public int getRisqueId() {
 		return risqueId;
 	}
@@ -27,6 +32,12 @@ public class Risque implements Serializable{
 	}
 	public void setRisqueLabel(String risqueLabel) {
 		this.risqueLabel = risqueLabel;
+	}
+	public Processus getProc() {
+		return proc;
+	}
+	public void setProc(Processus proc) {
+		this.proc = proc;
 	}
 	
 }

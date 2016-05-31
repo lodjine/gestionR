@@ -55,5 +55,10 @@ disponibiliteDaoImpl.update(dispo);
 		disponibiliteDaoImpl.save(dispo);		
 	}
 
+	public int merge(Disponibilite disp) {
+		// TODO Auto-generated method stub
+		return disponibiliteDaoImpl.merge(disp);
+	}
+
 
 }

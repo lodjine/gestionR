@@ -46,6 +46,13 @@ public class ConfidentialiteDaoImpl implements ConfidentialiteDao {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(conf);
 	}
+	public int merge(Confidentialite conf) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession() ; 
+		Confidentialite conff = (Confidentialite) session.merge(conf);
+		
+		return conff.getConfId() ;
+	}
 	
 	
 }

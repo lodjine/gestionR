@@ -75,7 +75,7 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="form.html">Risque</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
+                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
@@ -189,28 +189,28 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get" modelAttribute="Process"   action="ShowProcessus">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
+              <f:form method="get"   action="updatedisp">
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Integrite Menu</h3>
 				
 				    
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
-                   	<td>Add New Process</td>
+                   	<td>New Integrite</td>
                    	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
 						<i class="glyphicon glyphicon-plus"></i>
 						</button>
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Process List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Integrite List  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select a Process</option>
-								<c:forEach items="${Listprocess}" var="group">
-							<option value="${group.procId}">${group.processus}</option>
+							<option value="">Select a risk</option>
+								<c:forEach items="${ListConf}" var="conf">
+								<option value="${ conf.dispId }">${conf.risque.risqueLabel}</option>
 								</c:forEach>
 							</select>
 						

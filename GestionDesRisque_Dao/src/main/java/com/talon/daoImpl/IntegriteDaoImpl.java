@@ -47,6 +47,13 @@ public class IntegriteDaoImpl implements IntegriteDao{
 		session.save(integ);
 		
 	}
+	public int merge(Integrite intg) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession() ; 
+		Integrite intg2 = new Integrite() ; 
+		intg2 = (Integrite) session.merge(intg) ; 
+		return intg2.getIntegId();
+	}
 	
 	
 	

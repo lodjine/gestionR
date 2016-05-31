@@ -27,9 +27,10 @@
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
   
   
+  <link href="resources/css/select/select2.min.css" rel="stylesheet">
   
-  
-
+	
+ 
   <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -39,8 +40,8 @@
   <script src="resources/js/jquery.min.js"></script>
    <script src="resources/js/angular.min.js"></script>
     
-     <script src="resources/js/dataTableJsAngular.js"></script>
-
+     <script src="resources/js/intg.Angular.js"></script>
+ <script src="resources/js/select/select2.full.js"></script>
 
 
 </head>
@@ -62,11 +63,10 @@
           <div class="clearfix"></div>
 
 
-          
-
+          <input type="hidden" value="${id}" class="idConf">
           <br />
 
-                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
@@ -89,7 +89,7 @@
                     </li>
                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
+                   <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
                     </li>
@@ -175,13 +175,13 @@
       <!-- /top navigation -->
 
       <!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col" role="main" style="height: auto;">
 
-				<div class="">
+				<div class="" style="height: auto;">
 					<div class="page-title">
 
 
-						<div class="title_right">
+						<div class="title_right" style="height: auto;">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 
@@ -190,9 +190,9 @@
 					</div>
 					<div class="clearfix"></div>
 
-					<div class="row" data-ng-app="risqueModule" data-ng-controller="risqueJs">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: auto">
+					<div class="row"  style="height: auto;">
+						<div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -202,56 +202,11 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Integrite</h3>
 				
-				    <f:form method="get" modelAttribute="Process"    action="ShowAdmin">
-                  <table id="idTable" class="table table-hover" >
-              
-                   <tr>
-                   	<td>Add New Admini</td>
-                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
-						<i class="glyphicon glyphicon-plus"></i>
-						</button>
-					</td>
-                   </tr>
-                    <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Admin List  </td>
-                      <td>																	
-	
-							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
-							 
-							<option value="">Select a Process</option>
-								<c:forEach items="${ListAdmin}" var="group">
-							<option value="${group.email}">${group.email}</option>
-								</c:forEach>
-							</select>
-						
-					 
-                   	</td> 
-                <td style="width: 249px;">
- 			 
-						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
-						
-						<i class="glyphicon glyphicon-search"></i>
-						</button>
-						
-					
- 				
-						</td>
-                      
-                      
-                    </tr>
-                       
-                </table>
-                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
-		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-		
-		</f:form>
-		
 		<br />
-<br />
 
-<div ng-app="myApp" >
+	<div ng-app="intgApp" style="height: auto;">
     <div ng-controller="TableCtrl">
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
@@ -261,28 +216,57 @@
         <table class="table  table-hover data-table myTable">
             <thead>
                 <tr>
-                    <th class="email"> <a href="#" ng-click="sort('email',$event)">EmpId
+                    <th class="id"> <a href="#" ng-click="sort('impactId',$event)">Scénarios des Risques
                          <span class="{{Header[0]}}"></span>
                          </a>
 
                     </th>
-                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Name
+                    <th class="mesure"> <a ng-click="sort('impactLabel')" href="#"> Mesures existantes
                          <span class="{{Header[1]}}"></span></a>
                     </th>
-                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Email
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Vulnérabilités
                      <span class="{{Header[2]}}"></span></a>
+                    </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Impacts/Conséquences
+                     <span class="{{Header[3]}}"></span></a>
+                    </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> M
+                     <span class="{{Header[4]}}"></span></a>
+                    </th>
+                     
+                    <th class="value"> <a ng-click="sort('value')" href="#"> V
+                     <span class="{{Header[5]}}"></span></a>
+                    </th>
+                     
+                    <th class="value"> <a ng-click="sort('value')" href="#"> P
+                     <span class="{{Header[6]}}"></span></a>
+                    </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> I(C)
+                     <span class="{{Header[6]}}"></span></a>
+                    </th>
+                    
+                    <th class="value"> <a ng-click="sort('value')" href="#"> R
+                     <span class="{{Header[7]}}"></span></a>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
-                    <td>{{item.email}}</td>
-                    <td>{{item.lastName}}</td>
-                    <td>{{item.firstName}}</td>
-                    <td>{{item.userType}}
-                    <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                    </td>
+                    <td><label>{{item.risque.risqueLabel}}</label></td>
+                    <td><ng-repeat ng-repeat="mesure in MesuresByPage[$index] | orderBy:columnToOrder:reverse"><label>{{mesure.mesureLabel}}</label> <button type="button" ng-click="modifyMesure($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteMesure($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+					
+                     <td><ng-repeat ng-repeat="vulnerabs in vulnerabsByPage[$index]"><label>{{vulnerabs.vulnLabel}}</label><button type="button" ng-click="modifyVul($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteVul($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
+                     <td><ng-repeat ng-repeat="impacts in impactsByPage[$index]"><label>{{impacts.impactLabel}}</label><button type="button" ng-click="modifyImp($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteImp($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button><br></ng-repeat></td>
+                    <td>{{mesureValue}}</td>
+                    <td>{{vulnValue}}</td>
+                    <td>{{impactsValue}}</td>
+                    <td>{{iintg}}
+                    <td>{{total}}</td>
+                    
+                    
                 </tr>
             </tbody>
         </table>
@@ -297,19 +281,78 @@
 
             </li>
         </ul>
+        
+        
         <div class="row">
-            <div class="col-xs-3">
-                <input type="text" ng-model="email" class="form-control" placeholder="email">
+            <div class="col-xs-1">
+                <input type="hidden" ng-model="MesureId" class="form-control" value="0"  placeholder="id" hidden="true"><label> Mesure</label>
             </div>
             <div class="col-xs-3">
-                <input type="text" ng-model="lastName" class="form-control" placeholder="lastName">
+                <input type="text" ng-model="MesureLabel" class="form-control" placeholder="value">
             </div>
-            <div class="col-xs-4">
-                <input type="text" ng-model="firstName" class="form-control" placeholder="firstName">
+             <div class="col-xs-2">
+                <input type="text" ng-model="MesureValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="mSelect" class="select2"id="mSelect" ng-model="MesureSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Mesure</option>
+     				 <option ng-repeat="mesureS in MesureSelect.availableOptions" value="{{mesureS.mesureId}}">{{mesureS.mesureLabel}}</option>
+   			   </select>
             </div>
             <div class="col-xs-1">
-                <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+               <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+              
+               
+
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" value="0" hidden="true"><label>Vulnérabilités</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="VulLabel" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-2">
+                <input type="text" ng-model="VulValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%" >
+                	 <option value="">Vulnerabilité</option>
+     				 <option ng-repeat="vulS in vulSelect.availableOptions" value="{{vulS.vulnId}}">{{vulS.vulnLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
+            <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                <button ng-click="updateVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+              
+               
+
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="hidden" ng-model="ImpId" class="form-control" value="0"  placeholder="id" hidden="true"><label>Impacts</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" ng-model="ImpLabel" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-2">
+                <input type="text" ng-model="ImpValue" class="form-control" placeholder="value">
+            </div>
+             <div class="col-xs-3">
+                <select name="impSelect" class="select2"id="impSelect" ng-model="impSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Impacte</option>
+     				 <option ng-repeat="impS in impSelect.availableOptions" value="{{impS.impactId}}">{{impS.impactLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
+            <button ng-click="addImp" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+               <button ng-click="updateImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+              
                
 
                 </button>

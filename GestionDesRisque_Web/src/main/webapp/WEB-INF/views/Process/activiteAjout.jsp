@@ -77,9 +77,9 @@
                     </li>
                     <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
-                    <li><a href="form_validation.html">Integrite</a>
+                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
-                    <li><a href="form_wizards.html">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>

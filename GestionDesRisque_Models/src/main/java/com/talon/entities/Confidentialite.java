@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -16,15 +17,19 @@ public class Confidentialite {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int ConfId;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@JoinColumn(name="risk")
 	private Risque risque ; 
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE ,CascadeType.ALL})
+	@JoinColumn(name="Mesures")
 	private List<MesureEx> mesures;
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE,CascadeType.ALL})
+	@JoinColumn(name="Vuls")
 	private List<Vulnerabilite> vulnerabs;
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE,CascadeType.ALL})
+	@JoinColumn(name="Imps")
 	private List<ImpactC> impacts;
-	
+	private int iC ; 
 	private int Resultat;
 
 	public int getConfId() {
@@ -74,5 +79,15 @@ public class Confidentialite {
 	public void setResultat(int resultat) {
 		Resultat = resultat;
 	}
+
+	public int getiC() {
+		return iC;
+	}
+
+	public void setiC(int iC) {
+		this.iC = iC;
+	}
+	
+	
 	
 }
