@@ -252,18 +252,19 @@ public class ConfidentialiteController {
 			conf = confidentialiteServiceImpl.getById(confId) ;
 			List<MesureEx> mes = conf.getMesures() ; 
 			List<MesureEx> newMes = new ArrayList<>() ;
-			
+			int messu = 0 ;
 			for(MesureEx m:mes){
 				
 				MesureEx mess = new MesureEx() ; 
 				mess.setMesureId(m.getMesureId());
 				mess.setMesureLabel(m.getMesureLabel());
 				mess.setValue(m.getValue());
+				messu = messu + m.getValue() ;
 				newMes.add(mess);
 				}
 			
 			
-			
+			int vulls = 0 ;
 			List<Vulnerabilite> vul = conf.getVulnerabs() ; 
 			List<Vulnerabilite> newVul = new ArrayList<>() ; 
 			for(Vulnerabilite v:vul){
@@ -271,9 +272,10 @@ public class ConfidentialiteController {
 				vuls.setValue(v.getValue());
 				vuls.setVulnId(v.getVulnId());
 				vuls.setVulnLabel(v.getVulnLabel());
+				vulls = vulls + v.getValue() ;
 				newVul.add(vuls);
 			}
-			
+			int impps = 0 ; 
 			List<ImpactC> imp = conf.getImpacts() ; 
 			List<ImpactC> newImp = new ArrayList<>() ; 
 			for(ImpactC i:imp){
@@ -281,6 +283,7 @@ public class ConfidentialiteController {
 				ipms.setImpactId(i.getImpactId());
 				ipms.setImpactLabel(i.getImpactLabel());
 				ipms.setValue(i.getValue());
+				impps = impps + i.getValue();
 				newImp.add(ipms) ;
 			}
 			Confidentialite confJson = new Confidentialite() ; 
@@ -289,9 +292,14 @@ public class ConfidentialiteController {
 			confJson.setMesures(newMes);
 			confJson.setVulnerabs(newVul);
 			confJson.setRisque(conf.getRisque());
-			
+			int res = (confJson.getiC() *vulls * impps) - messu ; 
+			confJson.setResultat(res);
+			confidentialiteServiceImpl.update(confJson);
 			List<Confidentialite> confList = new ArrayList<>();
 			confList.add(confJson) ;
+			
+			
+			
 		return confList ; 
 		
 		
@@ -345,7 +353,7 @@ int impTotal = 0 ;
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
-conf.setResultat(mesTotal+vulTotal+impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
 		confidentialiteServiceImpl.update(conf);
 		return conf.getConfId() ; 
 		
@@ -407,7 +415,7 @@ int impTotal = 0 ;
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
-conf.setResultat(mesTotal+vulTotal+impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
 		confidentialiteServiceImpl.update(conf);
 		return conf.getConfId() ; 
 		
@@ -568,7 +576,7 @@ for(int i=0 ; i<conf.getImpacts().size() ;i++){
 if(!(conf.getiC() >= 0)){
 conf.setiC(0);
 }
-conf.setResultat(mesTotal+vulTotal+impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
 	
 int x = confidentialiteServiceImpl.merge(conf);
 		return x ; 

@@ -33,21 +33,32 @@ import com.talan.service.UtilisateurService;
 public class SecurityController {
 @Autowired
 UtilisateurService utilisateurServiceImpl;
+
 	
 	public HttpSession session(HttpServletRequest request){
 
 		HttpSession session=request.getSession();  
         System.out.println(session.getId());
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+        Utilisateur myUser = new Utilisateur() ;
+        myUser = utilisateurServiceImpl.getById(user.getUsername());
+        session.setAttribute("user", myUser.getEmail());
         return session;
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
+		
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		Utilisateur myUser = new Utilisateur();
 		myUser = utilisateurServiceImpl.getById(user.getUsername());
-		 
+		UserDetails userr = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+        Utilisateur myUserx = new Utilisateur() ;
+        myUserx = utilisateurServiceImpl.getById(userr.getUsername());
+        session.setAttribute("user", myUserx.getEmail());
 		ModelAndView model=new ModelAndView();
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());

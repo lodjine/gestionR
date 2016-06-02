@@ -16,7 +16,7 @@ public class Vulnerabilite implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int vulnId;
 	
-	private String VulnLabel;
+	private String vulnLabel;
 	
 	private int value;
 
@@ -28,12 +28,14 @@ public class Vulnerabilite implements Serializable{
 		this.vulnId = vulnId;
 	}
 
+	
+
 	public String getVulnLabel() {
-		return VulnLabel;
+		return vulnLabel;
 	}
 
 	public void setVulnLabel(String vulnLabel) {
-		VulnLabel = vulnLabel;
+		this.vulnLabel = vulnLabel;
 	}
 
 	public int getValue() {
