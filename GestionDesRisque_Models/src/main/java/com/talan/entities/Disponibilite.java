@@ -31,7 +31,7 @@ public class Disponibilite {
 	@JoinColumn(name="Imps")
 	private List<ImpactC> impacts;
 	
-	private int Resultat;
+	private int resultat;
 
 	public int getDispId() {
 		return DispId;
@@ -82,11 +82,11 @@ public class Disponibilite {
 	}
 
 	public int getResultat() {
-		return Resultat;
+		return resultat;
 	}
 
 	public void setResultat(int resultat) {
-		Resultat = resultat;
+		resultat = resultat;
 	}
 	
 	

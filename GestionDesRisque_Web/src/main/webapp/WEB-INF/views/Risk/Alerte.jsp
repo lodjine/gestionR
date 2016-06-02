@@ -1,6 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+  <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -17,21 +20,13 @@
   <link href="resources/fonts/css/font-awesome.min.css" rel="stylesheet">
   <link href="resources/css/animate.min.css" rel="stylesheet">
 
-
-
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
 
-  <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/moment/moment.min.js"></script>
-    <script src="resources/js/chartjs/chart.min.js"></script>
-    <script src="resources/js/progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="resources/js/icheck/icheck.min.js"></script>
-    <script src="resources/js/custom.js"></script>
-    <script src="resources/js/pace/pace.min.js"></script>
+
   <script src="resources/js/jquery.min.js"></script>
-	<script src="resources/js/chartJs.js"></script>
+
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -200,70 +195,140 @@
 								</div>
 								
 								
-								<div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Utlisateur</span>
-              <div class="count">${TotalUser}</div>
+								
+								
+								
+								
+								
+								
+								
+							   <div class="clearfix"></div>
              
+              
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Alerte</h3>
+				
+		<br />
+            <div class="box-header with-border">
+              <h3 class="box-title">Liste Alerte</h3>
+
+              <div class="box-tools pull-right">
+                <div class="has-feedback">
+                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+              </div>
+              <!-- /.box-tools -->
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa  fa-list-ul"></i> Total Processus</span>
-              <div class="count">${TotalProc}</div>
-         
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div>
+                <!-- /.btn-group -->
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.pull-right -->
+              </div>
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                  <tr>
+                    <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html"><b>Type Alerte</b></a></td>
+                    <td class="mailbox-subject"><b>Risque</b>
+                    </td>
+                     <td class="mailbox-subject"><b>Alerte</b>
+                    </td>
+                    <td class="mailbox-date"><b>Date Alerte</b></td>
+                  </tr>
+                  <c:forEach items="alertes" var="alerte" varStatus="status">
+                  <tr>
+                    <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">${alertes[status.index].typeAlerte}</a></td>
+                    <td class="mailbox-subject"><b>${alertes[status.index].risque}</b>
+                    </td>
+                      <td class="mailbox-subject">${alertes[status.index].alerte}
+                    </td>
+                    <td class="mailbox-date">${ alertes[status.index].date}</td>
+                  </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-ban"></i> Total Risque </span>
-              <div class="count green">${TotalRisk}</div>
-   
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div>
+                <!-- /.btn-group -->
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.pull-right -->
+              </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa  fa-check-square"></i> Total Action</span>
-              <div class="count">${TotalAction}</div>
- 
-            </div>
-         
-				<div class="col-md-6 col-sm-4">
-                  <div class="x_title">
-                    <h2>Donut Graph <small>Sessions</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
-                    <canvas id="canvasDoughnut" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
-                  </div>
-                </div>				
-				<div class="col-md-6 col-sm-4">
-                  <div class="x_title">
-                    <h2>Bar graph <small>Sessions</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <select class="selectProcId" onchange="onchangeProc()" >
-                        <option>select processus</option>
-                        <c:forEach items="${procs}" var="proc">
-                        <option value="${proc.procId}">${proc.processus}</option>
-                        </c:forEach>
-                        </select>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
-                    <canvas id="mybarChart" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
-                  </div>
-                </div>				
+          </div>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 							</div>
 						</div>
 					</div>
@@ -341,134 +406,7 @@
       if (this.checked)
         $('form .alert').remove();
     }).prop('checked', false);
-
-
-
-
-
-
-
-
-</script>
-
-   <script>
-   
-   
-Chart.defaults.global.legend = {
-	      enabled: false
-	    };
-
-// Doughnut chart
-var x = getActionNT()  ; 
-var y = getActionT() ;
-var ctx = document.getElementById("canvasDoughnut");
-var data = {
-  labels: [
-    "Action Non Termine",
-	"Action  Termine"  
-  ],
-  datasets: [{
-    data: [x ,y],
-    backgroundColor: [
-      "#26B99A",
-      "#3498DB"
-    ],
-    hoverBackgroundColor: [
-      "#36CAAB",
-      "#49A9EA"
-    ]
-
-  }]
-};
-
-var canvasDoughnut = new Chart(ctx, {
-  type: 'doughnut',
-  tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-  data: data
-});
-
-
-// Bar chart
-var ctx = document.getElementById("mybarChart");
-var mybarChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Extrem", "Fort", "Moyen", "Faible"],
-    datasets: [{
-      label: '# of Votes',
-      backgroundColor: "#26B99A",
-      data: [0, 0, 0, 0]
-    }, {
-      label: '# of Votes',
-      backgroundColor: "#03586A",
-      data: [0, 0, 0, 0]
-    }, , {
-        label: '# of Votes',
-        backgroundColor: "#455C73",
-        data: [0, 0, 0, 0]
-      }, , {
-          label: '# of Votes',
-          backgroundColor: "#9B59B6",
-          data: [0, 0, 0, 0]
-        }
-    ]
-  },
-
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
-
-function onchangeProc(){
-	
-	var id = $('.selectProcId').val(); 
-	alert(id) ;
-	 var x =  getRiskByProc(id)  ;
-	 
-//Bar chart
-var ctx = document.getElementById("mybarChart");
-var mybarChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Extrem", "Fort", "Moyen", "Faible"],
-    datasets: [{
-      label: '# of Votes',
-      backgroundColor: "#26B99A",
-      data: x
-    }, {
-      label: '# of Votes',
-      backgroundColor: "#03586A",
-      data: x
-    }, , {
-        label: '# of Votes',
-        backgroundColor: "#455C73",
-        data: x
-      }, , {
-          label: '# of Votes',
-          backgroundColor: "#9B59B6",
-          data: x
-        }
-    ]
-  },
-
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
-}
-   </script>
+  </script>
 
 </body>
 

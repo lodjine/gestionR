@@ -53,5 +53,9 @@ public class ConfidentialiteDaoImpl implements ConfidentialiteDao {
 		
 		return conff.getConfId() ;
 	}
+	public List<Confidentialite> getAllByProc(int id, int debut , int fin) {
+		Session session=sessionFactory.getCurrentSession();	
+		return  session.createQuery("select a from Confidentialite a WHERE a.risque.proc.procId =:id and a.resultat <= :debut and a.resultat > :fin ").setParameter("id", id).setParameter("debut", debut).setParameter("fin", fin).list();
+	}
 	
 }

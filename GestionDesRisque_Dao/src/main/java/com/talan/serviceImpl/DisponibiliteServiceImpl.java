@@ -60,5 +60,10 @@ disponibiliteDaoImpl.update(dispo);
 		return disponibiliteDaoImpl.merge(disp);
 	}
 
+	public List<Disponibilite> getAllByProc(int id, int debut, int fin) {
+		// TODO Auto-generated method stub
+		return disponibiliteDaoImpl.getAllByProc(id, debut, fin);
+	}
+
 
 }

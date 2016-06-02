@@ -1,6 +1,8 @@
 package com.talan.controlleur.securite;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.talan.entities.Processus;
 import com.talan.entities.Utilisateur;
+import com.talan.service.ActionService;
+import com.talan.service.AlerteService;
+import com.talan.service.ProcessService;
+import com.talan.service.RisqueService;
 import com.talan.service.UtilisateurService;
 
 
@@ -33,6 +40,14 @@ import com.talan.service.UtilisateurService;
 public class SecurityController {
 @Autowired
 UtilisateurService utilisateurServiceImpl;
+@Autowired
+AlerteService alerteServiceImpl;
+@Autowired
+RisqueService risqueServiceImpl;
+@Autowired
+ActionService actionServiceImpl;
+@Autowired
+ProcessService processServiceImpl;
 	
 	public HttpSession session(HttpServletRequest request){
 
@@ -51,7 +66,14 @@ UtilisateurService utilisateurServiceImpl;
 		ModelAndView model=new ModelAndView();
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
+		model.addObject("alertes", alerteServiceImpl.getAllAction());
 		model.setViewName("index");
+		List<Processus> proc = processServiceImpl.getAll() ; 
+		model.addObject("procs",proc );
+		model.addObject("TotalAction", actionServiceImpl.getAll().size());
+		model.addObject("TotalRisk", risqueServiceImpl.getAll().size());
+		model.addObject("TotalUser", utilisateurServiceImpl.getAll().size());
+		model.addObject("TotalProc", processServiceImpl.getAll().size());
 		return model;
 		}
 
