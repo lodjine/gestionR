@@ -56,6 +56,16 @@ actionDaoImpl.delete(action);
 actionDaoImpl.save(action);		
 	}
 
+	public List<Action> getAllNonTermine() {
+		
+		return actionDaoImpl.getAllNonTermine();
+	}
+
+	public List<Action> getAllTermine() {
+		// TODO Auto-generated method stub
+		return actionDaoImpl.getAllTermine();
+	}
+
 	
 	
 	

@@ -66,6 +66,11 @@ public void setIntegriteDaoImpl(IntegriteDao integriteDaoImpl) {
 		return integriteDaoImpl.merge(intg);
 	}
 
+	public List<Integrite> getAllByProc(int id, int debut, int fin) {
+		// TODO Auto-generated method stub
+		return integriteDaoImpl.getAllByProc(id, debut, fin);
+	}
+
 	
 	
 }

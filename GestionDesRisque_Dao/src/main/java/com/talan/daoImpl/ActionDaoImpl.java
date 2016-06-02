@@ -54,4 +54,16 @@ public class ActionDaoImpl implements ActionDao{
 		session.save(action);
 	}
 
+	public List<Action> getAllNonTermine() {
+Session session=sessionFactory.getCurrentSession();
+		
+		return session.createQuery("select a from Action a where a.status < 100").list();
+	}
+
+	public List<Action> getAllTermine() {
+Session session=sessionFactory.getCurrentSession();
+		
+		return session.createQuery("select a from Action a where a.status = 100").list();
+	}
+
 }

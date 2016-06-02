@@ -82,12 +82,12 @@ public class Integrite {
 	}
 
 	public int getResultat() {
-		return Resultat;
+		return resultat;
 	}
 
 	public void setResultat(int resultat) {
-		Resultat = resultat;
+		resultat = resultat;
 	}
 
-	private int Resultat;
+	private int resultat;
 }

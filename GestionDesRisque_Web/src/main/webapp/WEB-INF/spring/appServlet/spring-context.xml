@@ -70,6 +70,8 @@
 
 	<value>com.talan.entities.Activite</value>
 	<value>com.talan.entities.Action</value>
+	<value>com.talan.entities.AlerteAction</value>
+		<value>com.talan.entities.AlerteRisqueFort</value>
 	<value>com.talan.entities.Confidentialite</value>
 	<value>com.talan.entities.Disponibilite</value>
 	<value>com.talan.entities.ImpactC</value>

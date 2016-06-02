@@ -15,4 +15,5 @@ public interface IntegriteDao {
 	public void delete(Integrite integ);
 	public void save(Integrite integ);
 	public int merge(Integrite intg);
+	public List<Integrite> getAllByProc(int id, int debut , int fin);
 }

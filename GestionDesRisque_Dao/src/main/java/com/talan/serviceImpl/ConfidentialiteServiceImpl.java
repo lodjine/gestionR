@@ -57,6 +57,11 @@ public int merge(Confidentialite conf) {
 	// TODO Auto-generated method stub
 	return confidentialiteDaoImpl.merge(conf);
 }
+
+public List<Confidentialite> getAllByProc(int id, int debut, int fin) {
+	
+	return confidentialiteDaoImpl.getAllByProc(id, debut, fin);
+}
 	
 	
 }

@@ -5,14 +5,20 @@
 		<class>com.talan.entities.Activite</class>
 		<class>com.talan.entities.Administrateur</class>
 		<class>com.talan.entities.Alerte</class>
+		<class>com.talan.entities.AlerteAction</class>
+		<class>com.talan.entities.AlerteRisqueFort</class>
 		<class>com.talan.entities.AnalyseDesRisques</class>
 		<class>com.talan.entities.Classification</class>
+		<class>com.talan.entities.Confidentialite</class>
+		<class>com.talan.entities.Disponibilite</class>
 		<class>com.talan.entities.ImpactC</class>
 		<class>com.talan.entities.Information</class>
+		<class>com.talan.entities.Integrite</class>
 		<class>com.talan.entities.MesureEx</class>
 		<class>com.talan.entities.Poste</class>
 		<class>com.talan.entities.Processus</class>
 		<class>com.talan.entities.Responsable</class>
+		<class>com.talan.entities.Risque</class>
 		<class>com.talan.entities.SousProcessus</class>
 		<class>com.talan.entities.UserRole</class>
 		<class>com.talan.entities.Utilisateur</class>
