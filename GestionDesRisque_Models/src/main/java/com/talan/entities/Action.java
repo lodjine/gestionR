@@ -27,7 +27,7 @@ private  Date beginDate;
 private  Date endDate; 
 
 private int status ; 
- 
+ @ManyToOne
 private Utilisateur user;
 
 

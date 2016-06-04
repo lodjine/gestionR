@@ -56,7 +56,7 @@ public class IntegriteDaoImpl implements IntegriteDao{
 	}
 	public List<Integrite> getAllByProc(int id, int debut , int fin) {
 		Session session=sessionFactory.getCurrentSession();	
-		return  session.createQuery("select a from Integrite a WHERE a.risque.proc.procId =:id and a.resultat <= :debut and a.resultat > :fin ").setParameter("id", id).setParameter("debut", debut).setParameter("fin", fin).list();
+		return  session.createQuery("select a from Integrite a WHERE a.risque.proc.procId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", id).setParameter("debut", debut).setParameter("fin", fin).list();
 	}
 	
 	

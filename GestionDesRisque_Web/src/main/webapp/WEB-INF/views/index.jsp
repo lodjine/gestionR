@@ -430,7 +430,7 @@ function onchangeProc(){
 	var id = $('.selectProcId').val(); 
 	alert(id) ;
 	 var x =  getRiskByProc(id)  ;
-	 
+	 alert(x);
 //Bar chart
 var ctx = document.getElementById("mybarChart");
 var mybarChart = new Chart(ctx, {
@@ -438,22 +438,10 @@ var mybarChart = new Chart(ctx, {
   data: {
     labels: ["Extrem", "Fort", "Moyen", "Faible"],
     datasets: [{
-      label: '# of Votes',
-      backgroundColor: "#26B99A",
+      label: '# risque',
+      backgroundColor: ["#26B99A","#03586A","#9B59B6","#2A3F54"],
       data: x
-    }, {
-      label: '# of Votes',
-      backgroundColor: "#03586A",
-      data: x
-    }, , {
-        label: '# of Votes',
-        backgroundColor: "#455C73",
-        data: x
-      }, , {
-          label: '# of Votes',
-          backgroundColor: "#9B59B6",
-          data: x
-        }
+    }
     ]
   },
 
