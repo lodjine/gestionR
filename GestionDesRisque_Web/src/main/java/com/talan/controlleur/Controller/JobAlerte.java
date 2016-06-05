@@ -65,7 +65,7 @@ public class JobAlerte implements Job{
 		for (Action action:actions){
 			if(action.getBeginDate().compareTo(new Date())<0 && action.getEndDate().compareTo(new Date())<0 && action.getStatus()<100){
 				AlerteAction alerte= new AlerteAction();
-				alerte.setAlerte("l'action "+action.getLabel()+"affecter a "+action.getUser().getFirstName()+" "+action.getUser().getLastName() +"a atteint la date limite et l'evolution est de "+action.getStatus());
+				alerte.setAlerte("l'action "+action.getLabel()+"affecter a "+action.getUser().getFirstName()+" "+action.getUser().getLastName() +" a atteint la date limite et l'evolution est de "+action.getStatus()+"%");
 				alerte.setDate(new Date().toString());
 				alerte.setRisque(action.getRisk().getRisqueLabel());
 				session.persist(alerte);
