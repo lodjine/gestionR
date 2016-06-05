@@ -51,12 +51,12 @@ public class AlerteDaoImpl implements AlerteDao{
 		session.save(alerte);
 	}
 	
-	public List<AlerteRisqueFort> getAllRisque() {
+	public List<Alerte> getAllRisque() {
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery("select a from AlerteRisqueFort a").list();
 	}
 
-	public List<AlerteAction> getAllAction() {
+	public List<Alerte> getAllAction() {
 		Session session=sessionFactory.getCurrentSession();
 		return session.createQuery("select a from AlerteAction a").list();
 	}

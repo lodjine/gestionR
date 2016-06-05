@@ -116,7 +116,7 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="tables.html">Action</a>
                     </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
+                    <li><a href="/GestionDesRisque_Web/alerte">Alerte</a>
                     </li>
                   </ul>
                 </li>
