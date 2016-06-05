@@ -202,7 +202,7 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Impact/Consequence</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Confidentialite</h3>
 				
 		<br />
 
