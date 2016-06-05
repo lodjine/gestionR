@@ -204,18 +204,18 @@
               
 				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
 				
-				    <f:form method="get" modelAttribute="Process"    action="ShowAdmin">
+				    <f:form method="get" modelAttribute="Process"    action="ShowAction">
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
-                   	<td>Add New Admini</td>
+                   	<td>Add New Action</td>
                    	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
 						<i class="glyphicon glyphicon-plus"></i>
 						</button>
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Admin List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Action List  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >

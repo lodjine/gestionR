@@ -15,6 +15,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talan.entities.Action;
+import com.talan.entities.Activite;
 import com.talan.entities.Processus;
 import com.talan.entities.Risque;
 import com.talan.service.ActionService;
@@ -67,7 +69,7 @@ public class ActionController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, "creationDate",
 				new CustomDateEditor(formater, false));
 		binder.registerCustomEditor(Date.class, "modificationDate",
@@ -82,9 +84,12 @@ public class ActionController {
 	@RequestMapping(value = "/ShowAction",params="updateByCode", method = RequestMethod.GET)
 	public ModelAndView Affichinf(@RequestParam("byCode") String id){
 		
-		ModelAndView model = new ModelAndView("utilisateur/actionAffiche") ; 
+		ModelAndView model = new ModelAndView("Risk/activiteAffiche") ; 
+		Action action = actionServiceImpl.getById(Integer.parseInt(id)) ; 
 		
-		model.addObject("admin", actionServiceImpl.getById(Integer.parseInt(id)));
+		List<Risque> rList = rServiceImpl.getAll() ; 
+		model.addObject("rList" , rList); 
+		model.addObject("action" , action); 
 		return model ;
 		
 		
@@ -99,7 +104,16 @@ public class ActionController {
 		
 		
 	}
-	
+	@RequestMapping(value = "/ShowAction", params="newRecord" ,method = RequestMethod.GET)
+	public ModelAndView addAcction(){
+		
+		ModelAndView model = new ModelAndView("Risk/actionAdd") ; 
+		List<Risque> rList = rServiceImpl.getAll() ; 
+		model.addObject("rList" , rList); 
+		return model ;
+		
+		
+	}
 	@RequestMapping(value = "/SeekAction", method = RequestMethod.GET)
     public @ResponseBody List<Action> seekAction() {
 		
@@ -127,12 +141,52 @@ public class ActionController {
 		return actionJs ;
 		
 		}
+	@RequestMapping(value = "/saveAction", method = RequestMethod.POST)
+	public ModelAndView validAct(@ModelAttribute Action action) throws ParseException{
+		
+		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		String date = new Date().toString() ;
+		action.setCreationDate(new Date()) ;
+		action.setModificationDate(new Date());
+		if(action.getRisk() != null){
+			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
+			action.setRisk(r);
+		}
+		actionServiceImpl.save(action);
+		model.addObject("ListAdmin", actionServiceImpl.getAll());
+		return model ; 
+		
+		
+	}
 	
+	@RequestMapping(value = "/editAction", method = RequestMethod.POST)
+	public ModelAndView editAct(@ModelAttribute Action action) throws ParseException{
+		Action ac = actionServiceImpl.getById(action.getActionId()) ; 
+		ac.setBeginDate(action.getBeginDate());
+		ac.setEndDate(action.getEndDate());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		String date = new Date().toString() ;
+		ac.setModificationDate(new Date());
+		ac.setLabel(action.getLabel()); 
+		ac.setRisk(action.getRisk());
+		ac.setStatus(action.getStatus());
+		if(action.getRisk() != null){
+			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
+			action.setRisk(r);
+		}
+		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
+		model.addObject("ListAdmin", actionServiceImpl.getAll());
+		actionServiceImpl.update(ac);
+		return model ; 
+		
+		
+	}
 	@RequestMapping(value = "/PersisteAction/{bDate}/{eDate}/{label}/{status}/{riskId}/", method = RequestMethod.GET)
     public @ResponseBody Boolean CheckRcode(@PathVariable("bDate") String bDate,@PathVariable("eDate") String eDate,@PathVariable("riskId") int rId,@PathVariable("label") String label , @PathVariable("status") int stat, HttpSession session) throws ParseException {
 		Risque r = new Risque() ; 
 		r= rServiceImpl.getById(rId) ; 
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		Action ac = new Action() ; 
 		
 		ac.setBeginDate(df.parse(bDate));
@@ -150,7 +204,7 @@ public class ActionController {
 		Action ac = actionServiceImpl.getById(acId) ; 
 		Risque r = new Risque() ; 
 		r= rServiceImpl.getById(rId) ; 
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		ac.setBeginDate(df.parse(bDate));
 		ac.setEndDate(df.parse(eDate));
 		
