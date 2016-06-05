@@ -21,7 +21,7 @@ public class IntegriteDaoImpl implements IntegriteDao{
 	}
 	public List<Integrite> getAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createQuery("select a from Intégrite a").list();
+		return session.createQuery("select a from Integrite a").list();
 	}
 	public Integrite getById(int id) {
 		Session session=sessionFactory.getCurrentSession();
