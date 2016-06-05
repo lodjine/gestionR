@@ -25,7 +25,7 @@ public class DeclanchingJob {
 	
 	@Bean
 	public String declanching(){
-		String chSun="/5 * * * * ?";
+		String chSun="0 0 * * * ?";
 		CronTrigger CronTrigger=null;
 		CronTrigger = TriggerBuilder.newTrigger()
 		         .withIdentity("Alerte", "Alerte1")

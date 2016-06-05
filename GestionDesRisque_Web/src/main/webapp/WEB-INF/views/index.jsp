@@ -221,10 +221,10 @@
               <div class="count">${TotalAction}</div>
  
             </div>
-         
+         <br>
 				<div class="col-md-6 col-sm-4">
                   <div class="x_title">
-                    <h2>Donut Graph <small>Sessions</small></h2>
+                    <h2>Action par Status<small>terminé/non terminé</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -242,7 +242,7 @@
                 </div>				
 				<div class="col-md-6 col-sm-4">
                   <div class="x_title">
-                    <h2>Bar graph <small>Sessions</small></h2>
+                    <h2>Risque par processus<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>

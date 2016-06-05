@@ -88,7 +88,7 @@ public class JobAlerte implements Job{
 		
 			tx.commit();
 		
-		session.close();
+		
 		
 	}
 
