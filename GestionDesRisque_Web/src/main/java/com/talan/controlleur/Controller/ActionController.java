@@ -114,7 +114,7 @@ public class ActionController {
 			ac.setEndDate(a.getEndDate());
 			ac.setModificationDate(a.getModificationDate());
 			ac.setLabel(a.getLabel());
-			
+			ac.setActionId(a.getActionId());
 			ac.setStatus(a.getStatus());
 			Processus pr = new Processus() ; 
 			pr.setProcessus(a.getRisk().getProc().getProcessus());
@@ -146,7 +146,7 @@ public class ActionController {
 		
     }
 	@RequestMapping(value = "/updateAction/{bDate}/{eDate}/{label}/{status}/{riskId}/{acId}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("bDate") String bDate,@PathVariable("eDate") String eDate,@PathVariable("riskId") int rId,@PathVariable("label") String label , @PathVariable("status") int stat,@PathVariable("acId") int acId, HttpSession session) throws ParseException {
+    public @ResponseBody Boolean updateUser(@PathVariable("bDate") String bDate,@PathVariable("eDate") String eDate,@PathVariable("riskId") int rId,@PathVariable("label") String label , @PathVariable("status") int stat,@PathVariable("acId") int acId) throws ParseException {
 		Action ac = actionServiceImpl.getById(acId) ; 
 		Risque r = new Risque() ; 
 		r= rServiceImpl.getById(rId) ; 

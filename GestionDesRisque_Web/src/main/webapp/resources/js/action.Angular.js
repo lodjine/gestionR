@@ -69,6 +69,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
             $scope.allItems=getDummyData() ;
          
     	}else{
+    		alert($scope.acId);
     		updateUser($scope.bDate,$scope.eDate,$scope.label,$scope.status,$scope.RiskSelect.repeatSelect,$scope.acId);
     	}
       
@@ -110,6 +111,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     $scope.modifyUser= function (index) {
     	
     	$scope.acId = $scope.allItems[index].actionId;
+    	alert($scope.allItems[index]);
         $scope.label = $scope.allItems[index].label ;
         $scope.bDate = $filter('date')(new Date ($scope.allItems[index].beginDate),'dd-MM-yyyy')   ;
         $scope.eDate = $filter('date')(new Date ($scope.allItems[index].endDate),'dd-MM-yyyy')  ;
