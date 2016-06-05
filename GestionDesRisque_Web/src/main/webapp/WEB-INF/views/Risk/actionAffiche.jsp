@@ -74,7 +74,7 @@
           <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-        <div class="menu_section">
+            <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
@@ -91,9 +91,9 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
+                    <li><a href="form.html">Risque</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
+                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
@@ -120,9 +120,9 @@
                 </li>
                 <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAction">Action</a>
+                    <li><a href="tables.html">Action</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/alerte">Alerte</a>
+                    <li><a href="tables_dynamic.html">Alerte</a>
                     </li>
                   </ul>
                 </li>
@@ -209,7 +209,7 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="Action" action="saveAction" >
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="action" action="editAction" >
 
                   
                     <span class="section">Action</span>
@@ -218,7 +218,7 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label  <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="label" placeholder="Label" required="required" type="text">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="label" placeholder="Label" required="required" type="text" value="${action.label }">
                       </div>
                     </div>
                     
@@ -226,14 +226,14 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Begin Date <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text" value="${action.beginDate }">
                       </div>
                     </div>
                     <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">End Date <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text" value="${action.endDate }">
                       </div>
                     </div>
                     <div class="item form-group">
@@ -243,7 +243,7 @@
 							<select name="risk.risqueId" id="currencySelect"
 								class="form-control select2 form-control required noselect"  >
 								                
-								<option value="">select Risk</option>
+								<option value="${action.risk.risqueId }">${action.risk.risqueLabel }</option>
 									
 								
 								
@@ -256,14 +256,14 @@
 							</select>
 						</div>
                       </div>
-                    <div class="item form-group">
+                     <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">User <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12"> 
 							<select name="user.email" id="currencySelect"
 								class="form-control select2 form-control required noselect"  >
 								                
-								<option value="">select User</option>
+								<option value="${action.user.email }">${action.user.email }</option>
 									
 								
 								
@@ -279,7 +279,7 @@
                     <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Status </label>
                      <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="35" name="status">
+                    <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="${action.status }" name="status">
                   </div>
                    </div>
                     <div class="ln_solid"></div>
@@ -289,6 +289,7 @@
                         <button id="send" type="submit" class="btn btn-success">Submit</button>
                       </div>
                     </div>
+                    <input type="hidden" name="actionId" value="${action.actionId }">
                   </f:form>
                 </div>
 								

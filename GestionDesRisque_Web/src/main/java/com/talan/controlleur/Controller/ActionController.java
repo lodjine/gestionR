@@ -27,6 +27,7 @@ import com.talan.entities.Action;
 import com.talan.entities.Activite;
 import com.talan.entities.Processus;
 import com.talan.entities.Risque;
+import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
 import com.talan.service.RisqueService;
 import com.talan.service.UtilisateurService;
@@ -84,7 +85,7 @@ public class ActionController {
 	@RequestMapping(value = "/ShowAction",params="updateByCode", method = RequestMethod.GET)
 	public ModelAndView Affichinf(@RequestParam("byCode") String id){
 		
-		ModelAndView model = new ModelAndView("Risk/activiteAffiche") ; 
+		ModelAndView model = new ModelAndView("Risk/actionAffiche") ; 
 		Action action = actionServiceImpl.getById(Integer.parseInt(id)) ; 
 		
 		List<Risque> rList = rServiceImpl.getAll() ; 
@@ -152,6 +153,11 @@ public class ActionController {
 		if(action.getRisk() != null){
 			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
 			action.setRisk(r);
+			
+		}
+		if(action.getUser() != null) {
+			Utilisateur u = utilisateurServiceImpl.getById(action.getUser().getEmail() ) ; 
+			action.setUser(u );
 		}
 		actionServiceImpl.save(action);
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
@@ -174,6 +180,10 @@ public class ActionController {
 		if(action.getRisk() != null){
 			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
 			action.setRisk(r);
+		}
+		if(action.getUser() != null) {
+			Utilisateur u = utilisateurServiceImpl.getById(action.getUser().getEmail() ) ; 
+			action.setUser(u );
 		}
 		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
