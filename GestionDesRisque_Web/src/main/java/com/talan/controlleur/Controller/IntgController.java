@@ -276,7 +276,14 @@ public class IntgController {
 			confJson.setImpacts(newImp);
 			confJson.setMesures(newMes);
 			confJson.setVulnerabs(newVul);
-			confJson.setRisque(conf.getRisque());
+			Risque r = new Risque() ; 
+			Processus p = new Processus() ; 
+			r.setRisqueId(conf.getRisque().getRisqueId());
+			r.setRisqueLabel(conf.getRisque().getRisqueLabel());
+			p.setProcessus(conf.getRisque().getProc().getProcessus());
+			p.setDescription(conf.getRisque().getProc().getDescription());
+			p.setProcId(conf.getRisque().getProc().getProcId());
+			r.setProc(p);
 			
 			List<Integrite> confList = new ArrayList<>();
 			confList.add(confJson) ;
@@ -287,6 +294,9 @@ public class IntgController {
 	@RequestMapping(value = "/updateintg/{label}/{confId}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int SaveConf(@PathVariable("label") String label,@PathVariable("confId") int id,@PathVariable("value") int value , @PathVariable("type") String type, HttpSession session) {
 		Integrite conf = intgServiceImpl.getById(id);
+		if(type.equals("label")){
+			conf.setIntgLabel(label);
+		}else
 		if(type.equals("Resultat")){
 			conf.setIintg(value);
 		}else
@@ -404,6 +414,9 @@ conf.setResultat(mesTotal+vulTotal+impTotal);
 	@RequestMapping(value = "/PersisteupdateConfintg/{label}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int PersisteupdateConf(@PathVariable("label") String label,@PathVariable("value") int value , @PathVariable("type") String type) {
 		Integrite conf = new Integrite() ;
+		if(type.equals("label")){
+			conf.setIntgLabel(label);
+		}else
 		if(type.equals("Resultat")){
 			conf.setIintg(value);
 		}else

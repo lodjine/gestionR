@@ -207,7 +207,9 @@
 		<br />
 
 	<div ng-app="ConfAddApp" style="height: auto;">
+	
     <div ng-controller="TableCtrl">
+    <input type ="text" ng-model="confLabel"> <button type="button" ng-click="updateconfLabel()" class="btn btn-warning"><i class="fa fa-edit"></i></button>
         <div class="input-group">
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
       <span class="glyphicon glyphicon-search"></span>

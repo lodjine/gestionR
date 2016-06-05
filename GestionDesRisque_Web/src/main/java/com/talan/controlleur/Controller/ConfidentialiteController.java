@@ -180,11 +180,11 @@ public class ConfidentialiteController {
 			confJson.setVulnerabs(newVul);
 			Risque r = new Risque() ; 
 			
-			
+			if(conf.getRisque() != null ){
 			r.setRisqueId(conf.getRisque().getRisqueId());
 			r.setRisqueLabel(conf.getRisque().getRisqueLabel());
 			confJson.setRisque(r);
-			
+			}
 			List<Confidentialite> confList = new ArrayList<>();
 			confList.add(confJson) ;
 		return confList ; 
@@ -291,6 +291,14 @@ public class ConfidentialiteController {
 			confJson.setImpacts(newImp);
 			confJson.setMesures(newMes);
 			confJson.setVulnerabs(newVul);
+			Risque r = new Risque() ; 
+			Processus p = new Processus() ; 
+			r.setRisqueId(conf.getRisque().getRisqueId());
+			r.setRisqueLabel(conf.getRisque().getRisqueLabel());
+			p.setProcessus(conf.getRisque().getProc().getProcessus());
+			p.setDescription(conf.getRisque().getProc().getDescription());
+			p.setProcId(conf.getRisque().getProc().getProcId());
+			r.setProc(p);
 			confJson.setRisque(conf.getRisque());
 			int res = (confJson.getiC() *vulls * impps) - messu ; 
 			confJson.setResultat(res);
@@ -307,6 +315,9 @@ public class ConfidentialiteController {
 	@RequestMapping(value = "/updateConf/{label}/{confId}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int SaveConf(@PathVariable("label") String label,@PathVariable("confId") int id,@PathVariable("value") int value , @PathVariable("type") String type, HttpSession session) {
 		Confidentialite conf = confidentialiteServiceImpl.getById(id);
+		if(type.equals("label")){
+			conf.setConfLabel(label);
+		}else
 		if(type.equals("Resultat")){
 			conf.setiC(value);
 		}else
@@ -424,6 +435,9 @@ conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
 	@RequestMapping(value = "/PersisteupdateConf/{label}/{value}/{type}/", method = RequestMethod.GET)
     public @ResponseBody int PersisteupdateConf(@PathVariable("label") String label,@PathVariable("value") int value , @PathVariable("type") String type) {
 		Confidentialite conf = new Confidentialite() ;
+		if(type.equals("label")){
+			conf.setConfLabel(label);
+		}else
 		if(type.equals("Resultat")){
 			conf.setiC(value);
 		}else

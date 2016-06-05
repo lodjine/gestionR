@@ -210,7 +210,7 @@
 							 
 							<option value="">Select a risk</option>
 								<c:forEach items="${ListConf}" var="conf">
-								<option value="${ conf.dispId }">${conf.risque.risqueLabel}</option>
+								<option value="${ conf.dispId }">${conf.dispLabel} : ${conf.risque.risqueLabel}</option>
 								</c:forEach>
 							</select>
 						

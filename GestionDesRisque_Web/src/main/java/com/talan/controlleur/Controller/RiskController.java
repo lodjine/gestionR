@@ -72,15 +72,7 @@ public class RiskController {
 
 
 
-//	@RequestMapping(value = "/showMesureMenu", method = RequestMethod.GET)
-//	public ModelAndView showMesure(){
-//		
-//		ModelAndView model = new ModelAndView("Risk/Mesure") ; 
-//	
-//		return model ; 
-//		
-//		
-//	}
+
 	
 	
 		@RequestMapping(value="/getRisks",method = RequestMethod.GET)

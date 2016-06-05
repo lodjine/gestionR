@@ -30,9 +30,17 @@ public class Integrite {
 	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
 	@JoinColumn(name="risk")
 	private Risque risque ; 
+	private String intgLabel ; 
 	
 	
-	
+	public String getIntgLabel() {
+		return intgLabel;
+	}
+
+	public void setIntgLabel(String intgLabel) {
+		this.intgLabel = intgLabel;
+	}
+
 	public Risque getRisque() {
 		return risque;
 	}

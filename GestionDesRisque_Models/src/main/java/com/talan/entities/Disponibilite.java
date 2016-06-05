@@ -30,7 +30,16 @@ public class Disponibilite {
 	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE,CascadeType.ALL})
 	@JoinColumn(name="Imps")
 	private List<ImpactC> impacts;
+	private String dispLabel ; 
 	
+	public String getDispLabel() {
+		return dispLabel;
+	}
+
+	public void setDispLabel(String dispLabel) {
+		this.dispLabel = dispLabel;
+	}
+
 	private int resultat;
 
 	public int getDispId() {

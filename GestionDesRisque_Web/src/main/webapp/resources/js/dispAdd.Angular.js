@@ -447,7 +447,23 @@ $scope.addVul = function () {
          $scope.resetAll();
     }
     
-    
+$scope.updateconfLabel = function(){
+    	
+    	if($scope.iconfEq == 0){
+    		
+    			$scope.iconfEq=	PersisteConfWithNewObeject($scope.confLabel,0,"label");
+    		
+    	}else{
+    		
+    			UpdateConfWithNewObeject($scope.confLabel,$scope.allItems[0].confId,0,"label") ;
+    		
+    	
+    	}
+    	$scope.allItems = getDummyData($scope.iconfEq);
+  	  $scope.filteredList = $scope.allItems;
+          $scope.pagination();
+          $scope.resetAll();
+    }
     
     $scope.mergeUser = function(){
     	$scope.add() ;
@@ -568,7 +584,7 @@ function PersisteConfWithNewObeject(label,value,type){
 function PersisteConfWithOldObject(type,id,idProces){
 	var xd = 0 ;
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteConfWithOldObjectdisp/'+type+'/'+id+'/'+idProces+'/',
+	    url:'/GestionDesRisque_Web/PersisteConfWithOldObjectdisp/'+type+'/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,

@@ -31,6 +31,15 @@ public class Confidentialite {
 	private List<ImpactC> impacts;
 	private int iC ; 
 	private int resultat;
+	private String confLabel; 
+	
+	public String getConfLabel() {
+		return confLabel;
+	}
+
+	public void setConfLabel(String confLabel) {
+		this.confLabel = confLabel;
+	}
 
 	public int getConfId() {
 		return ConfId;

@@ -293,7 +293,8 @@ $scope.updateImp = function(){
     }
     
     $scope.deleteVul= function(index){
-    	deleteObject($scope.allItems[0].mesures[index].vulnId,"Vul",$scope.allItems[0].confId);
+    	alert(index);
+    	deleteObject($scope.allItems[0].vulnerabs[index].vulnId,"Vul",$scope.allItems[0].confId);
     	$scope.allItems[0].vulnerabs.splice(index, 1);
     	
     	var mesureValue = 0 ; 
