@@ -85,7 +85,7 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
@@ -114,7 +114,7 @@
                 </li>
                 <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
+                    <li><a href="/GestionDesRisque_Web/MenuAction">Action</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/alerte">Alerte</a>
                     </li>
