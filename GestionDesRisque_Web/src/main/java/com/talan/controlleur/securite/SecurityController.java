@@ -77,7 +77,7 @@ ProcessService processServiceImpl;
 		ModelAndView model=new ModelAndView();
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
-
+model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		model.setViewName("index");
 		List<Processus> proc = processServiceImpl.getAll() ; 
 		model.addObject("procs",proc );
