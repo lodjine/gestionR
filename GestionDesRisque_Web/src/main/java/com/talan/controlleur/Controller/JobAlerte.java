@@ -66,6 +66,8 @@ public class JobAlerte implements Job{
 			if(action.getBeginDate().compareTo(new Date())<0 && action.getEndDate().compareTo(new Date())<0 && action.getStatus()<100){
 				AlerteAction alerte= new AlerteAction();
 				alerte.setAlerte("l'action "+action.getLabel()+"affecter a "+action.getUser().getFirstName()+" "+action.getUser().getLastName() +"a atteint la date limite et l'evolution est de "+action.getStatus());
+				alerte.setDate(new Date().toString());
+				alerte.setRisque(action.getRisk().getRisqueLabel());
 				session.persist(alerte);
 				risques.remove(action.getRisk());
 			}
@@ -78,6 +80,9 @@ public class JobAlerte implements Job{
 			
 			AlerteRisqueFort alerte= new AlerteRisqueFort();
 			alerte.setAlerte("le risque "+ risque.getRisqueLabel()+" a depassé le seuil pour la confidentialité a "+conf.size()+" reprise , pour la disponiblité a "+disp.size()+" reprise et "+ integ.size()+" reprise pour l'integrité ");
+			alerte.setDate(new Date().toString());
+			alerte.setRisque(risque.getRisqueLabel());
+			
 			session.persist(alerte);
 		}
 		

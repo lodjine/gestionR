@@ -254,6 +254,8 @@
                      <td class="mailbox-subject"><b>Alerte</b>
                     </td>
                     <td class="mailbox-date"><b>Date Alerte</b></td>
+                    
+               
                   </tr>
                   <c:forEach items="alertes" var="alerte" varStatus="status">
                   <tr>
@@ -265,6 +267,7 @@
                       <td class="mailbox-subject">${alertes[status.index].alerte}
                     </td>
                     <td class="mailbox-date">${ alertes[status.index].date}</td>
+           
                   </tr>
                   </c:forEach>
                   </tbody>
