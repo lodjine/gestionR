@@ -16,4 +16,5 @@ public interface ConfidentialiteDao {
 	public void delete(Confidentialite conf);
 	public void save(Confidentialite conf);
 	public int merge(Confidentialite conf);
+	public List<Confidentialite> getAllByProc(int id, int debut , int fin);
 }

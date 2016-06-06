@@ -17,4 +17,5 @@ public interface DisponibiliteDao {
 	public void delete(Disponibilite dispo);
 	public void save(Disponibilite dispo);
 	public int merge(Disponibilite disp );
+	public List<Disponibilite> getAllByProc(int id, int debut , int fin);
 }

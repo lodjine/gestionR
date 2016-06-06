@@ -30,7 +30,7 @@ public class Confidentialite {
 	@JoinColumn(name="Imps")
 	private List<ImpactC> impacts;
 	private int iC ; 
-	private int Resultat;
+	private int resultat;
 
 	public int getConfId() {
 		return ConfId;
@@ -73,11 +73,11 @@ public class Confidentialite {
 	}
 
 	public int getResultat() {
-		return Resultat;
+		return resultat;
 	}
 
 	public void setResultat(int resultat) {
-		Resultat = resultat;
+		resultat = resultat;
 	}
 
 	public int getiC() {

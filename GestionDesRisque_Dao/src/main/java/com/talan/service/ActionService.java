@@ -13,5 +13,7 @@ public interface ActionService {
 	public void update(Action action);
 	public void delete(Action action);
 	public void save(Action action);
+	public List<Action> getAllNonTermine();
+	public List<Action> getAllTermine();
 
 }

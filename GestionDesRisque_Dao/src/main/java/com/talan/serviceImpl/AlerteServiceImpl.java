@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.talan.dao.AlerteDao;
 import com.talan.entities.Administrateur;
 import com.talan.entities.Alerte;
+import com.talan.entities.AlerteAction;
+import com.talan.entities.AlerteRisqueFort;
 import com.talan.service.AlerteService;
 
 @Service
@@ -21,10 +23,7 @@ public class AlerteServiceImpl implements AlerteService {
 	
 	
 	
-	public List<Alerte> getAll() {
-		// TODO Auto-generated method stub
-		return alerteDaoImpl.getAll();
-	}
+
 
 	public Alerte getById(int id) {
 		// TODO Auto-generated method stub
@@ -45,6 +44,16 @@ alerteDaoImpl.delete(alerte);
 
 	public void save(Alerte alerte) {
 alerteDaoImpl.save(alerte);		
+	}
+
+	public List<AlerteRisqueFort> getAllRisque() {
+		// TODO Auto-generated method stub
+		return alerteDaoImpl.getAllRisque();
+	}
+
+	public List<AlerteAction> getAllAction() {
+		// TODO Auto-generated method stub
+		return alerteDaoImpl.getAllAction();
 	}
 
 	
