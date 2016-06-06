@@ -22,6 +22,7 @@ import com.talan.entities.Risque;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
+import com.talan.service.AlerteService;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
 import com.talan.service.RisqueService;
@@ -42,7 +43,8 @@ public class VulnerabiliteController {
 	@Autowired
 	TracabiliteService tracabiliteServiceImpl;
 	
-
+@Autowired
+AlerteService alerteServiceImpl;
 	public UtilisateurService getUtilisateurServiceImpl() {
 		return utilisateurServiceImpl;
 	}
@@ -86,7 +88,13 @@ public class VulnerabiliteController {
 	public ModelAndView showMesure(){
 		
 		ModelAndView model = new ModelAndView("Risk/Vulnerabilite") ; 
-	
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		

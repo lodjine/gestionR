@@ -40,6 +40,7 @@ import com.talan.entities.Processus;
 import com.talan.entities.SousProcessus;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
+import com.talan.service.AlerteService;
 import com.talan.service.InformationService;
 import com.talan.service.ProcessService;
 import com.talan.service.TracabiliteService;
@@ -60,6 +61,8 @@ public class ProcessController {
 	InformationService informationServiceImpl;
 	@Autowired
 	TracabiliteService tracabiliteServiceImpl;
+	@Autowired
+	AlerteService alerteServiceImpl;
 	public UtilisateurService getUtilisateurServiceImpl() {
 		return utilisateurServiceImpl;
 	}
@@ -101,6 +104,13 @@ public class ProcessController {
 		List<Utilisateur> users=utilisateurServiceImpl.getAll();
 		model.addObject("users", users);
 		model.addObject("processus", processus);
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -142,6 +152,14 @@ public class ProcessController {
 		model.addObject("activitys",activitys);
 		model.addObject("infoss",infoss);
 		model.addObject("proc",proc);
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -172,6 +190,11 @@ trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
 		processServiceImpl.save(processus);
+		
+
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -188,6 +211,12 @@ tracabiliteServiceImpl.persist(trace);
 		List<Processus> Listprocess=processServiceImpl.getAll(myUser);
 		model.addObject("Listprocess", Listprocess);
 		model.addObject("size",Listprocess.size());
+		
+		
+	
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -197,12 +226,24 @@ tracabiliteServiceImpl.persist(trace);
 	public ModelAndView MenuProc(){
 		
 		ModelAndView model = new ModelAndView("Process/ActifMenu") ; 
-		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+
+		
+	
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
+
+		
 			String role="";
-			Utilisateur myUser = new Utilisateur();
-			myUser = utilisateurServiceImpl.getById(user1.getUsername());
+			
+			
 		model.addObject("Listprocess", processServiceImpl.getAll(myUser));
+
 		return model ;
 		
 		
@@ -222,7 +263,7 @@ tracabiliteServiceImpl.persist(trace);
 		List<Processus> processList=processServiceImpl.getAll(myUser);
 		
 		ModelAndView model = new ModelAndView(
-				"Framework/FramworkAdmin/GroupMenu");
+				"Process/ActifMenu");
 		
 		
 		 XSSFWorkbook book = null;
@@ -287,6 +328,8 @@ tracabiliteServiceImpl.persist(trace);
 				                        		   
 				                        		   if(rownumInf==0){
 				                        			   Row row = sh.createRow(rownumProc);
+				                        			   Cell  cell6= row.createCell(4);
+											              cell6.setCellValue(infList.get(rownumInf).getProprietaire());
 				                        			 Cell  cell4= row.createCell(3);
 											              cell4.setCellValue(infList.get(rownumInf).getInformation());
 											              cell4.setCellStyle(normalStyle);
@@ -323,7 +366,8 @@ tracabiliteServiceImpl.persist(trace);
 				                        		   }
 				                        		   else{
 				                        			   Row rowInf = sh.createRow(rownumProc);
-				                        			   
+				                        			   Cell  cell6= rowInf.createCell(4);
+											              cell6.setCellValue(infList.get(rownumInf).getProprietaire());
 				                        			   Cell  cell4= rowInf.createCell(3);
 											              cell4.setCellValue(infList.get(rownumInf).getInformation());
 											              cell4.setCellStyle(normalStyle);
@@ -469,7 +513,11 @@ tracabiliteServiceImpl.persist(trace);
 		        
 					
 
-					model = new ModelAndView("Framework/FramworkAdmin/GroupMenu");
+		        
+		  		
+		  		model.addObject("firstname", myUser.getFirstName());
+		  		model.addObject("lastname", myUser.getLastName());
+		  		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 					
 		
 				 

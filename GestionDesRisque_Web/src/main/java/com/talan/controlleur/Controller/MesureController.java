@@ -20,6 +20,7 @@ import com.talan.entities.MesureEx;
 import com.talan.entities.Risque;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
+import com.talan.service.AlerteService;
 import com.talan.service.MesureExService;
 import com.talan.service.RisqueService;
 import com.talan.service.TracabiliteService;
@@ -37,6 +38,8 @@ public class MesureController {
 	UtilisateurService utilisateurServiceImpl;
 	@Autowired
 	TracabiliteService tracabiliteServiceImpl;
+	@Autowired
+	AlerteService alerteServiceImpl;
 	
 
 	public UtilisateurService getUtilisateurServiceImpl() {
@@ -75,6 +78,13 @@ public class MesureController {
 	public ModelAndView showMesure(){
 		
 		ModelAndView model = new ModelAndView("Risk/Mesure") ; 
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 	
 		return model ; 
 		

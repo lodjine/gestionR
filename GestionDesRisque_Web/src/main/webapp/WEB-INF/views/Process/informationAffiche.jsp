@@ -121,10 +121,10 @@
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
+                 <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="resources/images/LogoTalan.jpg" alt="">John Doe
+                  <img src="resources/images/LogoTalan.jpg" alt="">${firstname } ${lastname }
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -137,9 +137,9 @@
               </li>
 
               <li role="presentation" class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <a href="/GestionDesRisque_Web/alerte" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
+                  <span class="badge bg-green">${nombreAlerte}</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
           
@@ -202,7 +202,13 @@
                         <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="description" placeholder="Description" required="required" type="text" />
                       </div>
                     </div>
-                    
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Proprietaire De Information<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <f:input id="InfLabel" class="form-control col-md-7 col-xs-12"  path="proprietaire" placeholder="Description" required="required" type="text"/>
+                      </div>
+                    </div>
                       <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Activite<span class="required">*</span>
                       </label>

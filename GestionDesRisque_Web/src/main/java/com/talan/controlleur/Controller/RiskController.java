@@ -47,6 +47,7 @@ import com.talan.entities.SousProcessus;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
+import com.talan.service.AlerteService;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
 import com.talan.service.ProcessService;
@@ -73,6 +74,8 @@ public class RiskController {
 	ProcessService pServiceImpl ; 
 	@Autowired
 	TracabiliteService tracabiliteServiceImpl;
+	@Autowired
+	AlerteService alerteServiceImpl;
 
 	public ImpactCService getImpactCServiceImpl() {
 		return impactCServiceImpl;
@@ -178,11 +181,25 @@ public class RiskController {
 		@RequestMapping(value="/getRisks",method = RequestMethod.GET)
 		public ModelAndView showRisks(){
 			ModelAndView model = new ModelAndView("Risk/RiskPage");
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user.getUsername());
+			model.addObject("firstname", myUser.getFirstName());
+			model.addObject("lastname", myUser.getLastName());
+			 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 					return model ;  
 		}
 		@RequestMapping(value="/getMenuRisks",method = RequestMethod.GET)
 		public ModelAndView showMenuRisks(){
 			ModelAndView model = new ModelAndView("Risk/riskmenu");
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user.getUsername());
+			model.addObject("firstname", myUser.getFirstName());
+			model.addObject("lastname", myUser.getLastName());
+			 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 					return model ;  
 		}
 	
@@ -588,7 +605,13 @@ tracabiliteServiceImpl.persist(trace);
 		  
 		   
 		  
-		       
+		  UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user.getUsername());
+			model.addObject("firstname", myUser.getFirstName());
+			model.addObject("lastname", myUser.getLastName());
+			 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		  
 		  
 		  

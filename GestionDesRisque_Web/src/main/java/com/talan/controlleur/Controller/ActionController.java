@@ -50,6 +50,7 @@ import com.talan.entities.Risque;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
+import com.talan.service.AlerteService;
 import com.talan.service.RisqueService;
 import com.talan.service.TracabiliteService;
 import com.talan.service.UtilisateurService;
@@ -64,6 +65,8 @@ public class ActionController {
 	ActionService actionServiceImpl ; 
 	@Autowired
 	RisqueService rServiceImpl ; 
+	@Autowired 
+	AlerteService alerteServiceImpl;
 	
 	@Autowired
 	TracabiliteService tracabiliteServiceImpl;
@@ -110,6 +113,17 @@ public class ActionController {
 	public ModelAndView Affichinf(@RequestParam("byCode") String id){
 		
 		ModelAndView model = new ModelAndView("Risk/actionAffiche") ; 
+		
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
+		 
+		 
 		Action action = actionServiceImpl.getById(Integer.parseInt(id)) ; 
 		
 		List<Risque> rList = rServiceImpl.getAll() ; 
@@ -123,7 +137,13 @@ public class ActionController {
 	public ModelAndView Menuinf(){
 		
 		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
-		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
 		return model ;
 		
@@ -133,6 +153,13 @@ public class ActionController {
 	public ModelAndView addAcction(){
 		
 		ModelAndView model = new ModelAndView("Risk/actionAdd") ;
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		List<Responsable> resps=utilisateurServiceImpl.getAllResp();
 		List<Risque> rList = rServiceImpl.getAll() ; 
 		model.addObject("rList" , rList); 
@@ -171,6 +198,7 @@ public class ActionController {
 	public ModelAndView validAct(@ModelAttribute Action action) throws ParseException{
 		
 		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
+		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		String date = new Date().toString() ;
 		action.setCreationDate(new Date()) ;
@@ -191,6 +219,10 @@ public class ActionController {
 		Utilisateur myUser = new Utilisateur();
 		myUser = utilisateurServiceImpl.getById(user.getUsername());
 		
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		
 	Tracabilite trace=new Tracabilite();
 	trace.setDate(new Date().toString());
@@ -248,6 +280,11 @@ trace.setLabelEntity(action.getLabel());
 trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
+
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+model.addObject("firstname", myUser.getFirstName());
+model.addObject("lastname", myUser.getLastName());
+model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -283,6 +320,8 @@ trace.setOperation("Ajout");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
 		actionServiceImpl.persist(ac);
+		
+		
 		return true ; 
 		
     }
@@ -363,6 +402,14 @@ tracabiliteServiceImpl.persist(trace);
 			ModelAndView model = new ModelAndView(
 					"Process/actionMenu");
 			
+			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user.getUsername());
+			model.addObject("firstname", myUser.getFirstName());
+			model.addObject("lastname", myUser.getLastName());
+			 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		
 
 			
@@ -377,6 +424,7 @@ tracabiliteServiceImpl.persist(trace);
 			  header.add("Risque");
 			  header.add("Date Debut");
 			  header.add("Date Fin");
+			  header.add("status");
 			  header.add("Utilisateur");
 			  
 		 
@@ -440,7 +488,7 @@ tracabiliteServiceImpl.persist(trace);
 			            	try
 			            	{
 			            		Cell cell = row.createCell(2);
-						              Date result=actions.get(j).getBeginDate();
+						              String result=actions.get(j).getBeginDate().toString();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
@@ -454,7 +502,7 @@ tracabiliteServiceImpl.persist(trace);
 			            	try
 			            	{
 			            		Cell cell = row.createCell(3);
-						              Date result=actions.get(j).getEndDate();
+			            		String result=actions.get(j).getEndDate().toString();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
@@ -463,16 +511,29 @@ tracabiliteServiceImpl.persist(trace);
 								 cell.setCellValue("--");
 					              cell.setCellStyle(normalStyle);
 							}
-			   
 			            	try
 			            	{
 			            		Cell cell = row.createCell(4);
-						              String result=actions.get(j).getUser().getEmail();
+						              int result=actions.get(j).getStatus();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
 			            	catch (Exception e) {
 								Cell cell = row.createCell(4);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			   
+			   
+			            	try
+			            	{
+			            		Cell cell = row.createCell(5);
+						              String result=actions.get(j).getUser().getEmail();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(5);
 								 cell.setCellValue("--");
 					              cell.setCellStyle(normalStyle);
 							}
@@ -508,7 +569,7 @@ tracabiliteServiceImpl.persist(trace);
 				 
 			  
 	 
-			  File excel = new File("C:/test/Risques.xlsx");
+			  File excel = new File("C:/test/Actions.xlsx");
 			 
 			  
 	 

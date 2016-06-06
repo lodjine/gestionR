@@ -133,10 +133,10 @@
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="resources/images/LogoTalan.jpg" alt="">John Doe
+                  <img src="resources/images/LogoTalan.jpg" alt="">${firstname } ${lastname }
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -149,9 +149,9 @@
               </li>
 
               <li role="presentation" class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <a href="/GestionDesRisque_Web/alerte" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
+                  <span class="badge bg-green">${nombreAlerte}</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
           
@@ -335,7 +335,14 @@
     </div>
     <!-- Ends Controller -->
 </div>
-
+<f:form action="ActionExcel"  method="get">
+                <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
+                      </div>
+                    </div> 
+                    </f:form>
                  
                 </div>
                 

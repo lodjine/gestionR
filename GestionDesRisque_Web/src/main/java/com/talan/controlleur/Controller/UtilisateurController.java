@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,7 @@ import com.talan.entities.Responsable;
 import com.talan.entities.SousProcessus;
 import com.talan.entities.UserRole;
 import com.talan.entities.Utilisateur;
+import com.talan.service.AlerteService;
 import com.talan.service.UtilisateurService;
 
 @Controller
@@ -30,7 +33,8 @@ public class UtilisateurController {
 
 	@Autowired
 	UtilisateurService utilisateurServiceImpl;
-	
+	@Autowired
+	AlerteService alerteServiceImpl;
 	
 	
 	public UtilisateurService getUtilisateurServiceImpl() {
@@ -47,6 +51,14 @@ public class UtilisateurController {
 		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAjout") ; 
 	Administrateur admin=new Administrateur();
 	model.addObject("admin", admin);
+	
+	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+	Utilisateur myUser = new Utilisateur();
+	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	model.addObject("firstname", myUser.getFirstName());
+	model.addObject("lastname", myUser.getLastName());
+	 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -55,9 +67,17 @@ public class UtilisateurController {
 	@RequestMapping(value = "/AddAdmin", method = RequestMethod.POST)
 	public ModelAndView validProcess(@ModelAttribute Administrateur admin){
 		
-		ModelAndView model = new ModelAndView("index") ; 
+		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAjout") ; 
 	
 		utilisateurServiceImpl.save(admin);
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -69,6 +89,14 @@ public class UtilisateurController {
 		ModelAndView model = new ModelAndView("utilisateur/AdministrateurAffiche") ; 
 		
 		model.addObject("admin", utilisateurServiceImpl.getById(id));
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ;
 		
 		
@@ -79,6 +107,14 @@ public class UtilisateurController {
 		ModelAndView model = new ModelAndView("Process/AdminMenu") ; 
 		
 		model.addObject("ListAdmin", utilisateurServiceImpl.getAll());
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ;
 		
 		

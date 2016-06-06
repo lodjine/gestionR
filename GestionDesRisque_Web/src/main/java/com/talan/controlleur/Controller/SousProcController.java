@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talan.entities.Processus;
 import com.talan.entities.SousProcessus;
 import com.talan.entities.Utilisateur;
+
+import com.talan.service.AlerteService;
+
 import com.talan.service.ProcessService;
 import com.talan.service.SousProcessusService;
 import com.talan.service.UtilisateurService;
@@ -28,6 +31,11 @@ public class SousProcController {
 	SousProcessusService sousProcessusServiceImpl;
 	@Autowired
 	UtilisateurService utilisateurServiceImpl;
+
+	
+	@Autowired
+	AlerteService  alerteServiceImpl;
+
 	
 	public ProcessService getProcessServiceImpl() {
 		return processServiceImpl;
@@ -60,6 +68,12 @@ public class SousProcController {
 		model.addObject("ssProcessus", ssProcessus);
 		List<Processus> processusList=processServiceImpl.getAll(myUser);
 		model.addObject("processusList", processusList);
+		
+	
+
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -70,6 +84,14 @@ public class SousProcController {
 		ModelAndView model = new ModelAndView("index") ; 
 	
 		sousProcessusServiceImpl.save(ssProcessus);
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -82,6 +104,14 @@ public class SousProcController {
 	
 		
 		model.addObject("ssProcessus", sousProcessusServiceImpl.getById(id));
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ; 
 		
 		
@@ -94,6 +124,14 @@ public class SousProcController {
 		ModelAndView model = new ModelAndView("Process/MenuSousProcess") ; 
 		
 		model.addObject("ListSubprocess", sousProcessusServiceImpl.getAll());
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		return model ;
 		
 		
