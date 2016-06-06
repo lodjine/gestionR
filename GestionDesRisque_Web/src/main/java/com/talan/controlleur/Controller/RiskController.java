@@ -180,23 +180,24 @@ public class RiskController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteRisk/{label}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label ,HttpSession session) {
+	@RequestMapping(value = "/PersisteRisk/{label}/{value}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value ,HttpSession session) {
 		
 		Risque risk = new Risque() ; 
 			
 			risk.setRisqueLabel(label);
+			risk.setValue(value);
 			riskServiceImpl.persist(risk);
 		
 		return true ; 
 		
     }
-	@RequestMapping(value = "/updateRisk/{id}/{label}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label, HttpSession session) {
+	@RequestMapping(value = "/updateRisk/{id}/{label}/{value}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value , HttpSession session) {
 		
 		Risque ris = new Risque() ;
 		ris = riskServiceImpl.getById(id) ;
-		
+		ris.setValue(value);
 		ris.setRisqueLabel(label);
 		riskServiceImpl.update(ris);
 		return true ; 
