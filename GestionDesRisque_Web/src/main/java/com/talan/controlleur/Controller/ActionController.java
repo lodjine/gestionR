@@ -424,6 +424,7 @@ tracabiliteServiceImpl.persist(trace);
 			  header.add("Risque");
 			  header.add("Date Debut");
 			  header.add("Date Fin");
+			  header.add("status");
 			  header.add("Utilisateur");
 			  
 		 
@@ -487,7 +488,7 @@ tracabiliteServiceImpl.persist(trace);
 			            	try
 			            	{
 			            		Cell cell = row.createCell(2);
-						              Date result=actions.get(j).getBeginDate();
+						              String result=actions.get(j).getBeginDate().toString();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
@@ -501,7 +502,7 @@ tracabiliteServiceImpl.persist(trace);
 			            	try
 			            	{
 			            		Cell cell = row.createCell(3);
-						              Date result=actions.get(j).getEndDate();
+			            		String result=actions.get(j).getEndDate().toString();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
@@ -510,16 +511,29 @@ tracabiliteServiceImpl.persist(trace);
 								 cell.setCellValue("--");
 					              cell.setCellStyle(normalStyle);
 							}
-			   
 			            	try
 			            	{
 			            		Cell cell = row.createCell(4);
-						              String result=actions.get(j).getUser().getEmail();
+						              int result=actions.get(j).getStatus();
 						              cell.setCellValue(result);
 						              cell.setCellStyle(normalStyle);
 			            	}
 			            	catch (Exception e) {
 								Cell cell = row.createCell(4);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			   
+			   
+			            	try
+			            	{
+			            		Cell cell = row.createCell(5);
+						              String result=actions.get(j).getUser().getEmail();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(5);
 								 cell.setCellValue("--");
 					              cell.setCellStyle(normalStyle);
 							}

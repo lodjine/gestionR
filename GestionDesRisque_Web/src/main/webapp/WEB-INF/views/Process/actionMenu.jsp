@@ -335,7 +335,14 @@
     </div>
     <!-- Ends Controller -->
 </div>
-
+<f:form action="ActionExcel"  method="get">
+                <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
+                      </div>
+                    </div> 
+                    </f:form>
                  
                 </div>
                 
