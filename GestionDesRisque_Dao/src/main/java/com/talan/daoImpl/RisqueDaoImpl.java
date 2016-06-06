@@ -52,32 +52,20 @@ session.update(risque);
 
 		session.save(risque);
 	}
-	public List<Confidentialite> getConfByProc(int idproc, String user,String userRole) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession() ; 
-		Query query = null ;
-		if(userRole.equals("admin")){
-		String hql = "select e from Confidentialite e WHERE e.risque.proc.procId =:idproc";
-		
-		 query= session.createQuery(hql);	
-		query.setParameter("idproc", idproc);
-		}else{
-			
-			String hql = "select e from Confidentialite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user";
-			
-			 query= session.createQuery(hql);	
-			query.setParameter("idproc", idproc);
-			query.setParameter("user", user);
-		}
-		
-		return query.list();
-	}
-	public List<Confidentialite> getConfByProcRev(int idproc, String user, String userRole, int res) {
+
+	
+	
+	
+	public List<Risque> getRiskByProc(int idproc, String user, String userRole, int res) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession() ; 
 		Query query = null ;
 		int min = 0 ; 
 		int max = 0 ;
+		if(res==0){
+		min=0;
+		max=7;
+		}else
 		if(res == 1){
 			min = 8 ; 
 			max = 14 ; 
@@ -89,7 +77,7 @@ session.update(risque);
 			max = 9999999 ;
 		}
 		if(userRole.equals("admin")){
-		String hql = "select e from Confidentialite e WHERE e.risque.proc.procId =:idproc AND e.Resultat >= :min AND e.Resultat <=:max ";
+		String hql = "select e from Risque e WHERE e.proc.procId =:idproc AND e.Resultat >= :min AND e.Resultat <=:max ";
 		
 		 query= session.createQuery(hql);	
 		query.setParameter("idproc", idproc);
@@ -97,7 +85,7 @@ session.update(risque);
 		query.setParameter("max", max);
 		}else{
 			
-			String hql = "select e from Confidentialite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user AND e.Resultat >= :min AND e.Resultat <=:max";
+			String hql = "select e from Disponibilite e WHERE e.risque.proc.procId =:idproc AND e.proc.user.email =:user AND e.Resultat >= :min AND e.Resultat <=:max";
 			
 			 query= session.createQuery(hql);	
 			query.setParameter("idproc", idproc);
@@ -108,118 +96,8 @@ session.update(risque);
 		
 		return query.list();
 	}
-	public List<Disponibilite> getdispByProc(int idproc, String user,String userRole) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession() ; 
-		Query query = null ;
-		if(userRole.equals("admin")){
-		String hql = "select e from Disponibilite e WHERE e.risque.proc.procId =:idproc";
-		
-		 query= session.createQuery(hql);	
-		query.setParameter("idproc", idproc);
-		}else{
-			
-			String hql = "select e from Disponibilite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user";
-			
-			 query= session.createQuery(hql);	
-			query.setParameter("idproc", idproc);
-			query.setParameter("user", user);
-		}
-		
-		return query.list();
-	}
-	public List<Disponibilite> getdispByProcRev(int idproc, String user, String userRole, int res) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession() ; 
-		Query query = null ;
-		int min = 0 ; 
-		int max = 0 ;
-		if(res == 1){
-			min = 8 ; 
-			max = 14 ; 
-		}else if(res == 2) {
-			min = 14 ; 
-			max = 19 ; 
-		}else{
-			min = 20 ; 
-			max = 9999999 ;
-		}
-		if(userRole.equals("admin")){
-		String hql = "select e from Disponibilite e WHERE e.risque.proc.procId =:idproc AND e.Resultat >= :min AND e.Resultat <=:max ";
-		
-		 query= session.createQuery(hql);	
-		query.setParameter("idproc", idproc);
-		query.setParameter("min", min);
-		query.setParameter("max", max);
-		}else{
-			
-			String hql = "select e from Disponibilite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user AND e.Resultat >= :min AND e.Resultat <=:max";
-			
-			 query= session.createQuery(hql);	
-			query.setParameter("idproc", idproc);
-			query.setParameter("user", user);
-			query.setParameter("min", min);
-			query.setParameter("max", max);
-		}
-		
-		return query.list();
-	}
-	public List<Integrite> getIntByProc(int idproc, String user, String userRole) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession() ; 
-		Query query = null ;
-		if(userRole.equals("admin")){
-		String hql = "select e from Integrite e WHERE e.risque.proc.procId =:idproc";
-		
-		 query= session.createQuery(hql);	
-		query.setParameter("idproc", idproc);
-		}else{
-			
-			String hql = "select e from Integrite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user";
-			
-			 query= session.createQuery(hql);	
-			query.setParameter("idproc", idproc);
-			query.setParameter("user", user);
-		}
-		
-		return query.list();
-	}
-	public List<Integrite> getIntByProcRev(int idproc, String user, String userRole, int res) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession() ; 
-		Query query = null ;
-		int min = 0 ; 
-		int max = 0 ;
-		if(res == 1){
-			min = 8 ; 
-			max = 14 ; 
-		}else if(res == 2) {
-			min = 14 ; 
-			max = 19 ; 
-		}else{
-			min = 20 ; 
-			max = 9999999 ;
-		}
-		if(userRole.equals("admin")){
-		String hql = "select e from Integrite e WHERE e.risque.proc.procId =:idproc AND e.Resultat >= :min AND e.Resultat <=:max ";
-		
-		 query= session.createQuery(hql);	
-		query.setParameter("idproc", idproc);
-		query.setParameter("min", min);
-		query.setParameter("max", max);
-		}else{
-			
-			String hql = "select e from Integrite e WHERE e.risque.proc.procId =:idproc AND e.risque.proc.user.email =:user AND e.Resultat >= :min AND e.Resultat <=:max";
-			
-			 query= session.createQuery(hql);	
-			query.setParameter("idproc", idproc);
-			query.setParameter("user", user);
-			query.setParameter("min", min);
-			query.setParameter("max", max);
-		}
-		
-		return query.list();
-	}
+
+
 	public List<Risque> getRiskByProc(int id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession() ; 
@@ -229,5 +107,6 @@ session.update(risque);
 		query.setParameter("id", id);
 		return query.list();
 	}
+
 	
 }

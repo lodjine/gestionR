@@ -1,11 +1,28 @@
 package com.talan.controlleur.Controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,14 +32,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.talan.entities.Activite;
 import com.talan.entities.Confidentialite;
 import com.talan.entities.Disponibilite;
 import com.talan.entities.ImpactC;
+import com.talan.entities.Information;
 import com.talan.entities.Integrite;
 import com.talan.entities.ListRisque;
 import com.talan.entities.MesureEx;
 import com.talan.entities.Processus;
 import com.talan.entities.Risque;
+import com.talan.entities.SousProcessus;
 import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
 import com.talan.service.ImpactCService;
@@ -34,7 +54,8 @@ import com.talan.service.VulnerabiliteService;
 
 @Controller
 public class RiskController {
-
+	static SXSSFWorkbook  wb ;
+	 static Sheet sh ;
 	@Autowired
 	RisqueService riskServiceImpl ; ;
 	@Autowired
@@ -311,364 +332,316 @@ public class RiskController {
 	}
 	
 	
-	@RequestMapping(value="/seekConfByProc/{id}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Confidentialite> getRisks(@PathVariable("id") int id,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Confidentialite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getConfByProc (id,user.getEmail(),user.getUserType()) ; 
-		List<Confidentialite> confJson = new ArrayList<>() ; 
-		for(Confidentialite c:confList){
-			Confidentialite con = new Confidentialite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
-			
-			con.setiC(c.getiC());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
-		}
+	//excel
+	@RequestMapping(value = "/RisqueMenu", params = "excel", method = RequestMethod.GET)
+	public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
 		
 		
 		
+		List<Risque> risques=riskServiceImpl.getAll();
+		ModelAndView model = new ModelAndView(
+				"Risk/RiskPage");
 		
-		return confJson ; 
-		
-		
-		
-	}
 	
-	@RequestMapping(value="/seekConfByProcRev/{id}/{rev}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Confidentialite> getConfWithRev(@PathVariable("id") int id,@PathVariable("rev") int rev,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Confidentialite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getConfByProcRev(id,user.getEmail(),user.getUserType(),rev) ; 
-		List<Confidentialite> confJson = new ArrayList<>() ; 
-		for(Confidentialite c:confList){
-			Confidentialite con = new Confidentialite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
+
+		
+		
+		 XSSFWorkbook book = null;
+		  
+		  XSSFSheet mySheet = null;
+		  
+		  List<String> header=new ArrayList<String>();
+		  
+		  header.add("Label");
+		  header.add("Result");
+		  
+	 
+		  
+		    wb =  new SXSSFWorkbook(150);
+		    sh = wb.createSheet("Sample sheet");
+		  
+		    CellStyle headerStle= getHeaderStyle();
+		  
+		    CellStyle normalStyle = getNormalStyle();
+		  	int j=0;
+		    for(int rownum = 0; rownum <= risques.size(); rownum++){
+		        Row row = sh.createRow(rownum);
+		      
+		            
+		  
+		            if(rownum == 0)
+		  
+		            {
+		  for(int i=0;i<2;i++)
+		  {
+		  Cell cell = row.createCell(i);
+		  cell.setCellValue(header.get(i));
+		  cell.setCellStyle(headerStle);
+		  
+		  }
+		          
+		            }
+		  
+		            else
+		  
+		            {
+		            
+		            	try
+		            	{
+		            		Cell cell = row.createCell(0);
+					              String label=risques.get(j).getRisqueLabel();
+					              cell.setCellValue(label);
+					              cell.setCellStyle(normalStyle);
+		            	}
+		            	catch (Exception e) {
+							Cell cell = row.createCell(0);
+							 cell.setCellValue("--");
+				              cell.setCellStyle(normalStyle);
+						}
+		            	
+		            	
+		            	try
+		            	{
+		            		Cell cell = row.createCell(1);
+					              int result=risques.get(j).getValue();
+					              cell.setCellValue(result);
+					              cell.setCellStyle(normalStyle);
+		            	}
+		            	catch (Exception e) {
+							Cell cell = row.createCell(1);
+							 cell.setCellValue("--");
+				              cell.setCellStyle(normalStyle);
+						}
+		  
+		              
+		            	
+		            	
+		  
+		 
+		              
+		           
+		              j++;
+		            }
+		            
+		    
+		    }
+		  
+		  
+		    //Below code Shows how to merge Cell
+		    
+		    sh.addMergedRegion(new CellRangeAddress(
+		  
+		             90, //first row (0-based)
+		  
+		               90, //last row  (0-based)
+		  
+		               90, //first column (0-based)
+		  
+		               90  //last column  (0-based)
+		  
+		       ));
+		  
+		  
+		    autoResizeColumns();
+		  
+		  
+			 
+		  
+ 
+		  File excel = new File("C:/test/Risques.xlsx");
+		 
+		  
+ 
+ 
+		  
+		  
+		  if(!excel.exists())
+		  
+		              {
+		  
+		                  //If directories are not available then create it
+		  
+		                  File parent_directory = excel.getParentFile();
+		  
+		                  if (null != parent_directory)
+		  
+		                  {
+		  
+		                      parent_directory.mkdirs();
+		  
+		                  }
+		  
+		   
+		  
+		                  try {
+		  					excel.createNewFile();
+		  				} catch (IOException e) {
+		  					// TODO Auto-generated catch block
+		  					e.printStackTrace();
+		  				}
+		  
+		              }
+		  
+		  FileOutputStream out;
+		  try {
+		  out = new FileOutputStream(excel,false);
+		  wb.write(out);
+		  out.close();
+		  } catch (Exception e) {
+		  // TODO Auto-generated catch block
+		  e.printStackTrace();
+		  }
+
+		  
+		   
+		  
+		       
+		  
+		  
+		  
+		          // dispose of temporary files backing this workbook on disk
+		  
+		          wb.dispose();
+		  
+		          System.out.println("File is created");
+		  
+		          //Launch Excel File Created
+		  
+		   
+
+		
+		
+		
+	 
+		
+		          
+		          /////////////////return to menu////////////////////
+		         
+					
+					/////////////// send file to download /////////////
+					
+					
+					
+				
 			
-			con.setiC(c.getiC());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
+						InputStream input = reteriveByteArrayInputStream(excel) ; 
+						
+						
+						// get your file as InputStream
+				       
+				        // copy it to response's OutputStream
+							ConfigurableMimeFileTypeMap mimeMap = new ConfigurableMimeFileTypeMap();
+					        String contentType = mimeMap.getContentType(excel.getName());
+					        response.setContentType(contentType);
+					        if(contentType.equals("application/octet-stream"))
+					        {
+					        response.setHeader( "Content-Disposition", "attachment;filename="
+					        	      + excel.getName() );
+					        }	        
+					        response.flushBuffer();
+					        org.apache.commons.io.IOUtils.copy(input, response.getOutputStream());
+
+					
+					
+			       
+		///////////////////////
+		          
+		
+		
+		
+		
+	} 
+		
+		
+		
+	private static CellStyle getHeaderStyle()
+		
+	    {
+
+	        CellStyle style = wb.createCellStyle();
+
+	        style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+
+	        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+	 
+
+	        style.setBorderBottom(CellStyle.BORDER_THIN);
+
+	        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderLeft(CellStyle.BORDER_THIN);
+
+	        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderRight(CellStyle.BORDER_THIN);
+
+	        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderTop(CellStyle.BORDER_THIN);
+
+	        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setAlignment(CellStyle.ALIGN_CENTER);
+
+	 
+
+	        return style;
+
+	    }
+
+	 
+	private static CellStyle getNormalStyle()
+
+	    {
+
+	        CellStyle style = wb.createCellStyle();
+
+	 
+
+	        style.setBorderBottom(CellStyle.BORDER_THIN);
+
+	        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderLeft(CellStyle.BORDER_THIN);
+
+	        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderRight(CellStyle.BORDER_THIN);
+
+	        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderTop(CellStyle.BORDER_THIN);
+
+	        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setAlignment(CellStyle.ALIGN_CENTER);
+
+	 
+
+	        return style;
+
+	    }
+
+	 
+
+	 private static void autoResizeColumns()
+	 
+	     {
+	 
+	         for(int colIndex = 0; colIndex < 32 ; colIndex++)
+	 
+	         {
+	 
+	             sh.autoSizeColumn(colIndex);
+	 
+	         }
+	 
+	     }
+
+		
+	 public static ByteArrayInputStream reteriveByteArrayInputStream(File file) throws IOException {
+		    return new ByteArrayInputStream(FileUtils.readFileToByteArray(file));
 		}
-		
-		
-		
-		
-		return confJson ; 
-		
-		
-		
-	}
-	
-	@RequestMapping(value="/seekDispByProc/{id}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Disponibilite> getdisp(@PathVariable("id") int id,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Disponibilite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getdispByProc (id,user.getEmail(),user.getUserType()) ; 
-		List<Disponibilite> confJson = new ArrayList<>() ; 
-		for(Disponibilite c:confList){
-			Disponibilite con = new Disponibilite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
-			
-			con.setiDisp(c.getiDisp());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
-		}
-		
-		
-		
-		
-		return confJson ; 
-		
-		
-		
-	}
-	
-	@RequestMapping(value="/seekDispByProcRev/{id}/{rev}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Disponibilite> getDispWithRev(@PathVariable("id") int id,@PathVariable("rev") int rev,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Disponibilite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getdispByProcRev(id,user.getEmail(),user.getUserType(),rev) ; 
-		List<Disponibilite> confJson = new ArrayList<>() ; 
-		for(Disponibilite c:confList){
-			Disponibilite con = new Disponibilite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
-			
-			con.setiDisp(c.getiDisp());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
-		}
-		
-		
-		
-		
-		return confJson ; 
-		
-		
-		
-	}
-	
-	@RequestMapping(value="/seekIntByProc/{id}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Integrite> getInt(@PathVariable("id") int id,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Integrite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getIntByProc (id,user.getEmail(),user.getUserType()) ; 
-		List<Integrite> confJson = new ArrayList<>() ; 
-		for(Integrite c:confList){
-			Integrite con = new Integrite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
-			
-			con.setIintg(c.getIintg());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
-		}
-		
-		
-		
-		
-		return confJson ; 
-		
-		
-		
-	}
-	
-	@RequestMapping(value="/seekIntByProcRev/{id}/{rev}/" , method = RequestMethod.GET)
-	public @ResponseBody List<Integrite> getIntWithRev(@PathVariable("id") int id,@PathVariable("rev") int rev,HttpSession session ) {
-		Utilisateur user = new Utilisateur() ; 
-		UserDetails userx = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        
-		user = utilisateurServiceImpl.getById(userx.getUsername());
-		List<Integrite> confList = new ArrayList<>() ; 
-		confList=riskServiceImpl.getIntByProcRev(id,user.getEmail(),user.getUserType(),rev) ; 
-		List<Integrite> confJson = new ArrayList<>() ; 
-		for(Integrite c:confList){
-			Integrite con = new Integrite();
-			List<Vulnerabilite> vul = new ArrayList<>() ; 
-			List<MesureEx> mes = new ArrayList<>() ;
-			List<ImpactC> imp = new ArrayList<>() ; 
-			List<Vulnerabilite> vuls = new ArrayList<>() ; 
-			List<MesureEx> mess = new ArrayList<>() ;
-			List<ImpactC> imps = new ArrayList<>() ; 
-			vul = c.getVulnerabs() ; 
-			for(Vulnerabilite v:vul){
-				Vulnerabilite vs =new Vulnerabilite() ; 
-				vs.setVulnLabel(v.getVulnLabel());
-				vs.setValue(v.getValue());
-				vuls.add(vs);
-			}
-			con.setVulnerabs(vuls);
-			mes = c.getMesures() ;
-			for(MesureEx m:mes){
-				MesureEx me = new MesureEx() ; 
-				me.setMesureLabel(m.getMesureLabel());
-				me.setValue(m.getValue());
-				mess.add(me) ; 
-			}
-			con.setMesures(mess);
-			imp = c.getImpacts() ; 
-			for(ImpactC im:imp){
-				ImpactC i = new ImpactC() ; 
-				i.setImpactLabel(im.getImpactLabel());
-				i.setValue(i.getValue());
-				imps.add(i) ; 
-			}
-			con.setImpacts(imps);
-			
-			con.setIintg(c.getIintg());
-			con.setResultat(c.getResultat());
-			Risque r = new Risque() ; 
-			r.setRisqueLabel(c.getRisque().getRisqueLabel());
-			con.setRisque(r);
-			confJson.add(con) ;
-		}
-		
-		
-		
-		
-		return confJson ; 
-		
-		
-		
-	}
 	
 }

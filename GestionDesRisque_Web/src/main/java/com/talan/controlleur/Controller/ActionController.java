@@ -1,5 +1,10 @@
 package com.talan.controlleur.Controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,10 +13,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -26,6 +43,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talan.entities.Action;
 import com.talan.entities.Activite;
 import com.talan.entities.Processus;
+import com.talan.entities.Responsable;
 import com.talan.entities.Risque;
 import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
@@ -34,7 +52,8 @@ import com.talan.service.UtilisateurService;
 
 @Controller
 public class ActionController {
-
+	static SXSSFWorkbook  wb ;
+	 static Sheet sh ;
 	@Autowired
 	UtilisateurService utilisateurServiceImpl;
 	@Autowired
@@ -108,7 +127,8 @@ public class ActionController {
 	@RequestMapping(value = "/ShowAction", params="newRecord" ,method = RequestMethod.GET)
 	public ModelAndView addAcction(){
 		
-		ModelAndView model = new ModelAndView("Risk/actionAdd") ; 
+		ModelAndView model = new ModelAndView("Risk/actionAdd") ;
+		List<Responsable> resps=utilisateurServiceImpl.getAllResp();
 		List<Risque> rList = rServiceImpl.getAll() ; 
 		model.addObject("rList" , rList); 
 		return model ;
@@ -153,12 +173,11 @@ public class ActionController {
 		if(action.getRisk() != null){
 			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
 			action.setRisk(r);
+			Utilisateur user=r.getProc().getUser();
 			
+			action.setUser(user);
 		}
-		if(action.getUser() != null) {
-			Utilisateur u = utilisateurServiceImpl.getById(action.getUser().getEmail() ) ; 
-			action.setUser(u );
-		}
+	
 		actionServiceImpl.save(action);
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
 		return model ; 
@@ -235,4 +254,361 @@ public class ActionController {
 		return true ; 
 		
     }
+	
+	
+	
+	
+	
+	
+	
+	//excel
+		@RequestMapping(value = "/ActionMenu", params = "excel", method = RequestMethod.GET)
+		public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
+			
+			
+			
+			List<Action> actions=actionServiceImpl.getAll();
+			ModelAndView model = new ModelAndView(
+					"Process/actionMenu");
+			
+		
+
+			
+		
+			 XSSFWorkbook book = null;
+			  
+			  XSSFSheet mySheet = null;
+			  
+			  List<String> header=new ArrayList<String>();
+			  
+			  header.add("Label");
+			  header.add("Risque");
+			  header.add("Date Debut");
+			  header.add("Date Fin");
+			  header.add("Utilisateur");
+			  
+		 
+			  
+			    wb =  new SXSSFWorkbook(150);
+			    sh = wb.createSheet("Sample sheet");
+			  
+			    CellStyle headerStle= getHeaderStyle();
+			  
+			    CellStyle normalStyle = getNormalStyle();
+			  	int j=0;
+			    for(int rownum = 0; rownum <= actions.size(); rownum++){
+			        Row row = sh.createRow(rownum);
+			      
+			            
+			  
+			            if(rownum == 0)
+			  
+			            {
+			  for(int i=0;i<6;i++)
+			  {
+			  Cell cell = row.createCell(i);
+			  cell.setCellValue(header.get(i));
+			  cell.setCellStyle(headerStle);
+			  
+			  }
+			          
+			            }
+			  
+			            else
+			  
+			            {
+			            
+			            	try
+			            	{
+			            		Cell cell = row.createCell(0);
+						              String label=actions.get(j).getLabel();
+						              cell.setCellValue(label);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(0);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			            	
+			            	
+			            	try
+			            	{
+			            		Cell cell = row.createCell(1);
+						              String result=actions.get(j).getRisk().getRisqueLabel();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(1);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			  
+			            	try
+			            	{
+			            		Cell cell = row.createCell(2);
+						              Date result=actions.get(j).getBeginDate();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(2);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			   
+			            	
+			            	try
+			            	{
+			            		Cell cell = row.createCell(3);
+						              Date result=actions.get(j).getEndDate();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(3);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			   
+			            	try
+			            	{
+			            		Cell cell = row.createCell(4);
+						              String result=actions.get(j).getUser().getEmail();
+						              cell.setCellValue(result);
+						              cell.setCellStyle(normalStyle);
+			            	}
+			            	catch (Exception e) {
+								Cell cell = row.createCell(4);
+								 cell.setCellValue("--");
+					              cell.setCellStyle(normalStyle);
+							}
+			   
+			 
+			              
+			           
+			              j++;
+			            }
+			            
+			    
+			    }
+			  
+			  
+			    //Below code Shows how to merge Cell
+			    
+			    sh.addMergedRegion(new CellRangeAddress(
+			  
+			             90, //first row (0-based)
+			  
+			               90, //last row  (0-based)
+			  
+			               90, //first column (0-based)
+			  
+			               90  //last column  (0-based)
+			  
+			       ));
+			  
+			  
+			    autoResizeColumns();
+			  
+			  
+				 
+			  
+	 
+			  File excel = new File("C:/test/Risques.xlsx");
+			 
+			  
+	 
+	 
+			  
+			  
+			  if(!excel.exists())
+			  
+			              {
+			  
+			                  //If directories are not available then create it
+			  
+			                  File parent_directory = excel.getParentFile();
+			  
+			                  if (null != parent_directory)
+			  
+			                  {
+			  
+			                      parent_directory.mkdirs();
+			  
+			                  }
+			  
+			   
+			  
+			                  try {
+			  					excel.createNewFile();
+			  				} catch (IOException e) {
+			  					// TODO Auto-generated catch block
+			  					e.printStackTrace();
+			  				}
+			  
+			              }
+			  
+			  FileOutputStream out;
+			  try {
+			  out = new FileOutputStream(excel,false);
+			  wb.write(out);
+			  out.close();
+			  } catch (Exception e) {
+			  // TODO Auto-generated catch block
+			  e.printStackTrace();
+			  }
+
+			  
+			   
+			  
+			       
+			  
+			  
+			  
+			          // dispose of temporary files backing this workbook on disk
+			  
+			          wb.dispose();
+			  
+			          System.out.println("File is created");
+			  
+			          //Launch Excel File Created
+			  
+			   
+
+			
+			
+			
+		 
+			
+			          
+			          /////////////////return to menu////////////////////
+			         
+						
+						/////////////// send file to download /////////////
+						
+						
+						
+					
+				
+							InputStream input = reteriveByteArrayInputStream(excel) ; 
+							
+							
+							// get your file as InputStream
+					       
+					        // copy it to response's OutputStream
+								ConfigurableMimeFileTypeMap mimeMap = new ConfigurableMimeFileTypeMap();
+						        String contentType = mimeMap.getContentType(excel.getName());
+						        response.setContentType(contentType);
+						        if(contentType.equals("application/octet-stream"))
+						        {
+						        response.setHeader( "Content-Disposition", "attachment;filename="
+						        	      + excel.getName() );
+						        }	        
+						        response.flushBuffer();
+						        org.apache.commons.io.IOUtils.copy(input, response.getOutputStream());
+
+						
+						
+				       
+			///////////////////////
+			          
+			
+			
+			
+			
+		} 
+private static CellStyle getHeaderStyle()
+		
+	    {
+
+	        CellStyle style = wb.createCellStyle();
+
+	        style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+
+	        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+	 
+
+	        style.setBorderBottom(CellStyle.BORDER_THIN);
+
+	        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderLeft(CellStyle.BORDER_THIN);
+
+	        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderRight(CellStyle.BORDER_THIN);
+
+	        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderTop(CellStyle.BORDER_THIN);
+
+	        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setAlignment(CellStyle.ALIGN_CENTER);
+
+	 
+
+	        return style;
+
+	    }
+
+	 
+	private static CellStyle getNormalStyle()
+
+	    {
+
+	        CellStyle style = wb.createCellStyle();
+
+	 
+
+	        style.setBorderBottom(CellStyle.BORDER_THIN);
+
+	        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderLeft(CellStyle.BORDER_THIN);
+
+	        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderRight(CellStyle.BORDER_THIN);
+
+	        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setBorderTop(CellStyle.BORDER_THIN);
+
+	        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+	        style.setAlignment(CellStyle.ALIGN_CENTER);
+
+	 
+
+	        return style;
+
+	    }
+
+	 
+
+	 private static void autoResizeColumns()
+	 
+	     {
+	 
+	         for(int colIndex = 0; colIndex < 32 ; colIndex++)
+	 
+	         {
+	 
+	             sh.autoSizeColumn(colIndex);
+	 
+	         }
+	 
+	     }
+
+		
+	 public static ByteArrayInputStream reteriveByteArrayInputStream(File file) throws IOException {
+		    return new ByteArrayInputStream(FileUtils.readFileToByteArray(file));
+		}
+	
+	
+	
 }

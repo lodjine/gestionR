@@ -218,14 +218,14 @@
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
                     
-							<select name="subprocess.sspId" id="currencySelect"
-								class="form-control select2 form-control "  >
+							<select name="user.email" id="currencySelect"
+								class="form-control select2 form-control required "  >
 								                 
 								<option value="">select utilisateur</option>
 									
 								
 								
-								<c:forEach items="${users }" var="user">
+								<c:forEach items="${users}" var="user">
 									
 
 										<option value="${user.email}">${user.firstName} ${user.lastName}</option>

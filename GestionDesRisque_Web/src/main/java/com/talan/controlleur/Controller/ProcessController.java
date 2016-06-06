@@ -122,7 +122,8 @@ public class ProcessController {
 	public ModelAndView validProcess(@ModelAttribute Processus processus){
 		
 		ModelAndView model = new ModelAndView("index") ; 
-	
+	Utilisateur user=utilisateurServiceImpl.getById(processus.getUser().getEmail());
+	processus.setUser(user);
 		processServiceImpl.save(processus);
 		return model ; 
 		
