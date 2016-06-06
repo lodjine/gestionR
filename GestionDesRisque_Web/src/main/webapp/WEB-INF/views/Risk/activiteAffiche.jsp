@@ -25,22 +25,27 @@
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
-  
-  
-  
-  
 
-  <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-  <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="resources/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="resources/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <script src="resources/js/jquery.min.js"></script>
-   <script src="resources/js/angular.min.js"></script>
-    
-     <script src="resources/js/Impact.Angular.js"></script>
 
+
+
+
+
+
+  <!-- Custom styling plus plugins -->
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="css/icheck/flat/green.css" rel="stylesheet">
+  <!-- ion_range -->
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+  <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+
+  <!-- colorpicker -->
+  <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+  <script src="js/jquery.min.js"></script>
 
 
 </head>
@@ -66,7 +71,8 @@
 
           <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
@@ -175,13 +181,13 @@
       <!-- /top navigation -->
 
       <!-- page content -->
-			<div class="right_col" role="main" style="height: auto;">
+			<div class="right_col" role="main">
 
-				<div class="" style="height: auto;">
+				<div class="">
 					<div class="page-title">
 
 
-						<div class="title_right" style="height: auto;">
+						<div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 
@@ -190,9 +196,9 @@
 					</div>
 					<div class="clearfix"></div>
 
-					<div class="row"  style="height: auto;">
-						<div class="col-md-12 col-sm-12 col-xs-12" style="height: auto;">
-							<div class="x_panel" style="height: auto;">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel" style="height: 595px;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -201,120 +207,80 @@
 								
 								        <div class="clearfix"></div>
              
-              
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Impact/Consequence</h3>
-				
-		<br />
+                <div class="x_content">
 
-	<div ng-app="ImpactApp" style="height: auto;">
-    <div ng-controller="TableCtrl">
-        <div class="input-group">
-            <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
-      <span class="glyphicon glyphicon-search"></span>
-</span>
-        </div>
-        <table class="table  table-hover data-table myTable">
-            <thead>
-                <tr>
-                    <th class="id"> <a href="#" ng-click="sort('impactId',$event)">ID
-                         <span class="{{Header[0]}}"></span>
-                         </a>
+                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="action" action="editAction" >
 
-                    </th>
-                    <th class="Implabel"> <a ng-click="sort('impactLabel')" href="#"> Label
-                         <span class="{{Header[1]}}"></span></a>
-                    </th>
-                    <th class="value"> <a ng-click="sort('value')" href="#"> Value
-                     <span class="{{Header[2]}}"></span></a>
-                    </th>
-                     <th class="value"> <a ng-click="sort('value')" href="#"> Risque
-                     <span class="{{Header[2]}}"></span></a>
-                    </th>
-                    <th class="value"> <a ng-click="sort('value')" href="#"> Type
-                     <span class="{{Header[2]}}"></span></a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
-                    <td>{{item.impactId}}</td>
-                    <td>{{item.impactLabel}}</td>
-                    <td>{{item.value}}</td>
-                     <td>{{item.risque.risqueLabel}}</td>
-                    <td>{{item.critere}}</td>
+                  
+                    <span class="section">Action</span>
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label  <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="label" placeholder="Label" required="required" type="text" value="${action.label }">
+                      </div>
+                    </div>
                     
-                    <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <ul class="pagination pagination-sm">
-            <li ng-class="{active:0}"><a href="#" ng-click="firstPage()">First</a>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Begin Date <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text" value="${action.beginDate }">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">End Date <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text" value="${action.endDate }">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Risk <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12"> 
+							<select name="risk.risqueId" id="currencySelect"
+								class="form-control select2 form-control required noselect"  >
+								                
+								<option value="${action.risk.risqueId }">${action.risk.risqueLabel }</option>
+									
+								
+								
+								<c:forEach items="${rList}" var="ssProc">
+									
 
-            </li>
-            <li ng-repeat="n in range(ItemsByPage.length)"> <a href="#" ng-click="setPage()" ng-bind="n+1">1</a>
-
-            </li>
-            <li><a href="#" ng-click="lastPage()">Last</a>
-
-            </li>
-        </ul>
-        <div class="row">
-            <div class="col-xs-2">
-                <input type="hidden" ng-model="impactId" class="form-control" placeholder="id" hidden="true">
-            </div>
-            <div class="col-xs-2">
-                <input type="text" ng-model="impactLabel" class="form-control" placeholder="value">
-            </div>
-            <div class="col-xs-2">
-                <input type="number" ng-model="value" class="form-control" placeholder="value">
-            </div>
-             <div class="col-xs-2">
-                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Risk</option>
-     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-2">
-                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Type</option>
-     				 <option value="Confidentialite">Confidentialite </option>
-     				 <option value="Disponibilite">Disponibilite</option>
-     				 <option value="Integrite">Integrite</option>
-   			   </select>
-            </div>
-            <div class="col-xs-1">
-                <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
-               
-
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- Ends Controller -->
-</div>
-
-                 
+										<option value="${ssProc.risqueId}">${ssProc.risqueLabel}</option>
+									
+								</c:forEach>
+							</select>
+						</div>
+                      </div>
+                    
+                    <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Status </label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="${action.status }" name="status">
+                  </div>
+                   </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+                    <input type="hidden" name="actionId" value="${action.actionId }">
+                  </f:form>
                 </div>
-                
-              
-             
-						</div>
-						
+								
+					   </div>			
+								
 							</div>
-							
 						</div>
-						
-						</div>
-				
-								
-					   			
-								
-						
-						 
-			
+					</div>
+				</div>
+			</div>
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -336,7 +302,7 @@
   </div>
 
   <script src="resources/js/bootstrap.min.js"></script>
-
+ <script src="resources/js/knob/jquery.knob.min.js"></script>
   <!-- bootstrap progress js -->
   <script src="resources/js/progressbar/bootstrap-progressbar.min.js"></script>
   <!-- icheck -->
@@ -346,43 +312,7 @@
   <script src="resources/js/custom.js"></script>
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
-  <script src="resources/js/datatables/jquery.dataTables.min.js"></script>
-        <script src="resources/js/datatables/dataTables.bootstrap.js"></script>
-        <script src="resources/js/datatables/dataTables.buttons.min.js"></script>
-        <script src="resources/js/datatables/buttons.bootstrap.min.js"></script>
-        <script src="resources/js/datatables/jszip.min.js"></script>
-        <script src="resources/js/datatables/pdfmake.min.js"></script>
-        <script src="resources/js/datatables/vfs_fonts.js"></script>
-        <script src="resources/js/datatables/buttons.html5.min.js"></script>
-        <script src="resources/js/datatables/buttons.print.min.js"></script>
-        <script src="resources/js/datatables/dataTables.fixedHeader.min.js"></script>
-        <script src="resources/js/datatables/dataTables.keyTable.min.js"></script>
-        <script src="resources/js/datatables/dataTables.responsive.min.js"></script>
-        <script src="resources/js/datatables/responsive.bootstrap.min.js"></script>
-        <script src="resources/js/datatables/dataTables.scroller.min.js"></script>
   <script>
-  $(document).ready(function() {
-      $('#datatable').dataTable();
-     });
-		
-  
-  $('#boutonLoop')
-  .click(
-  		function() {
-
-  			e = $('.byCodeClass').find(':selected').val();
-  			if(e != ""){
-
-  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
-
-  			$('#seekbouton').trigger("click");
-  			}
-  			
-  			
-
-  		});
-  
-  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
@@ -424,7 +354,107 @@
         $('form .alert').remove();
     }).prop('checked', false);
   </script>
+ <script>
+    $(function($) {
 
+      $(".knob").knob({
+        change: function(value) {
+          //console.log("change : " + value);
+        },
+        release: function(value) {
+          //console.log(this.$.attr('value'));
+          console.log("release : " + value);
+        },
+        cancel: function() {
+          console.log("cancel : ", this);
+        },
+        /*format : function (value) {
+         return value + '%';
+         },*/
+        draw: function() {
+
+          // "tron" case
+          if (this.$.data('skin') == 'tron') {
+
+            this.cursorExt = 0.3;
+
+            var a = this.arc(this.cv) // Arc
+              ,
+              pa // Previous arc
+              , r = 1;
+
+            this.g.lineWidth = this.lineWidth;
+
+            if (this.o.displayPrevious) {
+              pa = this.arc(this.v);
+              this.g.beginPath();
+              this.g.strokeStyle = this.pColor;
+              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+              this.g.stroke();
+            }
+
+            this.g.beginPath();
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+            this.g.stroke();
+
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+            this.g.stroke();
+
+            return false;
+          }
+        }
+      });
+
+      // Example of infinite knob, iPod click wheel
+      var v, up = 0,
+        down = 0,
+        i = 0,
+        $idir = $("div.idir"),
+        $ival = $("div.ival"),
+        incr = function() {
+          i++;
+          $idir.show().html("+").fadeOut();
+          $ival.html(i);
+        },
+        decr = function() {
+          i--;
+          $idir.show().html("-").fadeOut();
+          $ival.html(i);
+        };
+      $("input.infinite").knob({
+        min: 0,
+        max: 20,
+        stopper: false,
+        change: function() {
+          if (v > this.cv) {
+            if (up) {
+              decr();
+              up = 0;
+            } else {
+              up = 1;
+              down = 0;
+            }
+          } else {
+            if (v < this.cv) {
+              if (down) {
+                incr();
+                down = 0;
+              } else {
+                down = 1;
+                up = 0;
+              }
+            }
+          }
+          v = this.cv;
+        }
+      });
+    });
+  </script>
+  <!-- /knob -->
 </body>
 
 </html>

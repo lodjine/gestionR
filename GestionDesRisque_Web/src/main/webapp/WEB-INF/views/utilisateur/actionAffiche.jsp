@@ -56,7 +56,6 @@
 
           <!-- sidebar menu -->
              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
@@ -74,11 +73,11 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
-                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
+                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
                     </li>
-                   <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
+                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
                     </li>
@@ -103,15 +102,14 @@
                 </li>
                 <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
+                    <li><a href="/GestionDesRisque_Web/MenuAction">Action</a>
                     </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
+                    <li><a href="/GestionDesRisque_Web/alerte">Alerte</a>
                     </li>
                   </ul>
                 </li>
               </ul>
             </div>
-            
 
           </div>
           <!-- /sidebar menu -->
