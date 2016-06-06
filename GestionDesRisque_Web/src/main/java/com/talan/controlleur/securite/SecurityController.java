@@ -64,20 +64,22 @@ ProcessService processServiceImpl;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpSession session) {
-		
+		ModelAndView model=new ModelAndView();
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		Utilisateur myUser = new Utilisateur();
 		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		model.addObject("firstname", myUser.getFirstName());
+		model.addObject("lastname", myUser.getLastName());
+		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		UserDetails userr = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
         Utilisateur myUserx = new Utilisateur() ;
         myUserx = utilisateurServiceImpl.getById(userr.getUsername());
         session.setAttribute("user", myUserx.getEmail());
-		ModelAndView model=new ModelAndView();
-		model.addObject("firstname", myUser.getFirstName());
-		model.addObject("lastname", myUser.getLastName());
-model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
+		
+	
+       
 		model.setViewName("index");
 		List<Processus> proc = processServiceImpl.getAll() ; 
 		model.addObject("procs",proc );
