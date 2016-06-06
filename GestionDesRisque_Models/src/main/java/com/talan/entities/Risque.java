@@ -20,6 +20,9 @@ public class Risque implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int risqueId;
 	private int value ;
+	private int totalMesure ;
+	private int totalVuls ;
+	private int totalImp ;
 	private String risqueLabel;
 	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
 	@JoinColumn(name="proc")
@@ -37,6 +40,30 @@ public class Risque implements Serializable{
 		return risqueId;
 	}
 	
+	public int getTotalMesure() {
+		return totalMesure;
+	}
+
+	public void setTotalMesure(int totalMesure) {
+		this.totalMesure = totalMesure;
+	}
+
+	public int getTotalVuls() {
+		return totalVuls;
+	}
+
+	public void setTotalVuls(int totalVuls) {
+		this.totalVuls = totalVuls;
+	}
+
+	public int getTotalImp() {
+		return totalImp;
+	}
+
+	public void setTotalImp(int totalImp) {
+		this.totalImp = totalImp;
+	}
+
 	public int getValue() {
 		return value;
 	}

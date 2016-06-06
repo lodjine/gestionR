@@ -118,6 +118,7 @@ public class MesureController {
 			mesure.setValue(value);
 			mesure.setCritere(type);
 			Risque r = rserviceImpl.getById(idrisque) ;
+			r.setTotalMesure(r.getTotalMesure()+value);
 			mesure.setRisque(r);
 			mesureExServiceImpl.persisteMesure(mesure);
 ////////////tracabilite/////////////
