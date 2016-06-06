@@ -32,7 +32,34 @@ public class Confidentialite {
 	private int iC ; 
 	private int resultat;
 	private String confLabel; 
+	private int totalmesure ; 
+	private int totalvul ; 
+	private int totalimp ; 
 	
+	public int getTotalmesure() {
+		return totalmesure;
+	}
+
+	public void setTotalmesure(int totalmesure) {
+		this.totalmesure = totalmesure;
+	}
+
+	public int getTotalvul() {
+		return totalvul;
+	}
+
+	public void setTotalvul(int totalvul) {
+		this.totalvul = totalvul;
+	}
+
+	public int getTotalimp() {
+		return totalimp;
+	}
+
+	public void setTotalimp(int totalimp) {
+		this.totalimp = totalimp;
+	}
+
 	public String getConfLabel() {
 		return confLabel;
 	}

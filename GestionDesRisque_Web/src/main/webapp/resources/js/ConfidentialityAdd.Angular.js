@@ -122,7 +122,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     		$scope.iconfEq=	PersisteConfWithNewObeject("nothing",$scope.iConf,"Resultat");
     	}else{
     		
-    		UpdateConfWithNewObeject("nothing",$scope.allItems[0].confId,xx,"Resultat") ;
+    		UpdateConfWithNewObeject("nothing",$scope.allItems[0].confId,0,"Resultat") ;
     	}
     }
     $scope.add = function () {
@@ -142,46 +142,18 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	if($scope.iconfEq == 0){
     		if($scope.MesureSelect.repeatSelect == null){
     			$scope.iconfEq=	PersisteConfWithNewObeject($scope.MesureLabel,$scope.MesureValue,"Mesure");
-    			$scope.allItems = getDummyData($scope.iconfEq) ;
-    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
-    	 			
-    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
-    				
-    			}
-    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("Mesure",$sccope.MesureSelect.repeatSelect) ;
-    			$scope.allItems = getDummyData($scope.iconfEq) ;
-    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
-    	 			
-    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
     				
-    			}
-    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
     		}
     	}else{
     		if($scope.MesureSelect.repeatSelect == null){
     			UpdateConfWithNewObeject($scope.MesureLabel,$scope.allItems[0].confId,$scope.MesureValue,"Mesure") ;
-    			$scope.allItems = getDummyData($scope.iconfEq) ;
-    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
-    	 			
-    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
-    				
-    			}
-    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			UpdateConfWithOldObject($scope.allItems[0].confId,"Mesure",$scope.MesureSelect.repeatSelect)
-    			$scope.allItems = getDummyData($scope.iconfEq) ;
-    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
-    	 			
-    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
-    				
-    			}
-    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}
     	
     	}
@@ -195,43 +167,18 @@ $scope.addVul = function () {
     	
     	if($scope.iconfEq == 0){
     		if($scope.vulSelect.repeatSelect == null){
-    			$scope.iconfEq=	PersisteConfWithNewObeject($scope.VulLabel,$scope.VulValue,"Vul");
-    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
-				
-			}
-	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("Vul",vulSelect.repeatSelect) ;
-    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
-				
-			}
-	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}
     	}else{
     		if($scope.vulSelect.repeatSelect == null){
     			UpdateConfWithNewObeject($scope.VulLabel,$scope.allItems[0].confId,$scope.VulValue,"Vul") ;
-    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
-				
-			}
-	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			UpdateConfWithOldObject($scope.allItems[0].confId,"Vul",$scope.vulSelect.repeatSelect) ; 
-    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
-				
-			}
-	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}
     	
     	}
@@ -241,46 +188,22 @@ $scope.addVul = function () {
           $scope.resetAll();
     }
     $scope.addImp = function () {
-    	
+    	var mesv = 0 ;
     	if($scope.iconfEq == 0){
     		if($scope.impSelect.repeatSelect == null){
     			$scope.iconfEq=	PersisteConfWithNewObeject($scope.ImpLabel,$scope.ImpValue,"imp");
-    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
-				
-			}
-	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("imp",$sccope.impSelect.repeatSelect) ;
-    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
-				
-			}
-	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}
     	}else{
     		if($scope.impSelect.repeatSelect == null){
     			UpdateConfWithNewObeject($scope.ImpLabel,$scope.allItems[0].confId,$scope.ImpValue,"imp") ;
-    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
-				
-			}
-	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}else{
     			UpdateConfWithOldObject($scope.allItems[0].confId,"imp",$scope.impSelect.repeatSelect) ; 
-    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
-    	 			
-					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
-				
-			}
-	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+    			
     		}
     	
     	}
@@ -371,23 +294,11 @@ $scope.addVul = function () {
 	 	if($scope.MesureSelect.repeatSelect == null){
 	 		
 	 		updateMesure($scope.MesureId,$scope.MesureLabel,$scope.MesureValue) ; 
-	 		$scope.allItems = getDummyData($scope.iconfEq) ;
-	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
-	 			
-					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
-				
-			}
-	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+	 		
+	 		
 	 		
 	 	}else{
-	 		for(var i =0 ; i<  $scope.vulSelect.availableOptions.length; i++){
-				if( $scope.vulSelect.availableOptions[i].vulnId == $scope.vulSelect.repeatSelect ){
-					 mesv = $scope.vulSelect.availableOptions[i].value ;
-				}
-			}
-	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-	 		$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+	 		
 	 		UpdateConfWithOldObject($scope.allItems[0].integId,"Mesure",$scope.MesureSelect.repeatSelect) ; 
 	 	}
 	 	
@@ -402,14 +313,7 @@ $scope.addVul = function () {
 	 	if($scope.vulSelect.repeatSelect == null){
 	 		
 	 		updateVul($scope.VulId,$scope.VulLabel,$scope.VulValue) ; 
-	 		$scope.allItems = getDummyData($scope.iconfEq) ;
-	 		for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
-	     		
-				 mesv = mesv+$scope.allItems[0].vulnerabs[i].value ;
-			
-		}
-	 		$scope.vulnValue = parseInt(mesv) ;
-	 		$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+	 		
 	 	}else{
 	 		for(var i =0 ; i<  $scope.vulSelect.availableOptions.length; i++){
 				if( $scope.vulSelect.availableOptions[i].vulnId == $scope.vulSelect.repeatSelect ){
@@ -431,21 +335,10 @@ $scope.addVul = function () {
 		 var mesv =0 ;
 		if($scope.impSelect.repeatSelect == null){
 			updateImp($scope.ImpId,$scope.ImpLabel,$scope.ImpValue) ; 
-			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
-				
-				 mesv = mesv+ $scope.allItems[0].impacts[i].value ;
-			
-		}
-			$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-			$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+
+
 		}else{
-			for(var i =0 ; i<  $scope.impSelect.availableOptions.length; i++){
-	 			if( $scope.impSelect.availableOptions[i].impactId == $scope.impSelect.repeatSelect ){
-	 				var mesv = $scope.impSelect.availableOptions[i].value ;
-	 			}
-	 		}
-			$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-			$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].iC)- parseInt($scope.mesureValue)   ;
+			
 			UpdateConfWithOldObject($scope.allItems[0].integId,"Imp",$scope.impSelect.repeatSelect) ; 
 		}
 		
@@ -460,26 +353,7 @@ $scope.addVul = function () {
     	deleteObject($scope.allItems[0].mesures[index].mesureId,"Mesure",$scope.allItems[0].confId);
     	$scope.allItems[0].mesures.splice(index, 1);
     	
-    	var mesureValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].mesures.length ; i++){
-        	mesureValue = mesureValue + $scope.allItems[0].mesures[i].value ;  
-        	
-        }
-        var vulnValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].vulnerabs.length ; i++){
-        	vulnValue = vulnValue + $scope.allItems[0].vulnerabs[i].value ;  
-        	
-        }
-        var impactsValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].impacts.length ; i++){
-        	impactsValue = impactsValue + $scope.allItems[0].impacts[i].value ;  
-        	
-        }
-        
-        $scope.mesureValue = mesureValue ;
-        $scope.vulnValue = vulnValue ;
-        $scope.impactsValue = impactsValue ;
-        $scope.total = mesureValue + vulnValue + impactsValue ;
+    	
     	
     	
     	 $scope.filteredList = $scope.allItems;
@@ -493,27 +367,6 @@ $scope.addVul = function () {
     	deleteObject($scope.allItems[0].mesures[index].vulnId,"Vul",$scope.allItems[0].confId);
     	$scope.allItems[0].vulnerabs.splice(index, 1);
     	
-    	var mesureValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].mesures.length ; i++){
-        	mesureValue = mesureValue + $scope.allItems[0].mesures[i].value ;  
-        	
-        }
-        var vulnValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].vulnerabs.length ; i++){
-        	vulnValue = vulnValue + $scope.allItems[0].vulnerabs[i].value ;  
-        	
-        }
-        var impactsValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].impacts.length ; i++){
-        	impactsValue = impactsValue + $scope.allItems[0].impacts[i].value ;  
-        	
-        }
-        
-        $scope.mesureValue = mesureValue ;
-        $scope.vulnValue = vulnValue ;
-        $scope.impactsValue = impactsValue ;
-        $scope.total = mesureValue + vulnValue + impactsValue ;
-    	
     	
     	 $scope.filteredList = $scope.allItems;
          
@@ -524,26 +377,6 @@ $scope.addVul = function () {
     	deleteObject($scope.allItems[0].impacts[index].vulnId,"imp",$scope.allItems[0].impactId);
     	$scope.allItems[0].impacts.splice(index, 1);
     	
-    	var mesureValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].mesures.length ; i++){
-        	mesureValue = mesureValue + $scope.allItems[0].mesures[i].value ;  
-        	
-        }
-        var vulnValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].vulnerabs.length ; i++){
-        	vulnValue = vulnValue + $scope.allItems[0].vulnerabs[i].value ;  
-        	
-        }
-        var impactsValue = 0 ; 
-        for (var i = 0 ; i<$scope.allItems[0].impacts.length ; i++){
-        	impactsValue = impactsValue + $scope.allItems[0].impacts[i].value ;  
-        	
-        }
-        
-        $scope.mesureValue = mesureValue ;
-        $scope.vulnValue = vulnValue ;
-        $scope.impactsValue = impactsValue ;
-        $scope.total = mesureValue + vulnValue + impactsValue ;
     	
     	
     	 $scope.filteredList = $scope.allItems;

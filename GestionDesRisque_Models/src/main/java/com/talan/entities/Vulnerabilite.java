@@ -2,10 +2,13 @@ package com.talan.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Vulnerabilite implements Serializable{
@@ -19,7 +22,29 @@ public class Vulnerabilite implements Serializable{
 	private String vulnLabel;
 	
 	private int value;
+	
+	private String critere ; 
+	@ManyToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@JoinColumn(name="risk")
+	private Risque risque ; 
 
+	public String getCritere() {
+		return critere;
+	}
+
+	public void setCritere(String critere) {
+		this.critere = critere;
+	}
+
+	public Risque getRisque() {
+		return risque;
+	}
+
+	public void setRisque(Risque risque) {
+		this.risque = risque;
+	}
+	
+	
 	public int getVulnId() {
 		return vulnId;
 	}

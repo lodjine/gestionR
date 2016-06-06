@@ -3,6 +3,7 @@ package com.talan.dao;
 import java.util.List;
 
 import com.talan.entities.Action;
+import com.talan.entities.MesureEx;
 import com.talan.entities.Vulnerabilite;
 
 public interface VulnerabiliteDao {
@@ -12,4 +13,5 @@ public interface VulnerabiliteDao {
 	public void update(Vulnerabilite vulner);
 	public void delete(Vulnerabilite vulner);
 	public void save(Vulnerabilite vulner);
+	public List<Vulnerabilite> getVulnerabiliteByRiskAndType(int id , String type) ;
 }

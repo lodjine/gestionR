@@ -299,8 +299,16 @@ public class ConfidentialiteController {
 			p.setDescription(conf.getRisque().getProc().getDescription());
 			p.setProcId(conf.getRisque().getProc().getProcId());
 			r.setProc(p);
-			confJson.setRisque(conf.getRisque());
+			confJson.setRisque(r);
+			
+			
+			conf.setTotalmesure(messu);
+			conf.setTotalvul(vulls);
+			conf.setTotalimp(impps);
 			int res = (confJson.getiC() *vulls * impps) - messu ; 
+			conf.setResultat(res);
+			confidentialiteServiceImpl.update(conf);
+			 
 			confJson.setResultat(res);
 			confidentialiteServiceImpl.update(confJson);
 			List<Confidentialite> confList = new ArrayList<>();
@@ -362,8 +370,14 @@ for(int i =0 ; i<conf.getVulnerabs().size(); i++){
 }
 int impTotal = 0 ; 
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
-	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
+	impTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
+
+conf.setTotalmesure(mesTotal);
+conf.setTotalvul(vulTotal);
+conf.setTotalimp(impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+
 conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
 		confidentialiteServiceImpl.update(conf);
 		return conf.getConfId() ; 
@@ -424,9 +438,15 @@ for(int i =0 ; i<conf.getVulnerabs().size(); i++){
 }
 int impTotal = 0 ; 
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
-	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
+	impTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
 conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+conf.setTotalmesure(mesTotal);
+conf.setTotalvul(vulTotal);
+conf.setTotalimp(impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+
+
 		confidentialiteServiceImpl.update(conf);
 		return conf.getConfId() ; 
 		
@@ -503,6 +523,12 @@ int impTotal = 0 ;
 for(int i=0 ; i<conf.getImpacts().size() ;i++){
 	vulTotal = vulTotal+conf.getImpacts().get(i).getValue() ;
 }
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+conf.setTotalmesure(mesTotal);
+conf.setTotalvul(vulTotal);
+conf.setTotalimp(impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+
 
 if(!(conf.getiC() >= 0)){
 conf.setiC(0);
@@ -591,7 +617,12 @@ if(!(conf.getiC() >= 0)){
 conf.setiC(0);
 }
 conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
-	
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+conf.setTotalmesure(mesTotal);
+conf.setTotalvul(vulTotal);
+conf.setTotalimp(impTotal);
+conf.setResultat((vulTotal*impTotal*conf.getiC())-mesTotal);
+
 int x = confidentialiteServiceImpl.merge(conf);
 		return x ; 
 		

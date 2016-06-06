@@ -91,6 +91,11 @@ public class RisqueServiceImpl implements RisqueService {
 		return risqueDaoImpl.getIntByProcRev(idproc, user, userRole, res);
 	}
 
+	public List<Risque> getRiskByProc(int id) {
+		// TODO Auto-generated method stub
+		return risqueDaoImpl.getRiskByProc(id);
+	}
+
 	
 	
 }

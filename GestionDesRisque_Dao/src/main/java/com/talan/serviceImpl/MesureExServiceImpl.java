@@ -56,4 +56,9 @@ public class MesureExServiceImpl implements MesureExService {
 		mesureExDao.persisteMesure(mesure);
 	}
 
+	public List<MesureEx> getmesureByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+		return mesureExDao.getmesureByRiskAndType(id, type);
+	}
+
 }

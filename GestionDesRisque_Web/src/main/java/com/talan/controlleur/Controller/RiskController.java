@@ -19,13 +19,18 @@ import com.talan.entities.Confidentialite;
 import com.talan.entities.Disponibilite;
 import com.talan.entities.ImpactC;
 import com.talan.entities.Integrite;
+import com.talan.entities.ListRisque;
 import com.talan.entities.MesureEx;
+import com.talan.entities.Processus;
 import com.talan.entities.Risque;
 import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
+import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
+import com.talan.service.ProcessService;
 import com.talan.service.RisqueService;
 import com.talan.service.UtilisateurService;
+import com.talan.service.VulnerabiliteService;
 
 @Controller
 public class RiskController {
@@ -34,11 +39,63 @@ public class RiskController {
 	RisqueService riskServiceImpl ; ;
 	@Autowired
 	UtilisateurService utilisateurServiceImpl;
-	
-	
+	@Autowired
+	MesureExService mesServiceImpl ; 
+	@Autowired
+	ImpactCService impactCServiceImpl ; 
+	@Autowired
+	VulnerabiliteService vulServiceImpl ; 
+	@Autowired
+	ProcessService pServiceImpl ; 
 	
 
-	
+	public ImpactCService getImpactCServiceImpl() {
+		return impactCServiceImpl;
+	}
+
+
+
+
+
+	public void setImpactCServiceImpl(ImpactCService impactCServiceImpl) {
+		this.impactCServiceImpl = impactCServiceImpl;
+	}
+
+
+
+
+
+	public VulnerabiliteService getVulServiceImpl() {
+		return vulServiceImpl;
+	}
+
+
+
+
+
+	public void setVulServiceImpl(VulnerabiliteService vulServiceImpl) {
+		this.vulServiceImpl = vulServiceImpl;
+	}
+
+
+
+
+
+	public MesureExService getMesServiceImpl() {
+		return mesServiceImpl;
+	}
+
+
+
+
+
+	public void setMesServiceImpl(MesureExService mesServiceImpl) {
+		this.mesServiceImpl = mesServiceImpl;
+	}
+
+
+
+
 
 	public UtilisateurService getUtilisateurServiceImpl() {
 		return utilisateurServiceImpl;
@@ -132,6 +189,56 @@ public class RiskController {
 		return true ; 
 		
     }
+	
+	
+	@RequestMapping(value="/seekRisqueByProc/{id}/{type}" , method = RequestMethod.GET)
+	public @ResponseBody List<ListRisque> getRisksByProc(@PathVariable("id") int id,@PathVariable("type") String type ,HttpSession session ) {
+	List<Risque>rList = riskServiceImpl.getRiskByProc(id) ; 
+	List<MesureEx> mesList = new ArrayList<>() ;
+	List<ImpactC> impList = new ArrayList<>() ; 
+	List<Vulnerabilite> vulList = new ArrayList<>() ; 
+	List<ListRisque> listRisque = new ArrayList<>() ; 
+			for(int i =0 ; i<rList.size() ; i++) {
+				ListRisque lrisque = new ListRisque() ; 
+				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				for(int j = 0 ; j<mesList.size() ; j++){
+					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
+					if(j== 0){
+						lrisque.setMesures(mesList.get(j).getMesureLabel());
+					}else{
+					lrisque.setMesures(lrisque.getMesures()+"\r\n"+mesList.get(j).getMesureLabel());
+					}
+					lrisque.setTotalmes(lrisque.getTotalmes()+mesList.get(j).getValue() );
+				}
+				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 for(int j = 0 ; j<impList.size() ; j++){
+					 if(j== 0){
+							lrisque.setImpacts(impList.get(j).getImpactLabel());
+						}else{
+						lrisque.setImpacts(lrisque.getImpacts()+"\r\n"+impList.get(j).getImpactLabel());
+						}
+						lrisque.setTotalimps(lrisque.getTotalimps()+impList.get(j).getValue() );
+					}
+				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 for(int j = 0 ; j<vulList.size() ; j++){
+					 if(j== 0){
+						lrisque.setVuls(vulList.get(j).getVulnLabel());
+					 }else{
+						 
+						 lrisque.setVuls(lrisque.getVuls()+"\r\n"+vulList.get(j).getVulnLabel());
+					 }
+						lrisque.setTotalvuls(lrisque.getTotalvuls()+vulList.get(j).getValue() );
+					 
+					}
+				lrisque.setTotal((lrisque.getTotalvuls()*lrisque.getTotalimps()*rList.get(i).getValue())-lrisque.getTotalmes());
+				listRisque.add(lrisque) ;
+			}
+		
+		return listRisque ; 
+	}
+	
+	
+	
 	@RequestMapping(value="/seekConfByProc/{id}/" , method = RequestMethod.GET)
 	public @ResponseBody List<Confidentialite> getRisks(@PathVariable("id") int id,HttpSession session ) {
 		Utilisateur user = new Utilisateur() ; 

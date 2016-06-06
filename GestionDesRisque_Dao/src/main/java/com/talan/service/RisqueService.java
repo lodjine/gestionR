@@ -24,4 +24,5 @@ public interface RisqueService {
 	public  List<Disponibilite> getdispByProcRev(int idproc, String user,String userRole , int res) ;
 	public  List<Integrite> getIntByProc(int idproc, String user,String userRole) ;
 	public  List<Integrite> getIntByProcRev(int idproc, String user,String userRole , int res) ;
+	public List<Risque> getRiskByProc(int id); 
 }

@@ -227,6 +227,12 @@
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value
                      <span class="{{Header[2]}}"></span></a>
                     </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Risque
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Type
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -234,6 +240,8 @@
                     <td>{{item.mesureId}}</td>
                     <td>{{item.mesureLabel}}</td>
                     <td>{{item.value}}</td>
+                    <td>{{item.risque.risqueLabel}}</td>
+                    <td>{{item.critere}}</td>
                     
                     <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                      <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
@@ -253,14 +261,28 @@
             </li>
         </ul>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <input type="hidden" ng-model="mesureId" class="form-control" placeholder="id" hidden="true">
             </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="mesureLabel" class="form-control" placeholder="value">
+            <div class="col-xs-2">
+                <input type="text" ng-model="mesureLabel" class="form-control" placeholder="Label">
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <input type="number" ng-model="value" class="form-control" placeholder="value">
+            </div>
+            <div class="col-xs-2">
+                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Risk</option>
+     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-2">
+                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Type</option>
+     				 <option value="Confidentialite">Confidentialite </option>
+     				 <option value="Disponibilite">Disponibilite</option>
+     				 <option value="Integrite">Integrite</option>
+   			   </select>
             </div>
             <div class="col-xs-1">
                 <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>

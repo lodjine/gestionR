@@ -220,5 +220,14 @@ session.update(risque);
 		
 		return query.list();
 	}
+	public List<Risque> getRiskByProc(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession() ; 
+		
+		String hql = "SELECT a FROM Risque a WHERE a.proc.procId =:id";
+		Query query =session.createQuery(hql);	
+		query.setParameter("id", id);
+		return query.list();
+	}
 	
 }

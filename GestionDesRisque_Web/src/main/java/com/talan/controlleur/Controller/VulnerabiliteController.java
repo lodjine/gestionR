@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.talan.entities.ImpactC;
 import com.talan.entities.MesureEx;
+import com.talan.entities.Risque;
 import com.talan.entities.Vulnerabilite;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
+import com.talan.service.RisqueService;
 import com.talan.service.VulnerabiliteService;
 
 @Controller
@@ -25,7 +27,19 @@ public class VulnerabiliteController {
 
 	@Autowired
 	VulnerabiliteService vulnerabiliteServiceImpl ;
+	@Autowired
+	RisqueService rserviceImpl ; 
 	
+	
+	
+
+	public RisqueService getRserviceImpl() {
+		return rserviceImpl;
+	}
+
+	public void setRserviceImpl(RisqueService rserviceImpl) {
+		this.rserviceImpl = rserviceImpl;
+	}
 
 	public VulnerabiliteService getVulnerabiliteServiceImpl() {
 		return vulnerabiliteServiceImpl;
@@ -67,6 +81,12 @@ public class VulnerabiliteController {
 			vulnerabilite.setVulnLabel(vul.getVulnLabel());
 			vulnerabilite.setValue(vul.getValue());
 			
+			vulnerabilite.setCritere(vul.getCritere());
+			Risque r = new Risque() ; 
+			r.setRisqueLabel(vul.getRisque().getRisqueLabel());
+			r.setRisqueId(vul.getRisque().getRisqueId());
+			vulnerabilite.setRisque(r);
+			
 			vulnerabilitess.add(vulnerabilite) ; 
 		}
 		
@@ -74,26 +94,32 @@ public class VulnerabiliteController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteVulnerabilite/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/PersisteVulnerabilite/{label}/{value}/{type}/{idrisque}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("idrisque") int idrisque ,@PathVariable("type") String type , HttpSession session) {
 		
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
 		
 		vulnerabilite.setVulnLabel(label);
 		vulnerabilite.setValue(value);
+		vulnerabilite.setCritere(type);
+		Risque r = rserviceImpl.getById(idrisque) ;
+		vulnerabilite.setRisque(r);
 		vulnerabiliteServiceImpl.persist(vulnerabilite);
 		
 		return true ; 
 		
     }
-	@RequestMapping(value = "/updateVulnerabilite/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/updateVulnerabilite/{id}/{label}/{value}/{type}/{idrisque}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("idrisque") int idrisque ,@PathVariable("type") String type , HttpSession session) {
 		
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
 		vulnerabilite = vulnerabiliteServiceImpl.getById(id); 
 		
 		vulnerabilite.setVulnLabel(label);
 		vulnerabilite.setValue(value);
+		vulnerabilite.setCritere(type);
+		Risque r = rserviceImpl.getById(idrisque) ;
+		vulnerabilite.setRisque(r);
 		vulnerabiliteServiceImpl.update(vulnerabilite);
 		return true ; 
 		
