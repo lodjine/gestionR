@@ -202,16 +202,18 @@ tracabiliteServiceImpl.persist(trace);
 	
 	@RequestMapping(value = "/AffichProc", method = RequestMethod.GET)
 	public ModelAndView AffichProcess(@ModelAttribute Processus processus){
-		
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
 		ModelAndView model = new ModelAndView("Process/processAffich") ; 
-		List<Processus> Listprocess=processServiceImpl.getAll();
+		List<Processus> Listprocess=processServiceImpl.getAll(myUser);
 		model.addObject("Listprocess", Listprocess);
 		model.addObject("size",Listprocess.size());
 		
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		Utilisateur myUser = new Utilisateur();
-		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		
+	
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
 		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
@@ -224,8 +226,9 @@ tracabiliteServiceImpl.persist(trace);
 	public ModelAndView MenuProc(){
 		
 		ModelAndView model = new ModelAndView("Process/ActifMenu") ; 
+
 		
-		model.addObject("Listprocess", processServiceImpl.getAll());
+	
 		
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
@@ -234,6 +237,13 @@ tracabiliteServiceImpl.persist(trace);
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
 		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
+
+		
+			String role="";
+			
+			
+		model.addObject("Listprocess", processServiceImpl.getAll(myUser));
+
 		return model ;
 		
 		
@@ -245,8 +255,12 @@ tracabiliteServiceImpl.persist(trace);
 	//excel
 	@RequestMapping(value = "/ProcessExcel",  method = RequestMethod.GET)
 	public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
-		
-		List<Processus> processList=processServiceImpl.getAll();
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
+		List<Processus> processList=processServiceImpl.getAll(myUser);
 		
 		ModelAndView model = new ModelAndView(
 				"Process/ActifMenu");
@@ -499,10 +513,8 @@ tracabiliteServiceImpl.persist(trace);
 		        
 					
 
-		          UserDetails user = (UserDetails) SecurityContextHolder.getContext()
-		  				.getAuthentication().getPrincipal();
-		  		Utilisateur myUser = new Utilisateur();
-		  		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		        
+		  		
 		  		model.addObject("firstname", myUser.getFirstName());
 		  		model.addObject("lastname", myUser.getLastName());
 		  		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());

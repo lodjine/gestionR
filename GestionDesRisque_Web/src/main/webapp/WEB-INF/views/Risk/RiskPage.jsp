@@ -192,7 +192,7 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Mesure</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Risque</h3>
 				
 		<br />
 
@@ -374,8 +374,14 @@
     </div>
     <!-- Ends Controller -->
 </div>
-
-                 
+				<f:form action="RisqueExcel"  method="get">
+                <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
+                      </div>
+                    </div> 
+                    </f:form>
                 </div>
                 
               

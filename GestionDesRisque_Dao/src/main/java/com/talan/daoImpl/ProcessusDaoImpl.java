@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talan.dao.ProcessDao;
 import com.talan.entities.Processus;
+import com.talan.entities.Utilisateur;
 @Repository
 @Transactional
 public class ProcessusDaoImpl implements ProcessDao {
@@ -27,8 +28,19 @@ public class ProcessusDaoImpl implements ProcessDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public List<Processus> getAll() {
+	public List<Processus> getAll(Utilisateur user) {
 		Session session=sessionFactory.getCurrentSession();
+		String hql ="" ; 
+		Query query = null ;
+		if(user.getUserType().equals("admin")){
+		 hql ="select a from Processus a" ; 
+		 query = session.createQuery(hql);	
+		}else{
+			hql ="select a from Processus a WHERE a.user.email LIKE :email" ; 
+			 query = session.createQuery(hql);	
+			 query.setParameter("email",user.getEmail());
+		}
+	
 		
 		return session.createQuery("select a from Processus a").list();
 	}
