@@ -73,7 +73,7 @@ public class JobAlerte implements Job{
 		}
 		
 		for(Risque risque:risques){
-			List<Risque> conf=session.createQuery("select a from Risque a WHERE a.risqueId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 14).setParameter("fin", 9999).list();
+			List<Risque> conf=session.createQuery("select a from Risque a WHERE a.risqueId =:id and a.value >= :debut and a.value < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 14).setParameter("fin", 9999).list();
 			
 			
 			AlerteRisqueFort alerte= new AlerteRisqueFort();

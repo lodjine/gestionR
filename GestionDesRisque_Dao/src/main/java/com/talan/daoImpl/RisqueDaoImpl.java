@@ -63,7 +63,7 @@ session.update(risque);
 		int min = 0 ; 
 		int max = 0 ;
 		if(res==0){
-		min=0;
+		min=-9999;
 		max=7;
 		}else
 		if(res == 1){
