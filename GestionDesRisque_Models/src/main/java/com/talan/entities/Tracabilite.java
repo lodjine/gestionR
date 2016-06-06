@@ -30,7 +30,7 @@ public class Tracabilite implements Serializable {
 private String user;
 
 private String operation;
-
+private String labelEntity;
 private String entity;
 
 private String date;
@@ -65,6 +65,14 @@ public String getDate() {
 
 public void setDate(String date) {
 	this.date = date;
+}
+
+public String getLabelEntity() {
+	return labelEntity;
+}
+
+public void setLabelEntity(String labelEntity) {
+	this.labelEntity = labelEntity;
 }
 
 

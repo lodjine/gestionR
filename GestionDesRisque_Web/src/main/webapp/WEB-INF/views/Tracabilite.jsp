@@ -240,6 +240,8 @@
                     <td class="mailbox-name"><a href="read-mail.html"><b>Operation</b></a></td>
                     <td class="mailbox-subject"><b>Entite</b>
                     </td>
+                    <td class="mailbox-subject"><b>Label</b>
+                    </td>
                      <td class="mailbox-subject"><b>Date</b>
                     </td>
                     <td class="mailbox-date"><b>Utilisateur</b></td>
@@ -252,6 +254,8 @@
                     <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
                     <td class="mailbox-name"><a href="read-mail.html">${trace.operation}</a></td>
                     <td class="mailbox-subject"><b>${trace.entity}</b>
+                    </td>
+                    <td class="mailbox-subject"><b>${trace.labelEntity}</b>
                     </td>
                       <td class="mailbox-subject">${trace.date}
                     </td>

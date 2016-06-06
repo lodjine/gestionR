@@ -146,6 +146,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Vulnerabilite");
+trace.setLabelEntity(vulnerabilite.getVulnLabel());
 trace.setOperation("Ajout");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
@@ -176,6 +177,7 @@ myUser = utilisateurServiceImpl.getById(user.getUsername());
 Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
+trace.setLabelEntity(vulnerabilite.getVulnLabel());
 trace.setEntity("Vulnerabilite");
 trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
@@ -201,6 +203,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Vulnerabilite");
+trace.setLabelEntity(vulnerabilite.getVulnLabel());
 trace.setOperation("Delete");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////

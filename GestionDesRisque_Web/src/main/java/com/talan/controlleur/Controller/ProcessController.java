@@ -167,6 +167,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Action");
+trace.setLabelEntity(processus.getProcessus());
 trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////

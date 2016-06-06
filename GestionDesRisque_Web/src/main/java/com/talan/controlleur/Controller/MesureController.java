@@ -133,6 +133,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Mesure");
+trace.setLabelEntity(mesure.getMesureLabel());
 trace.setOperation("Ajout");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
@@ -165,6 +166,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Mesure");
+trace.setLabelEntity(mesure.getMesureLabel());
 trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
@@ -190,6 +192,7 @@ trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Mesure");
 trace.setOperation("Delete");
+trace.setLabelEntity(mesure.getMesureLabel());
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
 		return true ; 

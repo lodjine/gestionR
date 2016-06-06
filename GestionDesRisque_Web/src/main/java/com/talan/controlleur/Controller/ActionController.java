@@ -197,6 +197,7 @@ public class ActionController {
 	trace.setUser(myUser.getEmail());
 	trace.setEntity("Action");
 	trace.setOperation("Ajout");
+	trace.setLabelEntity(action.getLabel());
 	tracabiliteServiceImpl.persist(trace);
 	/////////////////////////////////
 		actionServiceImpl.save(action);
@@ -243,6 +244,7 @@ Tracabilite trace=new Tracabilite();
 trace.setDate(new Date().toString());
 trace.setUser(myUser.getEmail());
 trace.setEntity("Action");
+trace.setLabelEntity(action.getLabel());
 trace.setOperation("Modification");
 tracabiliteServiceImpl.persist(trace);
 /////////////////////////////////
@@ -263,6 +265,23 @@ tracabiliteServiceImpl.persist(trace);
 		ac.setModificationDate(new Date());
 		ac.setStatus(stat);
 		ac.setRisk(r);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Action");
+trace.setLabelEntity(ac.getLabel());
+trace.setOperation("Ajout");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		actionServiceImpl.persist(ac);
 		return true ; 
 		
@@ -280,16 +299,50 @@ tracabiliteServiceImpl.persist(trace);
 		ac.setStatus(stat);
 		ac.setRisk(r);
 		actionServiceImpl.update(ac);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Action");
+trace.setLabelEntity(ac.getLabel());
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
 	@RequestMapping(value = "/deleteAdmin/{idAc}/", method = RequestMethod.GET)
     public @ResponseBody Boolean updateUser(@PathVariable("idAc") int id, HttpSession session) {
 		
-		Action user = new Action() ; 
+		Action ac = new Action() ; 
 		
-		user = actionServiceImpl.getById(id);
-		actionServiceImpl.delete(user);
+		ac = actionServiceImpl.getById(id);
+		actionServiceImpl.delete(ac);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Action");
+trace.setLabelEntity(ac.getLabel());
+trace.setOperation("Delete");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }

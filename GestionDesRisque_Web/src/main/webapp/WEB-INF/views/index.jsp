@@ -181,7 +181,7 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -225,16 +225,16 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <table class="" style="width:100%">
+                  <table class="" style="width:80%">
                     <tbody><tr>
                       <th style="width:50%;">
-                      <td class="col-md-9">
+                      <td>
                   <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
                 
                     <canvas id="canvasDoughnut" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
                      </div>
                        </td>
-                       <td class="col-md-12">
+                       <td>
                        
                        <table class="tile_info">
                           <tbody><tr>
@@ -253,13 +253,17 @@
                        
                        
                        </td>
+                   
+               
+                   
                     </tr>
                     </tbody>
                     </table>
                     </div>
-                 
-                </div>				
-				<div class="col-md-6 col-sm-4">
+                    
+                    
+                    
+                     <div class="col-md-6 col-sm-4">
                   <div class="x_title">
                     <h2>Risque par processus<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
@@ -282,7 +286,10 @@
                   <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
                     <canvas id="mybarChart" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
                   </div>
+                </div>	
+                 
                 </div>				
+							
 							</div>
 						</div>
 					</div>
