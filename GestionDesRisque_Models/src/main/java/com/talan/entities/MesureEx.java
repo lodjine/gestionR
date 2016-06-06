@@ -22,7 +22,7 @@ private String mesureLabel;
 
 private int value;
 private String critere ; 
-@ManyToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+@ManyToOne
 @JoinColumn(name="risk")
 private Risque risque ; 
 public int getMesureId() {

@@ -37,9 +37,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     $scope.allItems = getDummyData();
    
     $scope.reverse = false;
-    $scope.RiskSelect = {
+    $scope.ProcSelect = {
     	    repeatSelect: null,
-    	    availableOptions: getRisk(),
+    	    availableOptions: getProc(),
     	   };
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
@@ -55,16 +55,16 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	var bool = false ;
     	
     	for(var i = 0 ; i<$scope.allItems.length ; i++) {
-    				if ($scope.allItems[i].mesureId == $scope.mesureId){
+    				if ($scope.allItems[i].risqueId == $scope.mesureId){
     					bool = true ; 
     				}
     	}
     	if(bool == false){
        
-            saveUser($scope.mesureLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
+            saveUser($scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect);
          
     	}else{
-    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
+    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -104,8 +104,8 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     
     $scope.modifyUser= function (index) {
     	
-    	$scope.mesureId = $scope.allItems[index].mesureId;
-        $scope.mesureLabel = $scope.allItems[index].mesureLabel ;
+    	$scope.mesureId = $scope.allItems[index].risqueId;
+        $scope.mesureLabel = $scope.allItems[index].risqueLabel ;
         $scope.value =  $scope.allItems[index].value;
         
     }
@@ -220,5 +220,23 @@ function deleteUser(id){
 	
 	});
 }
-
+function getProc() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/seekProcesForConf/',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+ 
+}
 

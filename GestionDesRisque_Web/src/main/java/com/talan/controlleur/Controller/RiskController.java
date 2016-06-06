@@ -153,13 +153,32 @@ public class RiskController {
 
 
 
-
+	@RequestMapping(value = "/seekProcesForConf" ,method = RequestMethod.GET)
+	public @ResponseBody List<Processus> seekProcess(){
+		
+		List<Processus> procList = pServiceImpl.getAll() ; 
+		List<Processus> procLists = new ArrayList<>() ; 
+		for(int i=0 ; i< procList.size(); i++){
+			Processus p = new Processus() ; 
+			p.setProcId(procList.get(i).getProcId());
+			p.setDescription(procList.get(i).getDescription());
+			p.setProcessus(procList.get(i).getProcessus());
+			procLists.add(p) ; 
+		}
+		return procLists ;
+		
+	}
 
 	
 	
 		@RequestMapping(value="/getRisks",method = RequestMethod.GET)
 		public ModelAndView showRisks(){
 			ModelAndView model = new ModelAndView("Risk/RiskPage");
+					return model ;  
+		}
+		@RequestMapping(value="/getMenuRisks",method = RequestMethod.GET)
+		public ModelAndView showMenuRisks(){
+			ModelAndView model = new ModelAndView("Risk/riskmenu");
 					return model ;  
 		}
 	

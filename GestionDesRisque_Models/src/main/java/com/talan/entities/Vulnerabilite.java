@@ -24,7 +24,7 @@ public class Vulnerabilite implements Serializable{
 	private int value;
 	
 	private String critere ; 
-	@ManyToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@ManyToOne
 	@JoinColumn(name="risk")
 	private Risque risque ; 
 
