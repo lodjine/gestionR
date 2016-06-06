@@ -258,6 +258,9 @@
                      <span class="{{Header[6]}}"></span></a>
                     </th>
                    
+                   <th class="value"> <a ng-click="sort('value')" href="#"> P
+                     <span class="{{Header[7]}}"></span></a>
+                    </th>
                     
                     <th class="value"> <a ng-click="sort('value')" href="#"> R
                      <span class="{{Header[7]}}"></span></a>
@@ -273,7 +276,7 @@
                     <td>{{item.totalmes}}</td>
                     <td>{{item.totalvuls}}</td>
                     <td>{{item.totalimps}}</td>
-                    
+                    <td>{{item.riskval}}</td>
                     <td>{{item.total}}</td>
                     
                     
