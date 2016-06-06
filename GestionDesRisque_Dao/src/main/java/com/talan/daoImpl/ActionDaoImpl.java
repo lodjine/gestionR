@@ -2,6 +2,7 @@ package com.talan.daoImpl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talan.dao.ActionDao;
 import com.talan.entities.Action;
+import com.talan.entities.Utilisateur;
 
 @Repository
 public class ActionDaoImpl implements ActionDao{
@@ -23,10 +25,26 @@ public class ActionDaoImpl implements ActionDao{
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public List<Action> getAll() {
+	public List<Action> getAll(Utilisateur user) {
 		Session session=sessionFactory.getCurrentSession();
 		
-		return session.createQuery("select a from Action a").list();
+		
+		String hql ="" ; 
+		Query query = null ;
+		if(user.getUserType().equals("admin")){
+		 hql ="select a from Action a" ; 
+		 query = session.createQuery(hql);	
+		}else{
+			hql ="select a from Action a WHERE a.user.email LIKE :email" ; 
+			 query = session.createQuery(hql);	
+			 query.setParameter("email",user.getEmail());
+		}
+	
+		
+		return query.list();
+		
+		
+		
 	}
 
 	public Action getById(int id) {
@@ -65,5 +83,7 @@ Session session=sessionFactory.getCurrentSession();
 		
 		return session.createQuery("select a from Action a where a.status = 100").list();
 	}
+
+	
 
 }

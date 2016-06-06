@@ -144,7 +144,7 @@ public class ActionController {
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
 		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
-		model.addObject("ListAdmin", actionServiceImpl.getAll());
+		model.addObject("ListAdmin", actionServiceImpl.getAll(myUser));
 		return model ;
 		
 		
@@ -169,8 +169,12 @@ public class ActionController {
 	}
 	@RequestMapping(value = "/SeekAction", method = RequestMethod.GET)
     public @ResponseBody List<Action> seekAction() {
-		
-		List<Action> action = actionServiceImpl.getAll() ; 
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		String role="";
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		List<Action> action = actionServiceImpl.getAll(myUser) ; 
 		
 		 
 		List<Action> actionJs = new ArrayList<>()  ;
@@ -219,7 +223,7 @@ public class ActionController {
 		Utilisateur myUser = new Utilisateur();
 		myUser = utilisateurServiceImpl.getById(user.getUsername());
 		
-		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		
 		model.addObject("firstname", myUser.getFirstName());
 		model.addObject("lastname", myUser.getLastName());
 		 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
@@ -233,7 +237,7 @@ public class ActionController {
 	tracabiliteServiceImpl.persist(trace);
 	/////////////////////////////////
 		actionServiceImpl.save(action);
-		model.addObject("ListAdmin", actionServiceImpl.getAll());
+		model.addObject("ListAdmin", actionServiceImpl.getAll(myUser));
 		return model ; 
 		
 		
@@ -241,6 +245,11 @@ public class ActionController {
 	
 	@RequestMapping(value = "/editAction", method = RequestMethod.POST)
 	public ModelAndView editAct(@ModelAttribute Action action) throws ParseException{
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		String role="";
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
 		Action ac = actionServiceImpl.getById(action.getActionId()) ; 
 		ac.setBeginDate(action.getBeginDate());
 		ac.setEndDate(action.getEndDate());
@@ -259,17 +268,13 @@ public class ActionController {
 			action.setUser(u );
 		}
 		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
-		model.addObject("ListAdmin", actionServiceImpl.getAll());
+		model.addObject("ListAdmin", actionServiceImpl.getAll(myUser));
 		actionServiceImpl.update(ac);
 		
 		
 ////////////tracabilite/////////////
 		
-	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
-			.getAuthentication().getPrincipal();
-	String role="";
-	Utilisateur myUser = new Utilisateur();
-	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	
 	
 	
 Tracabilite trace=new Tracabilite();
@@ -396,17 +401,18 @@ tracabiliteServiceImpl.persist(trace);
 		@RequestMapping(value = "/ActionExcel", method = RequestMethod.GET)
 		public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
 			
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user.getUsername());
 			
-			
-			List<Action> actions=actionServiceImpl.getAll();
+			List<Action> actions=actionServiceImpl.getAll(myUser);
 			ModelAndView model = new ModelAndView(
 					"Process/actionMenu");
 			
 			
-			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			Utilisateur myUser = new Utilisateur();
-			myUser = utilisateurServiceImpl.getById(user.getUsername());
+			
 			model.addObject("firstname", myUser.getFirstName());
 			model.addObject("lastname", myUser.getLastName());
 			 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());

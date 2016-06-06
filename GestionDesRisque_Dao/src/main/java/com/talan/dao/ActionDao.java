@@ -4,10 +4,11 @@ import java.rmi.activation.ActivationGroupDesc;
 import java.util.List;
 
 import com.talan.entities.Action;
+import com.talan.entities.Utilisateur;
 
 public interface ActionDao {
 	
-	public List<Action> getAll();
+	public List<Action> getAll(Utilisateur user);
 	public Action getById(int id);
 	public void persist(Action action);
 	public void update(Action action);

@@ -42,7 +42,7 @@ public class ProcessusDaoImpl implements ProcessDao {
 		}
 	
 		
-		return session.createQuery("select a from Processus a").list();
+		return query.list();
 	}
 
 	public Processus getById(int id) {

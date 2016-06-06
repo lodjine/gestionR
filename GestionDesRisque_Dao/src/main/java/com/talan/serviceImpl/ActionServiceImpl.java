@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.talan.dao.ActionDao;
 import com.talan.entities.Action;
 import com.talan.entities.Activite;
+import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
 
 @Service
@@ -29,9 +30,9 @@ public class ActionServiceImpl implements ActionService{
 		this.actionDaoImpl = actionDaoImpl;
 	}
 
-	public List<Action> getAll() {
+	public List<Action> getAll(Utilisateur user){
 		// TODO Auto-generated method stub
-		return actionDaoImpl.getAll();
+		return actionDaoImpl.getAll(user);
 	}
 
 	public Action getById(int id) {
