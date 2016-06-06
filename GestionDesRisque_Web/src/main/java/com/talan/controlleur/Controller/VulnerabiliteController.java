@@ -1,11 +1,14 @@
 package com.talan.controlleur.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talan.entities.ImpactC;
 import com.talan.entities.MesureEx;
 import com.talan.entities.Risque;
+import com.talan.entities.Tracabilite;
+import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
 import com.talan.service.RisqueService;
+import com.talan.service.TracabiliteService;
+import com.talan.service.UtilisateurService;
 import com.talan.service.VulnerabiliteService;
 
 @Controller
@@ -30,7 +37,28 @@ public class VulnerabiliteController {
 	@Autowired
 	RisqueService rserviceImpl ; 
 	
+	@Autowired
+	UtilisateurService utilisateurServiceImpl;
+	@Autowired
+	TracabiliteService tracabiliteServiceImpl;
 	
+
+	public UtilisateurService getUtilisateurServiceImpl() {
+		return utilisateurServiceImpl;
+	}
+
+	public void setUtilisateurServiceImpl(UtilisateurService utilisateurServiceImpl) {
+		this.utilisateurServiceImpl = utilisateurServiceImpl;
+	}
+
+	public TracabiliteService getTracabiliteServiceImpl() {
+		return tracabiliteServiceImpl;
+	}
+
+	public void setTracabiliteServiceImpl(TracabiliteService tracabiliteServiceImpl) {
+		this.tracabiliteServiceImpl = tracabiliteServiceImpl;
+	}
+
 	
 
 	public RisqueService getRserviceImpl() {
@@ -105,7 +133,22 @@ public class VulnerabiliteController {
 		Risque r = rserviceImpl.getById(idrisque) ;
 		vulnerabilite.setRisque(r);
 		vulnerabiliteServiceImpl.persist(vulnerabilite);
+////////////tracabilite/////////////
 		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Vulnerabilite");
+trace.setOperation("Ajout");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -121,6 +164,22 @@ public class VulnerabiliteController {
 		Risque r = rserviceImpl.getById(idrisque) ;
 		vulnerabilite.setRisque(r);
 		vulnerabiliteServiceImpl.update(vulnerabilite);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Vulnerabilite");
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -129,6 +188,22 @@ public class VulnerabiliteController {
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
 		vulnerabilite = vulnerabiliteServiceImpl.getById(id);
 		vulnerabiliteServiceImpl.delete(vulnerabilite);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+	.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Vulnerabilite");
+trace.setOperation("Delete");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }

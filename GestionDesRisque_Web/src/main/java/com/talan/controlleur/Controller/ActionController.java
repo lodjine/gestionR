@@ -29,6 +29,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -45,9 +47,11 @@ import com.talan.entities.Activite;
 import com.talan.entities.Processus;
 import com.talan.entities.Responsable;
 import com.talan.entities.Risque;
+import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
 import com.talan.service.RisqueService;
+import com.talan.service.TracabiliteService;
 import com.talan.service.UtilisateurService;
 
 @Controller
@@ -61,7 +65,8 @@ public class ActionController {
 	@Autowired
 	RisqueService rServiceImpl ; 
 	
-	
+	@Autowired
+	TracabiliteService tracabiliteServiceImpl;
 	
 	public RisqueService getrServiceImpl() {
 		return rServiceImpl;
@@ -177,7 +182,23 @@ public class ActionController {
 			
 			action.setUser(user);
 		}
-	
+		
+		////////////tracabilite/////////////
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		String role="";
+		Utilisateur myUser = new Utilisateur();
+		myUser = utilisateurServiceImpl.getById(user.getUsername());
+		
+		
+	Tracabilite trace=new Tracabilite();
+	trace.setDate(new Date().toString());
+	trace.setUser(myUser.getEmail());
+	trace.setEntity("Action");
+	trace.setOperation("Ajout");
+	tracabiliteServiceImpl.persist(trace);
+	/////////////////////////////////
 		actionServiceImpl.save(action);
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
 		return model ; 
@@ -207,6 +228,24 @@ public class ActionController {
 		ModelAndView model = new ModelAndView("Process/actionMenu") ; 
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
 		actionServiceImpl.update(ac);
+		
+		
+////////////tracabilite/////////////
+		
+	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+	String role="";
+	Utilisateur myUser = new Utilisateur();
+	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	
+	
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Action");
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return model ; 
 		
 		

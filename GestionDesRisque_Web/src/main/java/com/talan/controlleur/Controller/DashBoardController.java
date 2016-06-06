@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
-import com.talan.service.ConfidentialiteService;
-import com.talan.service.DisponibiliteService;
-import com.talan.service.IntegriteService;
+
 import com.talan.service.RisqueService;
 import com.talan.service.UtilisateurService;
 
@@ -28,12 +26,7 @@ public class DashBoardController {
 	RisqueService risqueServiceImpl;
 	@Autowired
 	ActionService actionServiceImpl;
-	@Autowired 
-	ConfidentialiteService confidentialiteServiceImpl;
-	@Autowired
-	IntegriteService integriteServiceImpl;
-	@Autowired
-	DisponibiliteService disponibiliteServiceImpl;
+	
 	@Autowired
 	UtilisateurService utilisateurServiceImpl;
 	

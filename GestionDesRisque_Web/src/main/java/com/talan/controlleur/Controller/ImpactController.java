@@ -1,11 +1,14 @@
 package com.talan.controlleur.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talan.entities.ImpactC;
 import com.talan.entities.MesureEx;
 import com.talan.entities.Risque;
+import com.talan.entities.Tracabilite;
+import com.talan.entities.Utilisateur;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
 import com.talan.service.RisqueService;
+import com.talan.service.TracabiliteService;
+import com.talan.service.UtilisateurService;
 
 @Controller
 public class ImpactController {
@@ -28,6 +35,28 @@ public class ImpactController {
 	@Autowired
 	RisqueService rserviceImpl ; 
 	
+	@Autowired
+	UtilisateurService utilisateurServiceImpl;
+	@Autowired
+	TracabiliteService tracabiliteServiceImpl;
+	
+
+	public UtilisateurService getUtilisateurServiceImpl() {
+		return utilisateurServiceImpl;
+	}
+
+	public void setUtilisateurServiceImpl(UtilisateurService utilisateurServiceImpl) {
+		this.utilisateurServiceImpl = utilisateurServiceImpl;
+	}
+
+	public TracabiliteService getTracabiliteServiceImpl() {
+		return tracabiliteServiceImpl;
+	}
+
+	public void setTracabiliteServiceImpl(TracabiliteService tracabiliteServiceImpl) {
+		this.tracabiliteServiceImpl = tracabiliteServiceImpl;
+	}
+
 	
 	
 
@@ -112,7 +141,22 @@ public class ImpactController {
 			Risque r = rserviceImpl.getById(idrisque) ;
 			impactC.setRisque(r);
 			impactCServiceImpl.persist(impactC);
-		
+////////////tracabilite/////////////
+			
+	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+	String role="";
+	Utilisateur myUser = new Utilisateur();
+	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	
+	
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Impact");
+trace.setOperation("Ajout");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -128,6 +172,22 @@ public class ImpactController {
 		Risque r = rserviceImpl.getById(idrisque) ;
 		impactC.setRisque(r);
 		impactCServiceImpl.update(impactC);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Impact");
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -136,6 +196,22 @@ public class ImpactController {
 		ImpactC impactC = new ImpactC() ; 
 		impactC = impactCServiceImpl.getById(id);
 		impactCServiceImpl.delete(impactC);
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Impact");
+trace.setOperation("Delete");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }

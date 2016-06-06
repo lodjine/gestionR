@@ -88,6 +88,7 @@
 	<value>com.talan.entities.Utilisateur</value>
 	<value>com.talan.entities.UserRole</value>
 	<value>com.talan.entities.Vulnerabilite</value>
+	<value>com.talan.entities.Tracabilite</value>
 
 	
 

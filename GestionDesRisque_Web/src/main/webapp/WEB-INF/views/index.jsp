@@ -105,9 +105,10 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-                </sec:authorize>
+               
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
+                 </sec:authorize>
               </ul>
             </div>
             

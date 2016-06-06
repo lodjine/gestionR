@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,12 +44,14 @@ import com.talan.entities.MesureEx;
 import com.talan.entities.Processus;
 import com.talan.entities.Risque;
 import com.talan.entities.SousProcessus;
+import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.entities.Vulnerabilite;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
 import com.talan.service.ProcessService;
 import com.talan.service.RisqueService;
+import com.talan.service.TracabiliteService;
 import com.talan.service.UtilisateurService;
 import com.talan.service.VulnerabiliteService;
 
@@ -68,7 +71,8 @@ public class RiskController {
 	VulnerabiliteService vulServiceImpl ; 
 	@Autowired
 	ProcessService pServiceImpl ; 
-	
+	@Autowired
+	TracabiliteService tracabiliteServiceImpl;
 
 	public ImpactCService getImpactCServiceImpl() {
 		return impactCServiceImpl;
@@ -188,7 +192,22 @@ public class RiskController {
 			risk.setRisqueLabel(label);
 			risk.setValue(value);
 			riskServiceImpl.persist(risk);
-		
+////////////tracabilite/////////////
+			
+	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+	String role="";
+	Utilisateur myUser = new Utilisateur();
+	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	
+	
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Risque");
+trace.setOperation("Ajout");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -200,6 +219,23 @@ public class RiskController {
 		ris.setValue(value);
 		ris.setRisqueLabel(label);
 		riskServiceImpl.update(ris);
+		
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Risque");
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }
@@ -208,6 +244,23 @@ public class RiskController {
 		Risque ris = new Risque() ; 
 		ris = riskServiceImpl.getById(id);
 		riskServiceImpl.delete(ris);
+		
+////////////tracabilite/////////////
+		
+UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+		.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Risque");
+trace.setOperation("Delete");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		return true ; 
 		
     }

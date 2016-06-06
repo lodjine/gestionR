@@ -30,9 +30,7 @@ import com.talan.entities.Integrite;
 import com.talan.entities.Risque;
 import com.talan.service.ActionService;
 import com.talan.service.AlerteService;
-import com.talan.service.ConfidentialiteService;
-import com.talan.service.DisponibiliteService;
-import com.talan.service.IntegriteService;
+
 import com.talan.service.RisqueService;
 
 @PersistJobDataAfterExecution

@@ -4,9 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-
 <html>
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -30,7 +28,15 @@
 
   <script src="resources/js/jquery.min.js"></script>
 
+  <!--[if lt IE 9]>
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
 
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
 </head>
 
@@ -55,9 +61,10 @@
 
           <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <div class="menu_section">
+           <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
@@ -122,7 +129,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="resources/images/LogoTalan.jpg" alt="">John Doe
+                  <img src="resources/images/LogoTalan.jpg" alt="">${firstname } ${lastname }
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -169,76 +176,156 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
 									</h2>
 								</div>
 								
-								        <div class="clearfix"></div>
+								
+								
+								
+								
+								
+								
+								
+								
+							   <div class="clearfix"></div>
              
-              <f:form method="get" modelAttribute="Process"   action="ShowProcessus">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
-				
-				    
-                  <table id="idTable" class="table table-hover" >
               
-                   <tr>
-                   	<td>Add New Process</td>
-                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
-						<i class="glyphicon glyphicon-plus"></i>
-						</button>
-					</td>
-                   </tr>
-                    <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Process List  </td>
-                      <td>																	
-	
-							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
-							 
-							<option value="">Select a Process</option>
-								<c:forEach items="${Listprocess}" var="group">
-							<option value="${group.procId}">${group.processus}</option>
-								</c:forEach>
-							</select>
-						
-					 
-                   	</td> 
-                <td style="width: 249px;">
- 			 
-						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
-						
-						<i class="glyphicon glyphicon-search"></i>
-						</button>
-						
-					
- 				
-						</td>
-                      
-                      
-                    </tr>
-                       
-                </table>
-                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
-		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
-                
-                </f:form>
-             
-						</div>
-						
-							</div>
-						</div>
-						</div>
-						</div>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Tracabilite</h3>
+				
+		<br />
+            <div class="box-header with-border">
+              <h3 class="box-title">Tracabilite</h3>
 
+              <div class="box-tools pull-right">
+                <div class="has-feedback">
+                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div>
+                <!-- /.btn-group -->
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.pull-right -->
+              </div>
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                  <tr>
+                    <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html"><b>Operation</b></a></td>
+                    <td class="mailbox-subject"><b>Entite</b>
+                    </td>
+                     <td class="mailbox-subject"><b>Date</b>
+                    </td>
+                    <td class="mailbox-date"><b>Utilisateur</b></td>
+                    
+               
+                  </tr>
+                  <c:forEach items="${traces}" var="trace" varStatus="status">
+                  <tr>
+                    <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></td>
+                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">${trace.operation}</a></td>
+                    <td class="mailbox-subject"><b>${trace.entity}</b>
+                    </td>
+                      <td class="mailbox-subject">${trace.date}
+                    </td>
+                    <td class="mailbox-date">${trace.user}</td>
+           
+                  </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div>
+                <!-- /.btn-group -->
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.pull-right -->
+              </div>
+            </div>
+          </div>
 								
-					   </div>			
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 								
 							</div>
-						
-			
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -271,23 +358,6 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
-  $('#boutonLoop')
-  .click(
-  		function() {
-
-  			e = $('.byCodeClass').find(':selected').val();
-  			if(e != ""){
-
-  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
-
-  			$('#seekbouton').trigger("click");
-  			}
-  			
-  			
-
-  		});
-  
-  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
