@@ -40,7 +40,7 @@
   <script src="resources/js/jquery.min.js"></script>
    <script src="resources/js/angular.min.js"></script>
     
-     <script src="resources/js/mesure.Angular.js"></script>
+     <script src="resources/js/riskAdd.Angular.js"></script>
 
 
 
@@ -190,7 +190,7 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Mesure</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Risk</h3>
 				
 		<br />
 
@@ -223,6 +223,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
+                <td>{{item.risqueId}}</td>
                     <td>{{item.risqueLabel}}</td>
                     <td>{{item.value}}</td>
                     <td>{{item.proc.processus}}</td>
@@ -256,9 +257,9 @@
                 <input type="number" ng-model="value" class="form-control" placeholder="value">
             </div>
             <div class="col-xs-2">
-                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Risk</option>
-     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
+                <select name="pSelect" class="select2"id="mSelect" ng-model="ProcSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Process</option>
+     				 <option ng-repeat="proc in ProcSelect.availableOptions" value="{{proc.procId}}">{{proc.processus}}</option>
    			   </select>
             </div>
           
