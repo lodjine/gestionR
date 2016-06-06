@@ -121,7 +121,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     
     $scope.deleteUser = function(index){
     	
-    	deleteUser($scope.allItems[index].email);
+    	deleteUser($scope.allItems[index].actionId);
     	$scope.allItems.splice(index, 1);
     	
     	 $scope.filteredList = $scope.allItems;
@@ -241,7 +241,7 @@ function updateUser(bDate,eDate,label,status,rId,acId){
 
 function deleteUser(email){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/deleteUser/'+email+'/',
+	    url:'/GestionDesRisque_Web/deleteAction/'+email+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false

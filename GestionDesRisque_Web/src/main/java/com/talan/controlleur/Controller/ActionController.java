@@ -319,7 +319,7 @@ tracabiliteServiceImpl.persist(trace);
 		return true ; 
 		
     }
-	@RequestMapping(value = "/deleteAdmin/{idAc}/", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteAction/{idAc}/", method = RequestMethod.GET)
     public @ResponseBody Boolean updateUser(@PathVariable("idAc") int id, HttpSession session) {
 		
 		Action ac = new Action() ; 

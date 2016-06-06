@@ -194,6 +194,7 @@ public class RiskController {
 			Risque ris = new Risque() ; 
 			ris.setRisqueId(m.getRisqueId());
 			ris.setRisqueLabel(m.getRisqueLabel());
+			ris.setValue(m.getValue());
 			Processus p = new Processus() ; 
 			p.setDescription(m.getProc().getDescription());
 			p.setProcessus(m.getProc().getProcessus());
