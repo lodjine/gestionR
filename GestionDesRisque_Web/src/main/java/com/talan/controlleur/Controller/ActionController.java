@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.talan.entities.Action;
 import com.talan.entities.Activite;
 import com.talan.entities.Processus;
+import com.talan.entities.Responsable;
 import com.talan.entities.Risque;
 import com.talan.entities.Utilisateur;
 import com.talan.service.ActionService;
@@ -108,7 +109,8 @@ public class ActionController {
 	@RequestMapping(value = "/ShowAction", params="newRecord" ,method = RequestMethod.GET)
 	public ModelAndView addAcction(){
 		
-		ModelAndView model = new ModelAndView("Risk/actionAdd") ; 
+		ModelAndView model = new ModelAndView("Risk/actionAdd") ;
+		List<Responsable> resps=utilisateurServiceImpl.getAllResp();
 		List<Risque> rList = rServiceImpl.getAll() ; 
 		model.addObject("rList" , rList); 
 		return model ;
@@ -153,12 +155,11 @@ public class ActionController {
 		if(action.getRisk() != null){
 			Risque r = rServiceImpl.getById(action.getRisk().getRisqueId()) ; 
 			action.setRisk(r);
+			Utilisateur user=r.getProc().getUser();
 			
+			action.setUser(user);
 		}
-		if(action.getUser() != null) {
-			Utilisateur u = utilisateurServiceImpl.getById(action.getUser().getEmail() ) ; 
-			action.setUser(u );
-		}
+	
 		actionServiceImpl.save(action);
 		model.addObject("ListAdmin", actionServiceImpl.getAll());
 		return model ; 

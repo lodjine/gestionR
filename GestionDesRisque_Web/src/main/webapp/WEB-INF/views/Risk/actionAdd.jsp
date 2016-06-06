@@ -260,20 +260,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">User <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12"> 
-							<select name="user.email" id="currencySelect"
-								class="form-control select2 form-control required noselect"  >
-								                
-								<option value="">select User</option>
-									
-								
-								
-								<c:forEach items="${users}" var="ssProc">
-									
-
-										<option value="${ssProc.email}">${ssProc.email}</option>
-									
-								</c:forEach>
-							</select>
+							
 						</div>
                       </div>
                     <div class="item form-group">

@@ -69,14 +69,15 @@ public class JobAlerte implements Job{
 				alerte.setDate(new Date().toString());
 				alerte.setRisque(action.getRisk().getRisqueLabel());
 				session.persist(alerte);
-				risques.remove(action.getRisk());
+				
 			}
+			risques.remove(action.getRisk());
 		}
 		
 		for(Risque risque:risques){
-			List<Confidentialite> conf=session.createQuery("select a from Confidentialite a WHERE a.risque.proc.procId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
-			List<Disponibilite> disp=session.createQuery("select a from Disponibilite a WHERE a.risque.proc.procId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
-			List<Integrite> integ=session.createQuery("select a from Integrite a WHERE a.risque.proc.procId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
+			List<Confidentialite> conf=session.createQuery("select a from Confidentialite a WHERE a.risque.risqueId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
+			List<Disponibilite> disp=session.createQuery("select a from Disponibilite a WHERE a.risque.risqueId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
+			List<Integrite> integ=session.createQuery("select a from Integrite a WHERE a.risque.risqueId =:id and a.resultat >= :debut and a.resultat < :fin ").setParameter("id", risque.getRisqueId()).setParameter("debut", 15).setParameter("fin", 20).list();
 			
 			AlerteRisqueFort alerte= new AlerteRisqueFort();
 			alerte.setAlerte("le risque "+ risque.getRisqueLabel()+" a depassé le seuil pour la confidentialité a "+conf.size()+" reprise , pour la disponiblité a "+disp.size()+" reprise et "+ integ.size()+" reprise pour l'integrité ");
