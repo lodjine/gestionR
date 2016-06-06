@@ -28,6 +28,7 @@ public class Information implements Serializable{
 	
 	private String information;
 	private String description;
+	private String proprietaire;
 	
 	@OneToMany
 	private List<Risque> risques;
@@ -74,6 +75,14 @@ public class Information implements Serializable{
 
 	public void setInformation(String information) {
 		this.information = information;
+	}
+
+	public String getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(String proprietaire) {
+		this.proprietaire = proprietaire;
 	}
 	
 	

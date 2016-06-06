@@ -314,6 +314,8 @@ tracabiliteServiceImpl.persist(trace);
 				                        		   
 				                        		   if(rownumInf==0){
 				                        			   Row row = sh.createRow(rownumProc);
+				                        			   Cell  cell6= row.createCell(4);
+											              cell6.setCellValue(infList.get(rownumInf).getProprietaire());
 				                        			 Cell  cell4= row.createCell(3);
 											              cell4.setCellValue(infList.get(rownumInf).getInformation());
 											              cell4.setCellStyle(normalStyle);
@@ -350,7 +352,8 @@ tracabiliteServiceImpl.persist(trace);
 				                        		   }
 				                        		   else{
 				                        			   Row rowInf = sh.createRow(rownumProc);
-				                        			   
+				                        			   Cell  cell6= rowInf.createCell(4);
+											              cell6.setCellValue(infList.get(rownumInf).getProprietaire());
 				                        			   Cell  cell4= rowInf.createCell(3);
 											              cell4.setCellValue(infList.get(rownumInf).getInformation());
 											              cell4.setCellStyle(normalStyle);
