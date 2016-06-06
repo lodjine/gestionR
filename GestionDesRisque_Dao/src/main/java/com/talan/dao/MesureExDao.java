@@ -12,4 +12,5 @@ public interface MesureExDao {
 		public void updateMuser(MesureEx mesure) ; 
 		public void deleteMuser(MesureEx mesure) ; 
 		public void persisteMesure(MesureEx mesure) ;
+		public List<MesureEx> getmesureByRiskAndType(int id , String type) ;
 }

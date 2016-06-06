@@ -68,5 +68,15 @@ public class ImpactCDaoImpl implements ImpactDao {
 		session.save(impactC);
 		
 	}
-
+	public List<ImpactC> getImpactCByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+Session session=sessionFactory.getCurrentSession();
+		
+		String hql = "select a from ImpactC a where a.risque.risqueId =:id AND a.critere LIKE :type" ; 
+		Query query = session.createQuery(hql) ; 
+		query.setParameter("id", id);
+		query.setParameter("type", type);
+		return query.list() ;
+	}
+	
 }

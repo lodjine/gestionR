@@ -15,15 +15,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.talan.entities.ImpactC;
 import com.talan.entities.MesureEx;
+import com.talan.entities.Risque;
 import com.talan.service.ImpactCService;
 import com.talan.service.MesureExService;
+import com.talan.service.RisqueService;
 
 @Controller
 public class ImpactController {
 
 	@Autowired
 	ImpactCService impactCServiceImpl ;
+	@Autowired
+	RisqueService rserviceImpl ; 
 	
+	
+	
+
+	public RisqueService getRserviceImpl() {
+		return rserviceImpl;
+	}
+
+	public void setRserviceImpl(RisqueService rserviceImpl) {
+		this.rserviceImpl = rserviceImpl;
+	}
 	
 	
 	
@@ -73,6 +87,13 @@ public class ImpactController {
 			impactC.setImpactLabel(i.getImpactLabel());
 			impactC.setValue(i.getValue());
 			
+			impactC.setCritere(i.getCritere());
+			Risque r = new Risque() ; 
+			r.setRisqueLabel(i.getRisque().getRisqueLabel());
+			r.setRisqueId(i.getRisque().getRisqueId());
+			impactC.setRisque(r);
+			
+			
 			impactcss.add(impactC) ; 
 		}
 		
@@ -80,26 +101,32 @@ public class ImpactController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteImpact/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/PersisteImpact/{label}/{value}/{type}/{idrisque}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("idrisque") int idrisque ,@PathVariable("type") String type , HttpSession session) {
 		
 			ImpactC impactC = new ImpactC() ; 
 			
 			impactC.setImpactLabel(label);
 			impactC.setValue(value);
+			impactC.setCritere(type);
+			Risque r = rserviceImpl.getById(idrisque) ;
+			impactC.setRisque(r);
 			impactCServiceImpl.persist(impactC);
 		
 		return true ; 
 		
     }
-	@RequestMapping(value = "/updateImpact/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value, HttpSession session) {
+	@RequestMapping(value = "/updateImpact/{id}/{label}/{value}/{type}/{idrisque}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("idrisque") int idrisque ,@PathVariable("type") String type , HttpSession session) {
 		
 		ImpactC impactC = new ImpactC() ; 
 		impactC = impactCServiceImpl.getById(id); 
 		
 		impactC.setImpactLabel(label);
 		impactC.setValue(value);
+		impactC.setCritere(type);
+		Risque r = rserviceImpl.getById(idrisque) ;
+		impactC.setRisque(r);
 		impactCServiceImpl.update(impactC);
 		return true ; 
 		

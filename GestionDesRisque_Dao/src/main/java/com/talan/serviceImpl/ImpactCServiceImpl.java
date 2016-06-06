@@ -55,4 +55,9 @@ public class ImpactCServiceImpl implements ImpactCService {
 		impactDaoImpl.save(impactC);
 	}
 
+	public List<ImpactC> getImpactCByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+		return impactDaoImpl.getImpactCByRiskAndType(id, type);
+	}
+
 }

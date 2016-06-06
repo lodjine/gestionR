@@ -217,9 +217,9 @@
      <div class="col-xs-3">
                 <select name="tSelect" class="select2"id="mSelect" ng-change="getRisk()" ng-model="typeSelect.repeatSelect" style="width: 100%">
                 	 <option value="">Type</option>
-     				 <option value="conf">Confidentialite</option>
-     				 <option value="disp">Disponibilite</option>
-     				 <option value="intg">Integrite</option>
+     				 <option value="confidentialite">Confidentialite</option>
+     				 <option value="disponibilite">Disponibilite</option>
+     				 <option value="integrite">Integrite</option>
    			   </select>
       </div>
       <div class="col-xs-3">
@@ -262,7 +262,7 @@
                      <span class="{{Header[5]}}"></span></a>
                     </th>
                      
-                    <th class="value"> <a ng-click="sort('value')" href="#"> P
+                    <th class="value"> <a ng-click="sort('value')" href="#"> I
                      <span class="{{Header[6]}}"></span></a>
                     </th>
                    
@@ -274,15 +274,15 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in ItemsByPage[currentPage] ">
-                    <td><label>{{item.risque.risqueLabel}}</label></td>
-                    <td><ng-repeat ng-repeat="mesure in mesList[$index] "><label>{{mesure.mesureLabel}}</label>  <br></ng-repeat></td>
-					 <td><ng-repeat ng-repeat="vulnerab in vulList[$index] "><label>{{vulnerab.vulnLabel}}</label> <br></ng-repeat></td>
-                     <td><ng-repeat ng-repeat="impact in impList[$index] "><label>{{impact.impactLabel}}</label><br></ng-repeat></td>
-                    <td>{{mesValList[$index]}}</td>
-                    <td>{{vulValList[$index]}}</td>
-                    <td>{{impValList[$index]}}</td>
+                    <td><label>{{item.riskLabel}}</label></td>
+                    <td><label>{{item.mesures}}</label></td>
+					 <td><label>{{item.vuls}}</label></td>
+                     <td><label>{{item.impacts}}</label></td>
+                    <td>{{item.totalmes}}</td>
+                    <td>{{item.totalvuls}}</td>
+                    <td>{{item.totalimps}}</td>
                     
-                    <td>{{total[$index]}}</td>
+                    <td>{{item.total}}</td>
                     
                     
                 </tr>

@@ -45,13 +45,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
    
     
     $scope.getRisk = function(){
-    	if($scope.typeSelect.repeatSelect == "conf"){
-    		$scope.allItems = getAllConfs($scope.ProcSelect.repeatSelect) ;
-    	}else if($scope.typeSelect.repeatSelect == "disp"){
-    		$scope.allItems = getAllDisps($scope.ProcSelect.repeatSelect) ;
-    	}else{
-    		$scope.allItems = getAllIntgs($scope.ProcSelect.repeatSelect) ;
-    	}
+    	
+    		$scope.allItems = getAllRisks($scope.ProcSelect.repeatSelect,$scope.typeSelect.repeatSelect) ;
+    	
     	
     	$scope.filteredList = $scope.allItems;
         $scope.pagination();
@@ -167,43 +163,9 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	if($scope.ProcSelect.repeatSelect != null){
     		
         $scope.ItemsByPage = filteredListService.paged($scope.filteredList, $scope.pageSize);
-        for(var i =0 ; i<$scope.filteredList.length ; i++){
-        $scope.MesuresByPage = filteredListService.paged($scope.filteredList[i].mesures, $scope.pageSize);
-        $scope.mesList[i] = $scope.filteredList[i].mesures ; 
-        }
-        for(var i =0 ; i<$scope.filteredList.length ; i++){
-        $scope.vulnerabsByPage = filteredListService.paged($scope.filteredList[i].vulnerabs, $scope.pageSize);
-        $scope.vulList[i] = $scope.allItems[i].vulnerabs ;
-        }
-        for(var i =0 ; i<$scope.filteredList.length ; i++){
-        $scope.impactsByPage = filteredListService.paged($scope.filteredList[i].impacts, $scope.pageSize);
-        $scope.impList[i] = $scope.filteredList[i].impacts ;
-        }
+       
         
-        for(var i = 0 ; i<$scope.allItems.length ; i++){
-        	var totalmesure = 0 ;
-            var totalvul = 0; 
-            var totalimp = 0 ;
-        	for(j=0 ; j<$scope.allItems[i].mesures.length; j++){
-        		totalmesure = $scope.allItems[i].mesures[j].value ;
-        	}
-        	$scope.mesValList[i] = totalmesure ;
-        	for(j=0 ; j<$scope.allItems[i].vulnerabs.length; j++){
-        		totalvul = $scope.allItems[i].vulnerabs[j].value ;
-        	}
-        	$scope.vulValList[i] = totalvul ;
-        	for(j=0 ; j<$scope.allItems[i].impacts.length; j++){
-        		totalimp = $scope.allItems[i].impacts[j].value ;
-        	}
-        	$scope.impValList[i] = totalimp ;
-        	if($scope.typeSelect.repeatSelect == "conf"){
-        	$scope.total[i] = ($scope.allItems[i].iC * totalimp * totalvul) - totalmesure ; 
-        	}else if ($scope.typeSelect.repeatSelect == "disp"){
-        		$scope.total[i] = ($scope.allItems[i].iDisp * totalimp * totalvul) - totalmesure ; 
-        	}else if($scope.typeSelect.repeatSelect == "disp"){
-        		$scope.total[i] = ($scope.allItems[i].Iintg * totalimp * totalvul) - totalmesure ; 
-        	}
-        }
+        
     }
     };
 
@@ -719,6 +681,22 @@ function getAllIntgsREV(x,y){
 	 
 	return xxx ; 
 }
-function setMesure(i,val){
-	$('#vulV'+i).html(val);
+function getAllRisks(x,y){
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/seekRisqueByProc/'+x+'/'+y+'/',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+	
 }
