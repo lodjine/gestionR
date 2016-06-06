@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="GestionDesRisque_Models">
+		<class>com.talan.entities.Action</class>
+		<class>com.talan.entities.Activite</class>
+		<class>com.talan.entities.Administrateur</class>
+		<class>com.talan.entities.Alerte</class>
+		<class>com.talan.entities.AlerteAction</class>
+		<class>com.talan.entities.AlerteRisqueFort</class>
+		<class>com.talan.entities.AnalyseDesRisques</class>
+		<class>com.talan.entities.Classification</class>
+		<class>com.talan.entities.Confidentialite</class>
+		<class>com.talan.entities.Disponibilite</class>
+		<class>com.talan.entities.ImpactC</class>
+		<class>com.talan.entities.Information</class>
+		<class>com.talan.entities.Integrite</class>
+		<class>com.talan.entities.MesureEx</class>
+		<class>com.talan.entities.Poste</class>
+		<class>com.talan.entities.Processus</class>
+		<class>com.talan.entities.Responsable</class>
+		<class>com.talan.entities.Risque</class>
+		<class>com.talan.entities.SousProcessus</class>
+		<class>com.talan.entities.Tracabilite</class>
+		<class>com.talan.entities.UserRole</class>
+		<class>com.talan.entities.Utilisateur</class>
+		<class>com.talan.entities.Vulnerabilite</class>
+	</persistence-unit>
+</persistence>
