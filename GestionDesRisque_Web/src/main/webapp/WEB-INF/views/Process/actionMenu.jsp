@@ -74,6 +74,8 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
+                  <li><a href="/GestionDesRisque_Web/getMenuRisks">Risque Managment </a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>

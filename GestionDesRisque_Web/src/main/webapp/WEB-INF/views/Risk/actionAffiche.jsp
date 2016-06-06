@@ -92,6 +92,8 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
+                  <li><a href="/GestionDesRisque_Web/getMenuRisks">Risque Managment </a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
