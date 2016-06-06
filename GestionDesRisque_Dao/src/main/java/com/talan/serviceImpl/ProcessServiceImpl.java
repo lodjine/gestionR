@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.talan.dao.ProcessDao;
 import com.talan.entities.Processus;
+import com.talan.entities.Utilisateur;
 import com.talan.service.ProcessService;
 
 
@@ -29,9 +30,9 @@ public void setProcessDaoImpl(ProcessDao processDaoImpl) {
 	this.processDaoImpl = processDaoImpl;
 }
 
-	public List<Processus> getAll() {
+	public List<Processus> getAll(Utilisateur user) {
 		// TODO Auto-generated method stub
-		return processDaoImpl.getAll();
+		return processDaoImpl.getAll(user);
 	}
 
 	public Processus getById(int id) {

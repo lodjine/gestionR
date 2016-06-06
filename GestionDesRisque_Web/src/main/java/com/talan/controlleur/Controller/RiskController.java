@@ -155,8 +155,12 @@ public class RiskController {
 
 	@RequestMapping(value = "/seekProcesForConf" ,method = RequestMethod.GET)
 	public @ResponseBody List<Processus> seekProcess(){
-		
-		List<Processus> procList = pServiceImpl.getAll() ; 
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
+		List<Processus> procList = pServiceImpl.getAll(myUser) ; 
 		List<Processus> procLists = new ArrayList<>() ; 
 		for(int i=0 ; i< procList.size(); i++){
 			Processus p = new Processus() ; 
@@ -307,6 +311,7 @@ tracabiliteServiceImpl.persist(trace);
 			for(int i =0 ; i<rList.size() ; i++) {
 				ListRisque lrisque = new ListRisque() ; 
 				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				lrisque.setRiskval(rList.get(i).getValue());
 				for(int j = 0 ; j<mesList.size() ; j++){
 					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
 					if(j== 0){
@@ -315,6 +320,7 @@ tracabiliteServiceImpl.persist(trace);
 					lrisque.setMesures(lrisque.getMesures()+"\r\n"+mesList.get(j).getMesureLabel());
 					}
 					lrisque.setTotalmes(lrisque.getTotalmes()+mesList.get(j).getValue() );
+					
 				}
 				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
 				 for(int j = 0 ; j<impList.size() ; j++){
@@ -356,10 +362,12 @@ tracabiliteServiceImpl.persist(trace);
 	List<MesureEx> mesList = new ArrayList<>() ;
 	List<ImpactC> impList = new ArrayList<>() ; 
 	List<Vulnerabilite> vulList = new ArrayList<>() ; 
-	List<ListRisque> listRisque = new ArrayList<>() ; 
+	List<ListRisque> listRisque = new ArrayList<>() ;
+	
 			for(int i =0 ; i<rList.size() ; i++) {
 				ListRisque lrisque = new ListRisque() ; 
 				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				lrisque.setRiskval(rList.get(i).getValue());
 				for(int j = 0 ; j<mesList.size() ; j++){
 					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
 					if(j== 0){
@@ -418,7 +426,7 @@ tracabiliteServiceImpl.persist(trace);
 	
 	
 	//excel
-	@RequestMapping(value = "/RisqueMenu", params = "excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/RisqueExcel",  method = RequestMethod.GET)
 	public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
 		
 		

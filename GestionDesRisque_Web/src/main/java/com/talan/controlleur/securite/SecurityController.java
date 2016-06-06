@@ -81,12 +81,12 @@ ProcessService processServiceImpl;
 		model.addObject("lastname", myUser.getLastName());
 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
 		model.setViewName("index");
-		List<Processus> proc = processServiceImpl.getAll() ; 
+		List<Processus> proc = processServiceImpl.getAll(myUser) ; 
 		model.addObject("procs",proc );
 		model.addObject("TotalAction", actionServiceImpl.getAll().size());
 		model.addObject("TotalRisk", risqueServiceImpl.getAll().size());
 		model.addObject("TotalUser", utilisateurServiceImpl.getAll().size());
-		model.addObject("TotalProc", processServiceImpl.getAll().size());
+		model.addObject("TotalProc", processServiceImpl.getAll(myUser).size());
 		return model;
 		}
 

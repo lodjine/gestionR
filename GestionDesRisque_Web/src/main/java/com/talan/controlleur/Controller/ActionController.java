@@ -354,7 +354,7 @@ tracabiliteServiceImpl.persist(trace);
 	
 	
 	//excel
-		@RequestMapping(value = "/ActionMenu", params = "excel", method = RequestMethod.GET)
+		@RequestMapping(value = "/ActionExcel", method = RequestMethod.GET)
 		public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
 			
 			

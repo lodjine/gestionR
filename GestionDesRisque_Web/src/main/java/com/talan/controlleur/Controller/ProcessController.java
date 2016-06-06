@@ -179,9 +179,13 @@ tracabiliteServiceImpl.persist(trace);
 	
 	@RequestMapping(value = "/AffichProc", method = RequestMethod.GET)
 	public ModelAndView AffichProcess(@ModelAttribute Processus processus){
-		
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
 		ModelAndView model = new ModelAndView("Process/processAffich") ; 
-		List<Processus> Listprocess=processServiceImpl.getAll();
+		List<Processus> Listprocess=processServiceImpl.getAll(myUser);
 		model.addObject("Listprocess", Listprocess);
 		model.addObject("size",Listprocess.size());
 		return model ; 
@@ -193,8 +197,12 @@ tracabiliteServiceImpl.persist(trace);
 	public ModelAndView MenuProc(){
 		
 		ModelAndView model = new ModelAndView("Process/ActifMenu") ; 
-		
-		model.addObject("Listprocess", processServiceImpl.getAll());
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
+		model.addObject("Listprocess", processServiceImpl.getAll(myUser));
 		return model ;
 		
 		
@@ -206,8 +214,12 @@ tracabiliteServiceImpl.persist(trace);
 	//excel
 	@RequestMapping(value = "/ProcessExcel",  method = RequestMethod.GET)
 	public void  getExcel(HttpServletResponse response,HttpSession session) throws IOException {
-		
-		List<Processus> processList=processServiceImpl.getAll();
+		UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+			String role="";
+			Utilisateur myUser = new Utilisateur();
+			myUser = utilisateurServiceImpl.getById(user1.getUsername());
+		List<Processus> processList=processServiceImpl.getAll(myUser);
 		
 		ModelAndView model = new ModelAndView(
 				"Framework/FramworkAdmin/GroupMenu");
