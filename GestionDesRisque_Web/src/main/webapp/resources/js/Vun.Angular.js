@@ -37,7 +37,10 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     $scope.allItems = getDummyData();
    
     $scope.reverse = false;
-
+    $scope.RiskSelect = {
+    	    repeatSelect: null,
+    	    availableOptions: getRisk(),
+    	   };
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
         $scope.vulnId = '';
@@ -57,15 +60,11 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     				}
     	}
     	if(bool == false){
-        $scope.allItems.push({
-            id: $scope.vulnId,
-            label: $scope.vulnLabel,
-            value: $scope.value
-        });
-            saveUser($scope.vulnLabel,$scope.value);
+        
+            saveUser($scope.vulnLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
          
     	}else{
-    		updateUser($scope.vulnId,$scope.vulnLabel,$scope.value);
+    		updateUser($scope.vulnId,$scope.vulnLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -193,19 +192,19 @@ function getDummyData() {
  
 }
 
-function saveUser(label,value){
+function saveUser(label,value,type,risque){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteVulnerabilite/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/PersisteVulnerabilite/'+label+'/'+value+'/'+type+'/'+risque+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
 	
 	});
 }
-function updateUser(id,label,value){
+function updateUser(id,label,value,type,risque){
 	
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateVulnerabilite/'+id+'/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/updateVulnerabilite/'+id+'/'+label+'/'+value+'/'+type+'/'+risque+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -222,3 +221,22 @@ function deleteUser(id){
 	
 	});
 }
+function getRisk() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/SeekRisk',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ;  
+}
+ 

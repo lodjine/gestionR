@@ -37,7 +37,10 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     $scope.allItems = getDummyData();
    
     $scope.reverse = false;
-
+    $scope.RiskSelect = {
+    	    repeatSelect: null,
+    	    availableOptions: getRisk(),
+    	   };
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
         $scope.mesureId = '';
@@ -57,15 +60,11 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     				}
     	}
     	if(bool == false){
-        $scope.allItems.push({
-            id: $scope.mesureId,
-            label: $scope.mesureLabel,
-            value: $scope.value
-        });
-            saveUser($scope.mesureLabel,$scope.value);
+       
+            saveUser($scope.mesureLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
          
     	}else{
-    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value);
+    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value,$scope.typeSelect.repeatSelect,$scope.RiskSelect.repeatSelect);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -193,18 +192,18 @@ function getDummyData() {
  
 }
 
-function saveUser(label,value){
+function saveUser(label,value,type,risque){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteMesure/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/PersisteMesure/'+label+'/'+value+'/'+type+'/'+risque+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
 	
 	});
 }
-function updateUser(id,label,value){
+function updateUser(id,label,value,type,risque){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateMesure/'+id+'/'+label+'/'+value+'/',
+	    url:'/GestionDesRisque_Web/updateMesure/'+id+'/'+label+'/'+value+'/'+type+'/'+risque+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -220,4 +219,24 @@ function deleteUser(id){
 	    async:false
 	
 	});
+}
+
+function getRisk() {
+	
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/SeekRisk',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 
+ 
 }

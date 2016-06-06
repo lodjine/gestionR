@@ -12,4 +12,5 @@ public interface ImpactDao {
 	public void update(ImpactC impactC);
 	public void delete(ImpactC impactC);
 	public void save(ImpactC impactC);
+	public List<ImpactC> getImpactCByRiskAndType(int id , String type) ;
 }

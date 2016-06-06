@@ -18,10 +18,9 @@ public interface RisqueService {
 	public void update(Risque risque);
 	public void delete(Risque risque);
 	public void save(Risque risque);
-	public  List<Confidentialite> getConfByProc(int idproc, String user,String userRole) ;
-	public  List<Confidentialite> getConfByProcRev(int idproc, String user,String userRole , int res) ;
-	public  List<Disponibilite> getdispByProc(int idproc, String user,String userRole) ;
-	public  List<Disponibilite> getdispByProcRev(int idproc, String user,String userRole , int res) ;
-	public  List<Integrite> getIntByProc(int idproc, String user,String userRole) ;
-	public  List<Integrite> getIntByProcRev(int idproc, String user,String userRole , int res) ;
+
+	public List<Risque> getRiskByProc(int idproc, String user, String userRole, int res);
+
+	public List<Risque> getRiskByProc(int id); 
+
 }

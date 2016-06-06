@@ -46,12 +46,12 @@ alerteDaoImpl.delete(alerte);
 alerteDaoImpl.save(alerte);		
 	}
 
-	public List<AlerteRisqueFort> getAllRisque() {
+	public List<Alerte> getAllRisque() {
 		// TODO Auto-generated method stub
 		return alerteDaoImpl.getAllRisque();
 	}
 
-	public List<AlerteAction> getAllAction() {
+	public List<Alerte> getAllAction() {
 		// TODO Auto-generated method stub
 		return alerteDaoImpl.getAllAction();
 	}

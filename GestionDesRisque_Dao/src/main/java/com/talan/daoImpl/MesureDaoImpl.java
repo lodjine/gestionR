@@ -54,5 +54,15 @@ public class MesureDaoImpl implements MesureExDao{
 		Session session=sessionFactory.getCurrentSession();
 		session.save(mesure);
 	}
+	public List<MesureEx> getmesureByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+Session session=sessionFactory.getCurrentSession();
+		
+		String hql = "select a from MesureEx a where a.risque.risqueId =:id AND a.critere LIKE :type" ; 
+		Query query = session.createQuery(hql) ; 
+		query.setParameter("id", id);
+		query.setParameter("type", type);
+		return query.list() ;
+	}
 
 }

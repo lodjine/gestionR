@@ -20,6 +20,7 @@
 		<class>com.talan.entities.Responsable</class>
 		<class>com.talan.entities.Risque</class>
 		<class>com.talan.entities.SousProcessus</class>
+		<class>com.talan.entities.Tracabilite</class>
 		<class>com.talan.entities.UserRole</class>
 		<class>com.talan.entities.Utilisateur</class>
 		<class>com.talan.entities.Vulnerabilite</class>

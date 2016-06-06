@@ -11,8 +11,8 @@ public interface AlerteDao {
 
 	
 	
-	public List<AlerteRisqueFort> getAllRisque();
-	public List<AlerteAction> getAllAction();
+	public List<Alerte> getAllRisque();
+	public List<Alerte> getAllAction();
 	public Alerte getById(int id);
 	public void persist(Alerte alerte);
 	public void update(Alerte alerte);

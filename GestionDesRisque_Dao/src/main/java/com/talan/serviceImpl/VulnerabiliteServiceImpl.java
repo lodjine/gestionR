@@ -58,4 +58,9 @@ public class VulnerabiliteServiceImpl implements VulnerabiliteService{
 		
 	}
 
+	public List<Vulnerabilite> getVulnerabiliteByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+		return vulnerabiliteDaoImpl.getVulnerabiliteByRiskAndType(id, type);
+	}
+
 }

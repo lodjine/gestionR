@@ -27,7 +27,8 @@ private  Date beginDate;
 private  Date endDate; 
 
 private int status ; 
- 
+ @ManyToOne(cascade = CascadeType.MERGE)
+private Utilisateur user;
 
 
 @ManyToOne (cascade = {CascadeType.PERSIST , CascadeType.MERGE})
@@ -37,6 +38,18 @@ private Risque risk ;
 
 
 
+
+
+
+public Utilisateur getUser() {
+	return user;
+}
+
+
+
+public void setUser(Utilisateur user) {
+	this.user = user;
+}
 
 
 

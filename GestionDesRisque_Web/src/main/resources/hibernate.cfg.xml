@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+    
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQLDialect
+   </property>
+   <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+   </property>
+
+   <!-- Assume test is the database name -->
+   <property name="hibernate.connection.url">
+      jdbc:mysql://localhost/talangr
+   </property>
+   <property name="hibernate.connection.username">
+      root
+   </property>
+   <property name="hibernate.connection.password">
+      root
+   </property>
+<mapping class="com.talan.entities.Risque" />
+
+<mapping class="com.talan.entities.Vulnerabilite"/>
+<mapping class="com.talan.entities.UserRole"/>
+<mapping class="com.talan.entities.Utilisateur"/>
+<mapping class="com.talan.entities.SousProcessus"/>
+<mapping class="com.talan.entities.Responsable"/>
+<mapping class="com.talan.entities.Information"/>
+<mapping class="com.talan.entities.Poste"/>
+<mapping class="com.talan.entities.Classification"/>
+<mapping class="com.talan.entities.AnalyseDesRisques"/>
+<mapping class="com.talan.entities.Alerte"/>
+<mapping class="com.talan.entities.Administrateur"/>
+<mapping class="com.talan.entities.MesureEx"/>
+<mapping class="com.talan.entities.Processus"/>
+<mapping class="com.talan.entities.Integrite"/>
+<mapping class="com.talan.entities.ImpactC"/>
+<mapping class="com.talan.entities.Disponibilite"/>
+<mapping class="com.talan.entities.Confidentialite"/>
+<mapping class="com.talan.entities.AlerteRisqueFort"/>
+<mapping class="com.talan.entities.AlerteAction"/>
+<mapping class="com.talan.entities.Action"/>
+<mapping class="com.talan.entities.Activite"/>
+
+	
+
+
+</session-factory>
+</hibernate-configuration>
