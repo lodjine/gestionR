@@ -175,7 +175,12 @@ public class RiskController {
 			Risque ris = new Risque() ; 
 			ris.setRisqueId(m.getRisqueId());
 			ris.setRisqueLabel(m.getRisqueLabel());
-			
+			Processus p = new Processus() ; 
+			p.setDescription(m.getProc().getDescription());
+			p.setProcessus(m.getProc().getProcessus());
+			p.setProcId(m.getProc().getProcId());
+			p.setUser(m.getProc().getUser());
+			ris.setProc(p);
 			
 			riskList.add(ris) ; 
 		}
@@ -184,11 +189,12 @@ public class RiskController {
 		
 		}
 	
-	@RequestMapping(value = "/PersisteRisk/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value ,HttpSession session) {
+	@RequestMapping(value = "/PersisteRisk/{label}/{value}/{proc}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("proc") int proc ,HttpSession session) {
 		
 		Risque risk = new Risque() ; 
-			
+			Processus p = pServiceImpl.getById(proc) ; 
+			risk.setProc(p);
 			risk.setRisqueLabel(label);
 			risk.setValue(value);
 			riskServiceImpl.persist(risk);
@@ -212,11 +218,13 @@ tracabiliteServiceImpl.persist(trace);
 		return true ; 
 		
     }
-	@RequestMapping(value = "/updateRisk/{id}/{label}/{value}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value , HttpSession session) {
+	@RequestMapping(value = "/updateRisk/{id}/{label}/{value}/{proc}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("proc") int proc , HttpSession session) {
 		
 		Risque ris = new Risque() ;
 		ris = riskServiceImpl.getById(id) ;
+		Processus p = pServiceImpl.getById(proc) ; 
+		ris.setProc(p);
 		ris.setValue(value);
 		ris.setRisqueLabel(label);
 		riskServiceImpl.update(ris);

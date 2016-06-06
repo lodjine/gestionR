@@ -192,18 +192,18 @@ function getDummyData() {
  
 }
 
-function saveUser(label,value,type,risque){
+function saveUser(label,value,proc){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteRisk/'+label+'/'+value+'/'+type+'/'+risque+'/',
+	    url:'/GestionDesRisque_Web/PersisteRisk/'+label+'/'+value+'/'+proc+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
 	
 	});
 }
-function updateUser(id,label,value,type,risque){
+function updateUser(id,label,value,proc){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateMesure/'+id+'/'+label+'/'+value+'/'+type+'/'+risque+'/',
+	    url:'/GestionDesRisque_Web/updateRisk/'+id+'/'+label+'/'+value+'/'+proc+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -213,7 +213,7 @@ function updateUser(id,label,value,type,risque){
 
 function deleteUser(id){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/deleteMesure/'+id+'/',
+	    url:'/GestionDesRisque_Web/deleteRisk/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
@@ -221,22 +221,4 @@ function deleteUser(id){
 	});
 }
 
-function getRisk() {
-	
-	var xxx = "" ; 
-	$.ajax({
-	    url:'/GestionDesRisque_Web/SeekRisk',
-	    dataType:'json',
-	    type:'get',
-	    async:false,
-	    success: function(data) {
-	      xxx= data ; 
-	    }
-	
-	});
-	
-	 console.log(xxx);
-	 
-	return xxx ; 
- 
-}
+
