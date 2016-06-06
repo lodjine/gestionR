@@ -225,9 +225,10 @@
       <div class="col-xs-3">
                 <select name="revSelect" class="select2"id="mSelect" ng-change="getRiskWithFilter()" ng-model="revSelect.repeatSelect" style="width: 100%">
                 	 <option value="">Status</option>
-     				 <option value="1">Moyenne</option>
-     				 <option value="2">Fort</option>
-     				 <option value="3">Extrem</option>
+                	 <option value="1">Low</option>
+     				 <option value="2">Avg</option>
+     				 <option value="3">Strong</option>
+     				 <option value="4">Extrem</option>
    			   </select>
       </div>
     </div>

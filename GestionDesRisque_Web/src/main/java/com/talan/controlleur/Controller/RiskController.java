@@ -233,10 +233,82 @@ public class RiskController {
 				lrisque.setTotal((lrisque.getTotalvuls()*lrisque.getTotalimps()*rList.get(i).getValue())-lrisque.getTotalmes());
 				listRisque.add(lrisque) ;
 			}
+			List<ListRisque> riskJson = new ArrayList<>() ; 
+			for(int i = 0 ; i< listRisque.size(); i ++ ){
+				
+				if(listRisque.get(i).getRiskLabel() != null ){
+					riskJson.add(listRisque.get(i)) ; 
+				}
+			}
 		
-		return listRisque ; 
+		return riskJson ; 
 	}
 	
+	@RequestMapping(value="/seekRisqueByProc/{id}/{type}/{puis}/" , method = RequestMethod.GET)
+	public @ResponseBody List<ListRisque> getRisksByProcAndPuiss(@PathVariable("id") int id,@PathVariable("type") String type ,@PathVariable("puis") int puis ,HttpSession session ) {
+	List<Risque>rList = riskServiceImpl.getRiskByProc(id) ; 
+	List<MesureEx> mesList = new ArrayList<>() ;
+	List<ImpactC> impList = new ArrayList<>() ; 
+	List<Vulnerabilite> vulList = new ArrayList<>() ; 
+	List<ListRisque> listRisque = new ArrayList<>() ; 
+			for(int i =0 ; i<rList.size() ; i++) {
+				ListRisque lrisque = new ListRisque() ; 
+				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				for(int j = 0 ; j<mesList.size() ; j++){
+					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
+					if(j== 0){
+						lrisque.setMesures(mesList.get(j).getMesureLabel());
+					}else{
+					lrisque.setMesures(lrisque.getMesures()+"\r\n"+mesList.get(j).getMesureLabel());
+					}
+					lrisque.setTotalmes(lrisque.getTotalmes()+mesList.get(j).getValue() );
+				}
+				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 for(int j = 0 ; j<impList.size() ; j++){
+					 if(j== 0){
+							lrisque.setImpacts(impList.get(j).getImpactLabel());
+						}else{
+						lrisque.setImpacts(lrisque.getImpacts()+"\r\n"+impList.get(j).getImpactLabel());
+						}
+						lrisque.setTotalimps(lrisque.getTotalimps()+impList.get(j).getValue() );
+					}
+				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 for(int j = 0 ; j<vulList.size() ; j++){
+					 if(j== 0){
+						lrisque.setVuls(vulList.get(j).getVulnLabel());
+					 }else{
+						 
+						 lrisque.setVuls(lrisque.getVuls()+"\r\n"+vulList.get(j).getVulnLabel());
+					 }
+						lrisque.setTotalvuls(lrisque.getTotalvuls()+vulList.get(j).getValue() );
+					 
+					}
+				lrisque.setTotal((lrisque.getTotalvuls()*lrisque.getTotalimps()*rList.get(i).getValue())-lrisque.getTotalmes());
+				listRisque.add(lrisque) ;
+			}
+			List<ListRisque> riskJson = new ArrayList<>() ; 
+			for (int i = 0 ; i< listRisque.size() ; i++){
+				if(puis ==1 ){
+					if(listRisque.get(i).getTotal()< 7 && listRisque.get(i).getTotal() >0 ){
+						riskJson.add(listRisque.get(i)) ;
+					}
+				}else if (puis == 2 ){
+					if(listRisque.get(i).getTotal() >= 7 && listRisque.get(i).getTotal() <= 14 ){
+						riskJson.add(listRisque.get(i)) ;
+					}
+				}else if (puis == 3){
+					if(listRisque.get(i).getTotal() > 14 && listRisque.get(i).getTotal() <= 19 ){
+						riskJson.add(listRisque.get(i)) ;
+					}
+				}else if(puis ==4 ){
+					if(listRisque.get(i).getTotal()> 19 ){
+						riskJson.add(listRisque.get(i)) ;
+					}
+				}
+			}
+		
+		return riskJson ; 
+	}
 	
 	
 	@RequestMapping(value="/seekConfByProc/{id}/" , method = RequestMethod.GET)

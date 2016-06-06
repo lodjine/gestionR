@@ -55,13 +55,11 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
         $scope.resetAll();
     }
     $scope.getRiskWithFilter = function(){
-    	if($scope.typeSelect.repeatSelect == "conf"){
-    		$scope.allItems = getAllConfsREV($scope.ProcSelect.repeatSelect,$scope.revSelect.repeatSelect) ;
-    	}else if($scope.typeSelect.repeatSelect == "disp"){
-    		$scope.allItems = getAllDispsREV($scope.ProcSelect.repeatSelect,$scope.revSelect.repeatSelect) ;
-    	}else{
-    		$scope.allItems = getAllIntgsREV($scope.ProcSelect.repeatSelect,$scope.revSelect.repeatSelect) ;
-    	}
+    	
+    		$scope.allItems = getRisksss($scope.ProcSelect.repeatSelect,$scope.typeSelect.repeatSelect,$scope.revSelect.repeatSelect) ;
+    	
+    		
+    	
     	
     	$scope.filteredList = $scope.allItems;
         $scope.pagination();
@@ -699,4 +697,22 @@ function getAllRisks(x,y){
 	 
 	return xxx ; 
 	
+}
+
+function getRisksss(x,y,z){
+	var xxx = "" ; 
+	$.ajax({
+	    url:'/GestionDesRisque_Web/seekRisqueByProc/'+x+'/'+y+'/'+z+'/',
+	    dataType:'json',
+	    type:'get',
+	    async:false,
+	    success: function(data) {
+	      xxx= data ; 
+	    }
+	
+	});
+	
+	 console.log(xxx);
+	 
+	return xxx ; 	
 }
