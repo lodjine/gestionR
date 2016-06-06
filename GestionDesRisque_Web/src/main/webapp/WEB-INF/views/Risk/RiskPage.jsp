@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -27,10 +28,9 @@
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
   
   
-  <link href="resources/css/select/select2.min.css" rel="stylesheet">
   
-	
- 
+  
+
   <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -38,10 +38,9 @@
   <link href="resources/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <script src="resources/js/jquery.min.js"></script>
-   <script src="resources/js/angular.min.js"></script>
-    
-     <script src="resources/js/dispAdd.Angular.js"></script>
- <script src="resources/js/select/select2.full.js"></script>
+     <script src="resources/js/angular.min.js"></script>
+     <script src="resources/js/risk.Angular.js"></script>
+
 
 
 </head>
@@ -63,15 +62,16 @@
           <div class="clearfix"></div>
 
 
-          <input type="hidden" value="0" class="idConf">
+          
+
           <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <div class="menu_section">
+           <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
@@ -83,15 +83,9 @@
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
-                    </li>
-                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -102,24 +96,18 @@
                   
                   </ul>
                 </li>
-                <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAdmin">Administrateur</a>
-                    </li>
-                    <li><a href="media_gallery.html">Responsable</a>
-                    </li>
-                    <li><a href="typography.html">Poste</a>
-                    </li>
-                  </ul>
+               
+                <li><a href="/GestionDesRisque_Web/MenuAction"><i  class="fa fa-table"></i>Liste Des Actions</a>
                 </li>
-                <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
-                    </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
-                    </li>
-                  </ul>
+                <li><a href="/GestionDesRisque_Web/alerte"><i class="fa  fa-book"></i>Liste Des Alertes</a>
                 </li>
+                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
+                </li>
+               
+                 <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
+                </li>
+                 </sec:authorize>
               </ul>
             </div>
             
@@ -202,13 +190,39 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Integrite</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Mesure</h3>
 				
 		<br />
 
-	<div ng-app="dispAddApp" style="height: auto;">
+<div ng-app="riskApp" style="height: auto;">
     <div ng-controller="TableCtrl">
+    <div class="row">
+    <div class="col-xs-3">
+                <select name="pSelect" class="select2"id="mSelect" ng-model="ProcSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Process</option>
+     				 <option ng-repeat="proc in ProcSelect.availableOptions" value="{{proc.procId}}">{{proc.processus}}</option>
+   			   </select>
+     </div>
+     <div class="col-xs-3">
+                <select name="tSelect" class="select2"id="mSelect" ng-change="getRisk()" ng-model="typeSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Type</option>
+     				 <option value="confidentialite">Confidentialite</option>
+     				 <option value="disponibilite">Disponibilite</option>
+     				 <option value="integrite">Integrite</option>
+   			   </select>
+      </div>
+      <div class="col-xs-3">
+                <select name="revSelect" class="select2"id="mSelect" ng-change="getRiskWithFilter()" ng-model="revSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Status</option>
+                	 <option value="1">Low</option>
+     				 <option value="2">Avg</option>
+     				 <option value="3">Strong</option>
+     				 <option value="4">Extrem</option>
+   			   </select>
+      </div>
+    </div>
         <div class="input-group">
+        
             <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
       <span class="glyphicon glyphicon-search"></span>
 </span>
@@ -238,12 +252,10 @@
                      <span class="{{Header[5]}}"></span></a>
                     </th>
                      
-                    <th class="value"> <a ng-click="sort('value')" href="#"> P
+                    <th class="value"> <a ng-click="sort('value')" href="#"> I
                      <span class="{{Header[6]}}"></span></a>
                     </th>
-                     <th class="value"> <a ng-click="sort('value')" href="#">I(C)
-                     <span class="{{Header[6]}}"></span></a>
-                    </th>
+                   
                     
                     <th class="value"> <a ng-click="sort('value')" href="#"> R
                      <span class="{{Header[7]}}"></span></a>
@@ -251,20 +263,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
-                    <td><label>{{item.risque.risqueLabel}}</label></td>
-                    <td><ng-repeat ng-repeat="mesure in MesuresByPage[$index] | orderBy:columnToOrder:reverse"><label>{{mesure.mesureLabel}}</label> <button type="button" ng-click="modifyMesure($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteMesure($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
-					
-                     <td><ng-repeat ng-repeat="vulnerabs in vulnerabsByPage[$index]"><label>{{vulnerabs.vulnLabel}}</label><button type="button" ng-click="modifyVul($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteVul($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> <br></ng-repeat></td>
-                     <td><ng-repeat ng-repeat="impacts in impactsByPage[$index]"><label>{{impacts.impactLabel}}</label><button type="button" ng-click="modifyImp($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                     <button type="button" ng-click="deleteImp($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button><br></ng-repeat></td>
-                    <td>{{mesureValue}}</td>
-                    <td>{{vulnValue}}</td>
-                    <td>{{impactsValue}}</td>
-                    <td><input type="number" value="" ng-change="updatTotal()" ng-model="iConf" id="iconf"/> </td>
-                    <td>{{total}}</td>
+                <tr ng-repeat="item in ItemsByPage[currentPage] ">
+                    <td><label>{{item.riskLabel}}</label></td>
+                    <td><label>{{item.mesures}}</label></td>
+					 <td><label>{{item.vuls}}</label></td>
+                     <td><label>{{item.impacts}}</label></td>
+                    <td>{{item.totalmes}}</td>
+                    <td>{{item.totalvuls}}</td>
+                    <td>{{item.totalimps}}</td>
+                    
+                    <td>{{item.total}}</td>
                     
                     
                 </tr>
@@ -283,114 +291,81 @@
         </ul>
         
         
-        
-        <div class="row risq">
-            <div class="col-xs-1">
-                <input type="hidden" ng-model="risqueId" class="form-control" value="0"  placeholder="id" hidden="true"><label> Risk</label>
-            </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="RiskLabel" class="form-control" placeholder="Label">
-                <input type="hidden" ng-model="RiskId" class="form-control">
-                </div>
-               
-            <div class="col-xs-3">
-                <select name="pSelect" class="select2"id="mSelect" ng-model="ProcSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Process</option>
-     				 <option ng-repeat="proc in ProcSelect.availableOptions" value="{{proc.procId}}">{{proc.processus}}</option>
-   			   </select>
-            </div>
-			<div class="col-xs-3">
-                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Risk</option>
-     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-1">
-               <button ng-click="addRisk()" type="button" class="btn btn-primary toHide"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="updateRisk()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+<!--         <div class="row"> -->
+<!--             <div class="col-xs-1"> -->
+<!--                 <input type="hidden" ng-model="MesureId" class="form-control" value="0"  placeholder="id" hidden="true"><label> Mesure</label> -->
+<!--             </div> -->
+<!--             <div class="col-xs-3"> -->
+<!--                 <input type="text" ng-model="MesureLabel" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-2"> -->
+<!--                 <input type="text" ng-model="MesureValue" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-3"> -->
+<!--                 <select name="mSelect" class="select2"id="mSelect" ng-model="MesureSelect.repeatSelect" style="width: 100%"> -->
+<!--                 	 <option value="">Mesure</option> -->
+<!--      				 <option ng-repeat="mesureS in MesureSelect.availableOptions" value="{{mesureS.mesureId}}">{{mesureS.mesureLabel}}</option> -->
+<!--    			   </select> -->
+<!--             </div> -->
+<!--             <div class="col-xs-1"> -->
+<!--                <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
+<!--                 <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> -->
               
                
 
-                </button>
-            </div>
-        </div>
-        
-        
-        <div class="row hideDiv">
-            <div class="col-xs-1">
-                <input type="hidden" ng-model="MesureId" class="form-control" value="0"  placeholder="id" hidden="true"><label> Mesure</label>
-            </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="MesureLabel" class="form-control" placeholder="Label">
-            </div>
-             <div class="col-xs-2">
-                <input type="text" ng-model="MesureValue" class="form-control" placeholder="value">
-            </div>
-             <div class="col-xs-3">
-                <select name="mSelect" class="select2"id="mSelect" ng-model="MesureSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Mesure</option>
-     				 <option ng-repeat="mesureS in MesureSelect.availableOptions" value="{{mesureS.mesureId}}">{{mesureS.mesureLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-1">
-               <button ng-click="addMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="updateMesure()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+<!--                 </button> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--         <div class="row"> -->
+<!--             <div class="col-xs-1"> -->
+<!--                 <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" value="0" hidden="true"><label>Vulnérabilités</label> -->
+<!--             </div> -->
+<!--             <div class="col-xs-3"> -->
+<!--                 <input type="text" ng-model="VulLabel" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-2"> -->
+<!--                 <input type="text" ng-model="VulValue" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-3"> -->
+<!--                 <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%" > -->
+<!--                 	 <option value="">Vulnerabilité</option> -->
+<!--      				 <option ng-repeat="vulS in vulSelect.availableOptions" value="{{vulS.vulnId}}">{{vulS.vulnLabel}}</option> -->
+<!--    			   </select> -->
+<!--             </div> -->
+<!--             <div class="col-xs-1"> -->
+<!--             <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
+<!--                 <button ng-click="updateVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> -->
               
                
 
-                </button>
-            </div>
-        </div>
-        <div class="row hideDiv">
-            <div class="col-xs-1">
-                <input type="hidden" ng-model="VulId" class="form-control" placeholder="id" value="0" hidden="true"><label>Vulnérabilités</label>
-            </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="VulLabel" class="form-control" placeholder="Label">
-            </div>
-             <div class="col-xs-2">
-                <input type="text" ng-model="VulValue" class="form-control" placeholder="value">
-            </div>
-             <div class="col-xs-3">
-                <select name="vulSelect" class="select2"id="vulSelect" ng-model="vulSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Vulnerabilité</option>
-     				 <option ng-repeat="vulS in vulSelect.availableOptions" value="{{vulS.vulnId}}">{{vulS.vulnLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-1">
-            <button ng-click="addVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-                <button ng-click="updateVul()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
+<!--                 </button> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--         <div class="row"> -->
+<!--             <div class="col-xs-1"> -->
+<!--                 <input type="hidden" ng-model="ImpId" class="form-control" value="0"  placeholder="id" hidden="true"><label>Impacts</label> -->
+<!--             </div> -->
+<!--             <div class="col-xs-3"> -->
+<!--                 <input type="text" ng-model="ImpLabel" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-2"> -->
+<!--                 <input type="text" ng-model="ImpValue" class="form-control" placeholder="value"> -->
+<!--             </div> -->
+<!--              <div class="col-xs-3"> -->
+<!--                 <select name="impSelect" class="select2"id="impSelect" ng-model="impSelect.repeatSelect" style="width: 100%"> -->
+<!--                 	 <option value="">Impacte</option> -->
+<!--      				 <option ng-repeat="impS in impSelect.availableOptions" value="{{impS.impactId}}">{{impS.impactLabel}}</option> -->
+<!--    			   </select> -->
+<!--             </div> -->
+<!--             <div class="col-xs-1"> -->
+<!--             <button ng-click="addImp" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> -->
+<!--                <button ng-click="updateImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> -->
               
                
 
-                </button>
-            </div>
-        </div>
-        <div class="row hideDiv">
-            <div class="col-xs-1">
-                <input type="hidden" ng-model="ImpId" class="form-control" value="0"  placeholder="id" hidden="true"><label>Impacts</label>
-            </div>
-            <div class="col-xs-3">
-                <input type="text" ng-model="ImpLabel" class="form-control" placeholder="value">
-            </div>
-             <div class="col-xs-2">
-                <input type="text" ng-model="ImpValue" class="form-control" placeholder="value">
-            </div>
-             <div class="col-xs-3">
-                <select name="impSelect" class="select2"id="impSelect" ng-model="impSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Impacte</option>
-     				 <option ng-repeat="impS in impSelect.availableOptions" value="{{impS.impactId}}">{{impS.impactLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-1">
-            <button ng-click="addImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
-               <button ng-click="updateImp()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
-              
-               
-
-                </button>
-            </div>
-        </div>
+<!--                 </button> -->
+<!--             </div> -->
+<!--         </div> -->
     </div>
     <!-- Ends Controller -->
 </div>

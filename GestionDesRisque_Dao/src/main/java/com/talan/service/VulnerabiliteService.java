@@ -11,4 +11,5 @@ public interface VulnerabiliteService {
 	public void update(Vulnerabilite vulner);
 	public void delete(Vulnerabilite vulner);
 	public void save(Vulnerabilite vulner);
+	public List<Vulnerabilite> getVulnerabiliteByRiskAndType(int id , String type) ;
 }

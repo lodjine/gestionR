@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -67,10 +68,10 @@
           <br />
    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <div class="menu_section">
+                <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
@@ -82,15 +83,9 @@
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
-                    </li>
-                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -101,24 +96,18 @@
                   
                   </ul>
                 </li>
-                <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAdmin">Administrateur</a>
-                    </li>
-                    <li><a href="media_gallery.html">Responsable</a>
-                    </li>
-                    <li><a href="typography.html">Poste</a>
-                    </li>
-                  </ul>
+               
+                <li><a href="/GestionDesRisque_Web/MenuAction"><i  class="fa fa-table"></i>Liste Des Actions</a>
                 </li>
-                <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
-                    </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
-                    </li>
-                  </ul>
+                <li><a href="/GestionDesRisque_Web/alerte"><i class="fa  fa-book"></i>Liste Des Alertes</a>
                 </li>
+                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
+                </li>
+                
+                 <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
+                </li>
+                </sec:authorize>
               </ul>
             </div>
             
@@ -226,6 +215,12 @@
                     <th class="value"> <a ng-click="sort('value')" href="#"> Value
                      <span class="{{Header[2]}}"></span></a>
                     </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Risque
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Type
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -233,6 +228,8 @@
                     <td>{{item.vulnId}}</td>
                     <td>{{item.vulnLabel}}</td>
                     <td>{{item.value}}</td>
+                    <td>{{item.risque.risqueLabel}}</td>
+                    <td>{{item.critere}}</td>
                     
                     <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                      <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
@@ -252,14 +249,28 @@
             </li>
         </ul>
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <input type="hidden" ng-model="vulnId" class="form-control" placeholder="id" hidden="true">
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <input type="text" ng-model="vulnLabel" class="form-control" placeholder="value">
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <input type="number" ng-model="value" class="form-control" placeholder="value">
+            </div>
+            <div class="col-xs-2">
+                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Risk</option>
+     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-2">
+                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Type</option>
+     				 <option value="Confidentialite">Confidentialite </option>
+     				 <option value="Disponibilite">Disponibilite</option>
+     				 <option value="Integrite">Integrite</option>
+   			   </select>
             </div>
             <div class="col-xs-1">
                 <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>

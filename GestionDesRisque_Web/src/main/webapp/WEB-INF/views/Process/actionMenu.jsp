@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -25,9 +26,21 @@
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
+  
+  
+  
+  
 
+  <link href="resources/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="resources/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
   <script src="resources/js/jquery.min.js"></script>
+   <script src="resources/js/angular.min.js"></script>
+    
+     <script src="resources/js/action.Angular.js"></script>
 
 
 
@@ -54,12 +67,12 @@
 
           <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
@@ -71,15 +84,9 @@
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
-                    </li>
-                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -90,24 +97,18 @@
                   
                   </ul>
                 </li>
-                <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAdmin">Administrateur</a>
-                    </li>
-                    <li><a href="media_gallery.html">Responsable</a>
-                    </li>
-                    <li><a href="typography.html">Poste</a>
-                    </li>
-                  </ul>
+               
+                <li><a href="/GestionDesRisque_Web/MenuAction"><i  class="fa fa-table"></i>Liste Des Actions</a>
                 </li>
-                <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
-                    </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
-                    </li>
-                  </ul>
+                <li><a href="/GestionDesRisque_Web/alerte"><i class="fa  fa-book"></i>Liste Des Alertes</a>
                 </li>
+                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
+                </li>
+               
+                 <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
+                </li>
+                 </sec:authorize>
               </ul>
             </div>
             
@@ -178,9 +179,9 @@
 					</div>
 					<div class="clearfix"></div>
 
-					<div class="row">
+					<div class="row" data-ng-app="risqueModule" data-ng-controller="risqueJs">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -189,28 +190,28 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get"   action="updatedisp">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Integrite Menu</h3>
+              
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
 				
-				    
+				    <f:form method="get" modelAttribute="Process"    action="ShowAction">
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
-                   	<td>New Integrite</td>
+                   	<td>Add New Action</td>
                    	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
 						<i class="glyphicon glyphicon-plus"></i>
 						</button>
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Integrite List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Action List  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select a risk</option>
-								<c:forEach items="${ListConf}" var="conf">
-								<option value="${ conf.dispId }">${conf.risque.risqueLabel}</option>
+							<option value="">Select a Process</option>
+								<c:forEach items="${ListAdmin}" var="group">
+							<option value="${group.actionId}">${group.label}</option>
 								</c:forEach>
 							</select>
 						
@@ -233,22 +234,124 @@
                 </table>
                 <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
 		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
+		
+		</f:form>
+		
+		<br />
+<br />
+
+<div ng-app="ActionApp" >
+    <div ng-controller="TableCtrl">
+        <div class="input-group">
+            <input class="form-control" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" /> <span class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+</span>
+        </div>
+        <table class="table  table-hover data-table myTable">
+            <thead>
+                <tr>
+                    <th class="email"> <a href="#" ng-click="sort('email',$event)">Action Label
+                         <span class="{{Header[0]}}"></span>
+                         </a>
+
+                    </th>
+                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Risk
+                         <span class="{{Header[1]}}"></span></a>
+                    </th>
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Start Date
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> End Date
+                         <span class="{{Header[1]}}"></span></a>
+                    </th>
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Creation Date
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                     <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Modification Date
+                         <span class="{{Header[1]}}"></span></a>
+                    </th>
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Status
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
+                    <td>{{item.label}}</td>
+                    <td>{{item.risk.risqueLabel}}</td>
+                    <td>{{item.beginDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.endDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.creationDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.modificationDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.status}}</td>
+                    <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                     <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="pagination pagination-sm">
+            <li ng-class="{active:0}"><a href="#" ng-click="firstPage()">First</a>
+
+            </li>
+            <li ng-repeat="n in range(ItemsByPage.length)"> <a href="#" ng-click="setPage()" ng-bind="n+1">1</a>
+
+            </li>
+            <li><a href="#" ng-click="lastPage()">Last</a>
+
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-xs-2">
+                <input type="text" ng-model="label" class="form-control" placeholder="Label">
+                <input type="hidden" ng-model="acId">
+            </div>
+            <div class="col-xs-2">
+                <input type="text" ng-model="bDate" class="form-control" placeholder="Begin Date">
+            </div>
+            <div class="col-xs-2">
+                <input type="text" ng-model="eDate" class="form-control" placeholder="End Date">
+            </div>
+            
+            <div class="col-xs-2">
+                <input type="text" ng-model="status" class="form-control" placeholder="Status">
+            </div>
+            <div class="col-xs-2">
+                <select name="mSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Risk</option>
+     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
+   			   </select>
+            </div>
+            <div class="col-xs-1">
                 
-                </f:form>
+                <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+               
+
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Ends Controller -->
+</div>
+
+                 
+                </div>
+                
+              
              
 						</div>
 						
 							</div>
+							
 						</div>
-						</div>
-						</div>
-
-								
-					   </div>			
-								
-							</div>
 						
+						</div>
+				
+								
+					   			
+								
+						
+						 
 			
 			<!-- /page content -->
 
@@ -281,7 +384,26 @@
   <script src="resources/js/custom.js"></script>
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
+  <script src="resources/js/datatables/jquery.dataTables.min.js"></script>
+        <script src="resources/js/datatables/dataTables.bootstrap.js"></script>
+        <script src="resources/js/datatables/dataTables.buttons.min.js"></script>
+        <script src="resources/js/datatables/buttons.bootstrap.min.js"></script>
+        <script src="resources/js/datatables/jszip.min.js"></script>
+        <script src="resources/js/datatables/pdfmake.min.js"></script>
+        <script src="resources/js/datatables/vfs_fonts.js"></script>
+        <script src="resources/js/datatables/buttons.html5.min.js"></script>
+        <script src="resources/js/datatables/buttons.print.min.js"></script>
+        <script src="resources/js/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="resources/js/datatables/dataTables.keyTable.min.js"></script>
+        <script src="resources/js/datatables/dataTables.responsive.min.js"></script>
+        <script src="resources/js/datatables/responsive.bootstrap.min.js"></script>
+        <script src="resources/js/datatables/dataTables.scroller.min.js"></script>
   <script>
+  $(document).ready(function() {
+      $('#datatable').dataTable();
+     });
+		
+  
   $('#boutonLoop')
   .click(
   		function() {

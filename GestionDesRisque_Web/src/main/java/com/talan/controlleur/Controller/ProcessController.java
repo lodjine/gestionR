@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +25,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +38,11 @@ import com.talan.entities.Activite;
 import com.talan.entities.Information;
 import com.talan.entities.Processus;
 import com.talan.entities.SousProcessus;
+import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
 import com.talan.service.InformationService;
 import com.talan.service.ProcessService;
+import com.talan.service.TracabiliteService;
 import com.talan.service.UtilisateurService;
 
 
@@ -54,7 +58,32 @@ public class ProcessController {
 	UtilisateurService utilisateurServiceImpl;
 	@Autowired
 	InformationService informationServiceImpl;
-	
+	@Autowired
+	TracabiliteService tracabiliteServiceImpl;
+	public UtilisateurService getUtilisateurServiceImpl() {
+		return utilisateurServiceImpl;
+	}
+
+	public void setUtilisateurServiceImpl(UtilisateurService utilisateurServiceImpl) {
+		this.utilisateurServiceImpl = utilisateurServiceImpl;
+	}
+
+	public InformationService getInformationServiceImpl() {
+		return informationServiceImpl;
+	}
+
+	public void setInformationServiceImpl(InformationService informationServiceImpl) {
+		this.informationServiceImpl = informationServiceImpl;
+	}
+
+	public TracabiliteService getTracabiliteServiceImpl() {
+		return tracabiliteServiceImpl;
+	}
+
+	public void setTracabiliteServiceImpl(TracabiliteService tracabiliteServiceImpl) {
+		this.tracabiliteServiceImpl = tracabiliteServiceImpl;
+	}
+
 	public ProcessService getProcessServiceImpl() {
 		return processServiceImpl;
 	}
@@ -122,7 +151,26 @@ public class ProcessController {
 	public ModelAndView validProcess(@ModelAttribute Processus processus){
 		
 		ModelAndView model = new ModelAndView("index") ; 
+	Utilisateur user=utilisateurServiceImpl.getById(processus.getUser().getEmail());
+	processus.setUser(user);
 	
+////////////tracabilite/////////////
+	
+UserDetails user1 = (UserDetails) SecurityContextHolder.getContext()
+	.getAuthentication().getPrincipal();
+String role="";
+Utilisateur myUser = new Utilisateur();
+myUser = utilisateurServiceImpl.getById(user1.getUsername());
+
+
+Tracabilite trace=new Tracabilite();
+trace.setDate(new Date().toString());
+trace.setUser(myUser.getEmail());
+trace.setEntity("Action");
+trace.setLabelEntity(processus.getProcessus());
+trace.setOperation("Modification");
+tracabiliteServiceImpl.persist(trace);
+/////////////////////////////////
 		processServiceImpl.save(processus);
 		return model ; 
 		

@@ -136,20 +136,52 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
           $scope.pagination();
           $scope.resetAll();
     }
-    $scope.addMesure = function () {
+ $scope.addMesure = function () {
     	
-    	
+    	var mesv = 0 ;
     	if($scope.iconfEq == 0){
     		if($scope.MesureSelect.repeatSelect == null){
     			$scope.iconfEq=	PersisteConfWithNewObeject($scope.MesureLabel,$scope.MesureValue,"Mesure");
+    			$scope.allItems = getDummyData($scope.iconfEq) ;
+    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
+    	 			
+    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
+    				
+    			}
+    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("Mesure",$sccope.MesureSelect.repeatSelect) ;
+    			$scope.allItems = getDummyData($scope.iconfEq) ;
+    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
+    	 			
+    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
+    				
+    			}
+    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	}else{
     		if($scope.MesureSelect.repeatSelect == null){
-    			UpdateConfWithNewObeject($scope.MesureLabel,$scope.allItems[0].integId,$scope.MesureValue,"Mesure") ;
+    			UpdateConfWithNewObeject($scope.MesureLabel,$scope.allItems[0].confId,$scope.MesureValue,"Mesure") ;
+    			$scope.allItems = getDummyData($scope.iconfEq) ;
+    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
+    	 			
+    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
+    				
+    			}
+    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
-    			UpdateConfWithOldObject($scope.allItems[0].integId,"Mesure",$scope.MesureSelect.repeatSelect)
+    			UpdateConfWithOldObject($scope.allItems[0].confId,"Mesure",$scope.MesureSelect.repeatSelect)
+    			$scope.allItems = getDummyData($scope.iconfEq) ;
+    	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
+    	 			
+    					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
+    				
+    			}
+    	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+    	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	
     	}
@@ -159,19 +191,47 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
           $scope.resetAll();
     }
 $scope.addVul = function () {
-    	
+    	var mesv = 0 ;
     	
     	if($scope.iconfEq == 0){
     		if($scope.vulSelect.repeatSelect == null){
     			$scope.iconfEq=	PersisteConfWithNewObeject($scope.VulLabel,$scope.VulValue,"Vul");
+    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
+				
+			}
+	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("Vul",vulSelect.repeatSelect) ;
+    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
+				
+			}
+	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	}else{
     		if($scope.vulSelect.repeatSelect == null){
-    			UpdateConfWithNewObeject($scope.VulLabel,$scope.allItems[0].integId,$scope.VulValue,"Vul") ;
+    			UpdateConfWithNewObeject($scope.VulLabel,$scope.allItems[0].confId,$scope.VulValue,"Vul") ;
+    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
+				
+			}
+	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
-    			UpdateConfWithOldObject($scope.allItems[0].integId,"Vul",$scope.vulSelect.repeatSelect)
+    			UpdateConfWithOldObject($scope.allItems[0].confId,"Vul",$scope.vulSelect.repeatSelect) ; 
+    			for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].vulnerabs[i].value ;
+				
+			}
+	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	
     	}
@@ -185,14 +245,42 @@ $scope.addVul = function () {
     	if($scope.iconfEq == 0){
     		if($scope.impSelect.repeatSelect == null){
     			$scope.iconfEq=	PersisteConfWithNewObeject($scope.ImpLabel,$scope.ImpValue,"imp");
+    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
+				
+			}
+	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
     			$scope.iconfEq=	PersisteConfWithOldObject("imp",$sccope.impSelect.repeatSelect) ;
+    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
+				
+			}
+	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	}else{
     		if($scope.impSelect.repeatSelect == null){
-    			UpdateConfWithNewObeject($scope.ImpLabel,$scope.allItems[0].integId,$scope.ImpValue,"imp") ;
+    			UpdateConfWithNewObeject($scope.ImpLabel,$scope.allItems[0].confId,$scope.ImpValue,"imp") ;
+    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
+				
+			}
+	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}else{
-    			UpdateConfWithOldObject($scope.allItems[0].integId,"imp",$scope.impSelect.repeatSelect)
+    			UpdateConfWithOldObject($scope.allItems[0].confId,"imp",$scope.impSelect.repeatSelect) ; 
+    			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
+    	 			
+					 mesv =mesv+ $scope.allItems[0].impacts[i].value ;
+				
+			}
+	 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
     		}
     	
     	}
@@ -278,77 +366,95 @@ $scope.addVul = function () {
         
     }
     
-    $scope.updateMesure = function(){
-    	
-    	if($scope.MesureSelect.repeatSelect == null){
-    		
-    		updateMesure($scope.MesureId,$scope.MesureLabel,$scope.MesureValue) ; 
-    		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt($scope.MesureValue) ;
-        	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
-    		
-    	}else{
-    		for(var i =0 ; i<  $scope.MesureSelect.availableOptions.length; i++){
-    			if( $scope.MesureSelect.availableOptions[i].mesureId == $scope.MesureSelect.repeatSelect ){
-    				var mesv = $scope.MesureSelect.availableOptions[i].value ;
-    			}
-    		}
-    		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
-        	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
-    		UpdateConfWithOldObject($scope.allItems[0].integId,"Mesure",$scope.MesureSelect.repeatSelect) ; 
-    	}
-    	
-    	$scope.allItems = getDummyData($scope.iconfEq) ;
-    	$scope.filteredList = $scope.allItems;
-         
-         $scope.pagination();
-         $scope.resetAll();
-    }
- $scope.updateVul = function(){
-    	
-    	if($scope.vulSelect.repeatSelect == null){
-    		updateVul($scope.VulId,$scope.VulLabel,$scope.VulValue) ; 
-    		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt($scope.VulValue) ;
-        	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
-    	}else{
-    		for(var i =0 ; i<  $scope.vulSelect.availableOptions.length; i++){
-    			if( $scope.vulSelect.availableOptions[i].vulnId == $scope.vulSelect.repeatSelect ){
-    				var mesv = $scope.vulSelect.availableOptions[i].value ;
-    			}
-    		}
-    		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
-        	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
-    		UpdateConfWithOldObject($scope.allItems[0].integId,"Vul",$scope.vulSelect.repeatSelect) ; 
-    	}
-    	
-    	$scope.allItems = getDummyData($scope.iconfEq) ;
-    	$scope.filteredList = $scope.allItems;
-         
-         $scope.pagination();
-         $scope.resetAll();
-    }
- $scope.updateImp = function(){
- 	
- 	if($scope.impSelect.repeatSelect == null){
- 		updateImp($scope.ImpId,$scope.ImpLabel,$scope.ImpValue) ; 
- 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt($scope.ImpValue) ;
-     	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
- 	}else{
- 		for(var i =0 ; i<  $scope.impSelect.availableOptions.length; i++){
- 			if( $scope.impSelect.availableOptions[i].impactId == $scope.impSelect.repeatSelect ){
- 				var mesv = $scope.impSelect.availableOptions[i].value ;
- 			}
- 		}
- 		$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
-     	$scope.total = parseInt($scope.mesureValue) + parseInt($scope.vulnValue)+ parseInt($scope.impactsValue) ;
- 		UpdateConfWithOldObject($scope.allItems[0].integId,"Imp",$scope.impSelect.repeatSelect) ; 
- 	}
- 	
- 	$scope.allItems = getDummyData($scope.iconfEq) ;
- 	$scope.filteredList = $scope.allItems;
-      
-      $scope.pagination();
-      $scope.resetAll();
- }
+ $scope.updateMesure = function(){
+	 	var mesv =0 ;
+	 	if($scope.MesureSelect.repeatSelect == null){
+	 		
+	 		updateMesure($scope.MesureId,$scope.MesureLabel,$scope.MesureValue) ; 
+	 		$scope.allItems = getDummyData($scope.iconfEq) ;
+	 		for(var i =0 ; i<  $scope.allItems[0].mesures.length; i++){
+	 			
+					 mesv =mesv+ $scope.allItems[0].mesures[i].value ;
+				
+			}
+	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+	     	$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+	 		
+	 	}else{
+	 		for(var i =0 ; i<  $scope.vulSelect.availableOptions.length; i++){
+				if( $scope.vulSelect.availableOptions[i].vulnId == $scope.vulSelect.repeatSelect ){
+					 mesv = $scope.vulSelect.availableOptions[i].value ;
+				}
+			}
+	 		$scope.mesureValue = parseInt($scope.mesureValue) + parseInt(mesv) ;
+	 		$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+	 		UpdateConfWithOldObject($scope.allItems[0].integId,"Mesure",$scope.MesureSelect.repeatSelect) ; 
+	 	}
+	 	
+	 	$scope.allItems = getDummyData($scope.iconfEq) ;
+	 	$scope.filteredList = $scope.allItems;
+	      
+	      $scope.pagination();
+	      $scope.resetAll();
+	 }
+	$scope.updateVul = function(){
+		 var mesv =0 ;
+	 	if($scope.vulSelect.repeatSelect == null){
+	 		
+	 		updateVul($scope.VulId,$scope.VulLabel,$scope.VulValue) ; 
+	 		$scope.allItems = getDummyData($scope.iconfEq) ;
+	 		for(var i =0 ; i<  $scope.allItems[0].vulnerabs.length; i++){
+	     		
+				 mesv = mesv+$scope.allItems[0].vulnerabs[i].value ;
+			
+		}
+	 		$scope.vulnValue = parseInt(mesv) ;
+	 		$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+	 	}else{
+	 		for(var i =0 ; i<  $scope.vulSelect.availableOptions.length; i++){
+				if( $scope.vulSelect.availableOptions[i].vulnId == $scope.vulSelect.repeatSelect ){
+					 mesv = $scope.vulSelect.availableOptions[i].value ;
+				}
+			}
+	 		$scope.vulnValue = parseInt($scope.vulnValue) + parseInt(mesv) ;
+	 		$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+	 		UpdateConfWithOldObject($scope.allItems[0].integId,"Vul",$scope.vulSelect.repeatSelect) ; 
+	 	}
+	 	
+	 	$scope.allItems = getDummyData($scope.iconfEq) ;
+	 	$scope.filteredList = $scope.allItems;
+	      
+	      $scope.pagination();
+	      $scope.resetAll();
+	 }
+	$scope.updateImp = function(){
+		 var mesv =0 ;
+		if($scope.impSelect.repeatSelect == null){
+			updateImp($scope.ImpId,$scope.ImpLabel,$scope.ImpValue) ; 
+			for(var i =0 ; i<  $scope.allItems[0].impacts.length; i++){
+				
+				 mesv = mesv+ $scope.allItems[0].impacts[i].value ;
+			
+		}
+			$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+			$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+		}else{
+			for(var i =0 ; i<  $scope.impSelect.availableOptions.length; i++){
+	 			if( $scope.impSelect.availableOptions[i].impactId == $scope.impSelect.repeatSelect ){
+	 				var mesv = $scope.impSelect.availableOptions[i].value ;
+	 			}
+	 		}
+			$scope.impactsValue = parseInt($scope.impactsValue) + parseInt(mesv) ;
+			$scope.total = ( parseInt($scope.vulnValue)* parseInt($scope.impactsValue) * $scope.allItems[0].Iintg)- parseInt($scope.mesureValue)   ;
+			UpdateConfWithOldObject($scope.allItems[0].integId,"Imp",$scope.impSelect.repeatSelect) ; 
+		}
+		
+		$scope.allItems = getDummyData($scope.iconfEq) ;
+		$scope.filteredList = $scope.allItems;
+	   
+	   $scope.pagination();
+	   $scope.resetAll();
+	}
     
     $scope.deleteMesure= function(index){
     	 
@@ -568,7 +674,7 @@ function PersisteConfWithNewObeject(label,value,type){
 function PersisteConfWithOldObject(type,id,idProces){
 	var xd = 0 ;
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteConfWithOldObjectintg/'+type+'/'+id+'/'+idProces+'/',
+	    url:'/GestionDesRisque_Web/PersisteConfWithOldObjectintg/'+type+'/'+id+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,

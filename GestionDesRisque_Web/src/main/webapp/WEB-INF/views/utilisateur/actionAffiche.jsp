@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -54,12 +55,12 @@
 
           <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
+          <!-- sidebar menu -->
+             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
@@ -71,15 +72,9 @@
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
-                    </li>
-                   <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -90,27 +85,20 @@
                   
                   </ul>
                 </li>
-                <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAdmin">Administrateur</a>
-                    </li>
-                    <li><a href="media_gallery.html">Responsable</a>
-                    </li>
-                    <li><a href="typography.html">Poste</a>
-                    </li>
-                  </ul>
+               
+                <li><a href="/GestionDesRisque_Web/MenuAction"><i  class="fa fa-table"></i>Liste Des Actions</a>
                 </li>
-                <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
-                    </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
-                    </li>
-                  </ul>
+                <li><a href="/GestionDesRisque_Web/alerte"><i class="fa  fa-book"></i>Liste Des Alertes</a>
                 </li>
+                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
+                </li>
+               
+                 <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
+                </li>
+                 </sec:authorize>
               </ul>
             </div>
-            
 
           </div>
           <!-- /sidebar menu -->
@@ -189,67 +177,97 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get"   action="updateConfidentialite">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Confidentialite Menu</h3>
-				
-				    
-                  <table id="idTable" class="table table-hover" >
-              
-                   <tr>
-                   	<td>New Confidentialite</td>
-                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
-						<i class="glyphicon glyphicon-plus"></i>
-						</button>
-					</td>
-                   </tr>
-                    <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Confidentialite List  </td>
-                      <td>																	
-	
-							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
-							 
-							<option value="">Select a risk</option>
-								<c:forEach items="${ListConf}" var="conf">
-								<option value="${ conf.confId }">${conf.risque.risqueLabel}</option>
+                <div class="x_content">
+
+    <div class="col-md-6 col-xs-12" style="margin-left: 250">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Utilisateur<small>Administrateur</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <br>
+                  <f:form modelAttribute="admin" action="UpdateAdmin" class="form-horizontal form-label-left input_mask">
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control has-feedback-left" path="firstName" id="inputSuccess2" placeholder="First Name"/>
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control" id="inputSuccess3" path="lastName"  placeholder="Last Name"/>
+                      <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control has-feedback-left" id="inputSuccess4" path="email"  placeholder="Email"/>
+                      <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <f:input type="text" class="form-control" id="inputSuccess5" path="pwd" placeholder="pwd" />
+                      <span class="fa fa-eye-slash form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+
+                    
+                      <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Poste<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12 styleSelect">
+                    
+							<select name="subprocess.sspId" id="currencySelect"
+								class="form-control select2 form-control "  >
+								                 
+								<option value="">select Poste</option>
+									
+								
+								
+								<c:forEach items="" var="ssProc">
+									
+
+										<option value=""></option>
+									
 								</c:forEach>
 							</select>
-						
-					 
-                   	</td> 
-                <td style="width: 249px;">
- 			 
-						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
-						
-						<i class="glyphicon glyphicon-search"></i>
-						</button>
-						
 					
- 				
-						</td>
-                      
-                      
-                    </tr>
-                       
-                </table>
-                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
-		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
-                
-                </f:form>
-             
-						</div>
-						
-							</div>
-						</div>
-						</div>
-						</div>
+                      </div>
+                   
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
 
+                  </f:form>
+                </div>
+              </div>
+
+                </div>
 								
 					   </div>			
 								
 							</div>
-						
-			
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -282,23 +300,6 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
-  $('#boutonLoop')
-  .click(
-  		function() {
-
-  			e = $('.byCodeClass').find(':selected').val();
-  			if(e != ""){
-
-  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
-
-  			$('#seekbouton').trigger("click");
-  			}
-  			
-  			
-
-  		});
-  
-  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
@@ -344,3 +345,7 @@
 </body>
 
 </html>
+            
+            
+            
+            

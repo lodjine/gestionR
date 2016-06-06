@@ -59,5 +59,15 @@ public class VulnerabiliteDaoImpl implements VulnerabiliteDao {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(vulner);
 	}
+	public List<Vulnerabilite> getVulnerabiliteByRiskAndType(int id, String type) {
+		// TODO Auto-generated method stub
+Session session=sessionFactory.getCurrentSession();
+		
+		String hql = "select a from Vulnerabilite a where a.risque.risqueId =:id AND a.critere LIKE :type" ; 
+		Query query = session.createQuery(hql) ; 
+		query.setParameter("id", id);
+		query.setParameter("type", type);
+		return query.list() ;
+	}
 
 }

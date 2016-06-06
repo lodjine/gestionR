@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 
 <head>
@@ -71,7 +72,7 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Processus <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
@@ -83,15 +84,9 @@
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Risque <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="form.html">Risque</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showConfidentialiteMenu">Confidentialite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showintgMenu">Integrite</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/showdispMenu">Disponibilite</a>
+                    <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
                     </li>
@@ -102,24 +97,18 @@
                   
                   </ul>
                 </li>
-                <li><a><i class="fa fa-desktop"></i>Utilisateur<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="/GestionDesRisque_Web/MenuAdmin">Administrateur</a>
-                    </li>
-                    <li><a href="media_gallery.html">Responsable</a>
-                    </li>
-                    <li><a href="typography.html">Poste</a>
-                    </li>
-                  </ul>
+               
+                <li><a href="/GestionDesRisque_Web/MenuAction"><i  class="fa fa-table"></i>Liste Des Actions</a>
                 </li>
-                <li><a><i class="fa fa-table"></i> Action <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Action</a>
-                    </li>
-                    <li><a href="tables_dynamic.html">Alerte</a>
-                    </li>
-                  </ul>
+                <li><a href="/GestionDesRisque_Web/alerte"><i class="fa  fa-book"></i>Liste Des Alertes</a>
                 </li>
+                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
+                </li>
+               
+                 <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
+                </li>
+                 </sec:authorize>
               </ul>
             </div>
             
@@ -158,9 +147,9 @@
               </li>
 
               <li role="presentation" class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <a href="/GestionDesRisque_Web/alerte" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
+                  <span class="badge bg-green">${nombreAlerte}</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
           
@@ -192,7 +181,7 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -221,10 +210,10 @@
               <div class="count">${TotalAction}</div>
  
             </div>
-         
+         <br>
 				<div class="col-md-6 col-sm-4">
                   <div class="x_title">
-                    <h2>Donut Graph <small>Sessions</small></h2>
+                    <h2>Action par Status<small>terminé/non terminé</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -236,13 +225,47 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+                  <table class="" style="width:80%">
+                    <tbody><tr>
+                      <th style="width:50%;">
+                      <td>
                   <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                
                     <canvas id="canvasDoughnut" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
-                  </div>
-                </div>				
-				<div class="col-md-6 col-sm-4">
+                     </div>
+                       </td>
+                       <td>
+                       
+                       <table class="tile_info">
+                          <tbody><tr>
+                            <td>
+                              <p><i class="fa fa-square blue"></i>Terminé</p>
+                            </td>
+                           
+                          </tr>
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square green"></i>Non Terminé </p>
+                            </td>
+                            
+                          </tr>
+                        </tbody></table>
+                       
+                       
+                       </td>
+                   
+               
+                   
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                    
+                    
+                    
+                     <div class="col-md-6 col-sm-4">
                   <div class="x_title">
-                    <h2>Bar graph <small>Sessions</small></h2>
+                    <h2>Risque par processus<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -263,7 +286,10 @@
                   <div class="x_content"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
                     <canvas id="mybarChart" width="484" height="242" style="width: 484px; height: 242px;"></canvas>
                   </div>
+                </div>	
+                 
                 </div>				
+							
 							</div>
 						</div>
 					</div>
@@ -430,7 +456,7 @@ function onchangeProc(){
 	var id = $('.selectProcId').val(); 
 	alert(id) ;
 	 var x =  getRiskByProc(id)  ;
-	 
+	 alert(x);
 //Bar chart
 var ctx = document.getElementById("mybarChart");
 var mybarChart = new Chart(ctx, {
@@ -438,22 +464,10 @@ var mybarChart = new Chart(ctx, {
   data: {
     labels: ["Extrem", "Fort", "Moyen", "Faible"],
     datasets: [{
-      label: '# of Votes',
-      backgroundColor: "#26B99A",
+      label: '# risque',
+      backgroundColor: ["#26B99A","#03586A","#9B59B6","#2A3F54"],
       data: x
-    }, {
-      label: '# of Votes',
-      backgroundColor: "#03586A",
-      data: x
-    }, , {
-        label: '# of Votes',
-        backgroundColor: "#455C73",
-        data: x
-      }, , {
-          label: '# of Votes',
-          backgroundColor: "#9B59B6",
-          data: x
-        }
+    }
     ]
   },
 

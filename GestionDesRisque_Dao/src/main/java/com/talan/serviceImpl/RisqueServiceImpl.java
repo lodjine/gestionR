@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talan.dao.RisqueDao;
+import com.talan.entities.Confidentialite;
+import com.talan.entities.Disponibilite;
+import com.talan.entities.Integrite;
 import com.talan.entities.Risque;
 import com.talan.entities.SousProcessus;
 import com.talan.service.RisqueService;
@@ -56,6 +59,18 @@ public class RisqueServiceImpl implements RisqueService {
 	public void save(Risque risque) {
 		// TODO Auto-generated method stub
 		risqueDaoImpl.save(risque);
+	}
+
+	public List<Risque> getRiskByProc(int idproc, String user, String userRole, int res) {
+		// TODO Auto-generated method stub
+		return risqueDaoImpl.getRiskByProc(idproc, user, userRole, res);
+	}
+
+	
+
+	public List<Risque> getRiskByProc(int id) {
+		// TODO Auto-generated method stub
+		return risqueDaoImpl.getRiskByProc(id);
 	}
 
 	
