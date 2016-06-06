@@ -39,7 +39,9 @@ import com.talan.service.UtilisateurService;
 
 public class SecurityController {
 @Autowired
+
 UtilisateurService utilisateurServiceImpl;
+
 @Autowired
 AlerteService alerteServiceImpl;
 @Autowired
