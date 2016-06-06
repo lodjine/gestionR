@@ -131,7 +131,10 @@ public class VulnerabiliteController {
 		vulnerabilite.setValue(value);
 		vulnerabilite.setCritere(type);
 		Risque r = rserviceImpl.getById(idrisque) ;
+		r.setTotalVuls(r.getTotalVuls()+value);
+		rserviceImpl.update(r);
 		vulnerabilite.setRisque(r);
+		
 		vulnerabiliteServiceImpl.persist(vulnerabilite);
 ////////////tracabilite/////////////
 		
@@ -158,11 +161,14 @@ tracabiliteServiceImpl.persist(trace);
 		
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
 		vulnerabilite = vulnerabiliteServiceImpl.getById(id); 
-		
+		Risque r = rserviceImpl.getById(idrisque) ;
+		r.setTotalVuls(r.getTotalVuls()-vulnerabilite.getValue());
+		r.setTotalVuls(r.getTotalVuls()+value);
+		rserviceImpl.update(r);
 		vulnerabilite.setVulnLabel(label);
 		vulnerabilite.setValue(value);
 		vulnerabilite.setCritere(type);
-		Risque r = rserviceImpl.getById(idrisque) ;
+		
 		vulnerabilite.setRisque(r);
 		vulnerabiliteServiceImpl.update(vulnerabilite);
 ////////////tracabilite/////////////
@@ -189,6 +195,11 @@ tracabiliteServiceImpl.persist(trace);
     public @ResponseBody Boolean updateUser(@PathVariable("id") int id, HttpSession session) {
 		Vulnerabilite vulnerabilite = new Vulnerabilite() ; 
 		vulnerabilite = vulnerabiliteServiceImpl.getById(id);
+		
+		Risque r = rserviceImpl.getById(vulnerabilite.getRisque().getRisqueId()) ;
+		r.setTotalVuls(r.getTotalVuls()-vulnerabilite.getValue());
+		
+		rserviceImpl.update(r);
 		vulnerabiliteServiceImpl.delete(vulnerabilite);
 ////////////tracabilite/////////////
 		

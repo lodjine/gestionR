@@ -119,6 +119,7 @@ public class MesureController {
 			mesure.setCritere(type);
 			Risque r = rserviceImpl.getById(idrisque) ;
 			r.setTotalMesure(r.getTotalMesure()+value);
+			rserviceImpl.update(r);
 			mesure.setRisque(r);
 			mesureExServiceImpl.persisteMesure(mesure);
 ////////////tracabilite/////////////
@@ -146,11 +147,15 @@ tracabiliteServiceImpl.persist(trace);
 		
 		MesureEx mesure = new MesureEx() ; 
 		mesure = mesureExServiceImpl.getMesureById(id); 
-		
+		Risque r = rserviceImpl.getById(idrisque) ;
+		r.setTotalMesure(r.getTotalMesure()-mesure.getValue());
+		r.setTotalMesure(r.getTotalMesure()+value);
+		rserviceImpl.update(r);
 		mesure.setMesureLabel(label);
 		mesure.setValue(value);
 		mesure.setCritere(type);
-		Risque r = rserviceImpl.getById(idrisque) ;
+		
+		
 		mesure.setRisque(r);
 		mesureExServiceImpl.updateMuser(mesure);
 		
@@ -178,6 +183,10 @@ tracabiliteServiceImpl.persist(trace);
     public @ResponseBody Boolean updateUser(@PathVariable("id") int id, HttpSession session) {
 		MesureEx mesure = new MesureEx() ; 
 		mesure = mesureExServiceImpl.getMesureById(id);
+		Risque r = rserviceImpl.getById(mesure.getRisque().getRisqueId()) ;
+		r.setTotalMesure(r.getTotalMesure()-mesure.getValue());
+		
+		rserviceImpl.update(r);
 		mesureExServiceImpl.deleteMuser(mesure);
 ////////////tracabilite/////////////
 		

@@ -139,6 +139,8 @@ public class ImpactController {
 			impactC.setValue(value);
 			impactC.setCritere(type);
 			Risque r = rserviceImpl.getById(idrisque) ;
+			r.setTotalImp(r.getTotalImp()+value);
+			rserviceImpl.update(r);
 			impactC.setRisque(r);
 			impactCServiceImpl.persist(impactC);
 ////////////tracabilite/////////////
@@ -166,11 +168,14 @@ tracabiliteServiceImpl.persist(trace);
 		
 		ImpactC impactC = new ImpactC() ; 
 		impactC = impactCServiceImpl.getById(id); 
-		
+		Risque r = rserviceImpl.getById(idrisque) ;
+		r.setTotalImp(r.getTotalImp()-impactC.getValue());
+		r.setTotalImp(r.getTotalImp()+value);
+		rserviceImpl.update(r);
 		impactC.setImpactLabel(label);
 		impactC.setValue(value);
 		impactC.setCritere(type);
-		Risque r = rserviceImpl.getById(idrisque) ;
+		
 		impactC.setRisque(r);
 		impactCServiceImpl.update(impactC);
 ////////////tracabilite/////////////
@@ -197,6 +202,10 @@ tracabiliteServiceImpl.persist(trace);
     public @ResponseBody Boolean updateUser(@PathVariable("id") int id, HttpSession session) {
 		ImpactC impactC = new ImpactC() ; 
 		impactC = impactCServiceImpl.getById(id);
+		
+		Risque r = rserviceImpl.getById(impactC.getRisque().getRisqueId()) ;
+		r.setTotalImp(r.getTotalImp()-impactC.getValue());
+		
 		impactCServiceImpl.delete(impactC);
 ////////////tracabilite/////////////
 		
