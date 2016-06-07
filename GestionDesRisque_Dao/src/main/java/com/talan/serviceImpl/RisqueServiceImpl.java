@@ -73,6 +73,11 @@ public class RisqueServiceImpl implements RisqueService {
 		return risqueDaoImpl.getRiskByProc(id);
 	}
 
+	public List<Risque> getAllByc(String c) {
+		// TODO Auto-generated method stub
+		return risqueDaoImpl.getAllByc(c);
+	}
+
 	
 	
 }

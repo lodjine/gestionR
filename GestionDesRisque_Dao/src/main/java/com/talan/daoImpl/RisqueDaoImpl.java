@@ -107,6 +107,10 @@ session.update(risque);
 		query.setParameter("id", id);
 		return query.list();
 	}
+	public List<Risque> getAllByc(String c) {
+		Session session=sessionFactory.getCurrentSession();
+		return session.createQuery("select a from Risque a WHERE a.critere =:c").setParameter("c", c).list();
+	}
 
 	
 }

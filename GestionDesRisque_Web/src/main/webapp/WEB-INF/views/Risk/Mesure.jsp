@@ -260,20 +260,21 @@
             <div class="col-xs-2">
                 <input type="number" ng-model="value" class="form-control" placeholder="value">
             </div>
-            <div class="col-xs-2">
-                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Risk</option>
-     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
-   			   </select>
-            </div>
-            <div class="col-xs-2">
-                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" style="width: 100%">
+             <div class="col-xs-2">
+                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" ng-change="getrisks()" style="width: 100%">
                 	 <option value="">Type</option>
      				 <option value="Confidentialite">Confidentialite </option>
      				 <option value="Disponibilite">Disponibilite</option>
      				 <option value="Integrite">Integrite</option>
    			   </select>
             </div>
+            <div class="col-xs-2">
+                <select name="rSelect" class="select2"id="mSelect" ng-model="RiskSelect.repeatSelect" style="width: 100%">
+                	 <option value="">Risk</option>
+     				 <option ng-repeat="risk in RiskSelect.availableOptions" value="{{risk.risqueId}}">{{risk.risqueLabel}}</option>
+   			   </select>
+            </div>
+           
             <div class="col-xs-1">
                 <button ng-click="add()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span>
                 <button ng-click="mergeUser()" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span>
