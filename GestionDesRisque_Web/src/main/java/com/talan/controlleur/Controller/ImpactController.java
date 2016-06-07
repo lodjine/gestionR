@@ -148,6 +148,7 @@ public class ImpactController {
 			impactC.setCritere(type);
 			Risque r = rserviceImpl.getById(idrisque) ;
 			r.setTotalImp(r.getTotalImp()+value);
+			r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 			rserviceImpl.update(r);
 			impactC.setRisque(r);
 			impactCServiceImpl.persist(impactC);
@@ -179,6 +180,7 @@ tracabiliteServiceImpl.persist(trace);
 		Risque r = rserviceImpl.getById(idrisque) ;
 		r.setTotalImp(r.getTotalImp()-impactC.getValue());
 		r.setTotalImp(r.getTotalImp()+value);
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		rserviceImpl.update(r);
 		impactC.setImpactLabel(label);
 		impactC.setValue(value);
@@ -213,7 +215,8 @@ tracabiliteServiceImpl.persist(trace);
 		
 		Risque r = rserviceImpl.getById(impactC.getRisque().getRisqueId()) ;
 		r.setTotalImp(r.getTotalImp()-impactC.getValue());
-		
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
+		rserviceImpl.update(r);
 		impactCServiceImpl.delete(impactC);
 ////////////tracabilite/////////////
 		

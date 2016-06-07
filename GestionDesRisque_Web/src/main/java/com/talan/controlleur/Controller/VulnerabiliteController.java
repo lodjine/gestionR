@@ -140,6 +140,7 @@ AlerteService alerteServiceImpl;
 		vulnerabilite.setCritere(type);
 		Risque r = rserviceImpl.getById(idrisque) ;
 		r.setTotalVuls(r.getTotalVuls()+value);
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		rserviceImpl.update(r);
 		vulnerabilite.setRisque(r);
 		
@@ -172,6 +173,7 @@ tracabiliteServiceImpl.persist(trace);
 		Risque r = rserviceImpl.getById(idrisque) ;
 		r.setTotalVuls(r.getTotalVuls()-vulnerabilite.getValue());
 		r.setTotalVuls(r.getTotalVuls()+value);
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		rserviceImpl.update(r);
 		vulnerabilite.setVulnLabel(label);
 		vulnerabilite.setValue(value);
@@ -206,7 +208,7 @@ tracabiliteServiceImpl.persist(trace);
 		
 		Risque r = rserviceImpl.getById(vulnerabilite.getRisque().getRisqueId()) ;
 		r.setTotalVuls(r.getTotalVuls()-vulnerabilite.getValue());
-		
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		rserviceImpl.update(r);
 		vulnerabiliteServiceImpl.delete(vulnerabilite);
 ////////////tracabilite/////////////

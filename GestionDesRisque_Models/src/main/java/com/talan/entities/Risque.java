@@ -23,6 +23,8 @@ public class Risque implements Serializable{
 	private int totalMesure ;
 	private int totalVuls ;
 	private int totalImp ;
+	private int total ; 
+	
 	private String risqueLabel;
 	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
 	@JoinColumn(name="proc")
@@ -42,6 +44,14 @@ public class Risque implements Serializable{
 	
 	public int getTotalMesure() {
 		return totalMesure;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public void setTotalMesure(int totalMesure) {
