@@ -113,8 +113,8 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	$scope.acId = $scope.allItems[index].actionId;
     	alert($scope.allItems[index]);
         $scope.label = $scope.allItems[index].label ;
-        $scope.bDate = $filter('date')(new Date ($scope.allItems[index].beginDate),'dd-MM-yyyy')   ;
-        $scope.eDate = $filter('date')(new Date ($scope.allItems[index].endDate),'dd-MM-yyyy')  ;
+        $scope.bDate = $filter('date')(new Date ($scope.allItems[index].beginDate),'yyyy-MM-dd')   ;
+        $scope.eDate = $filter('date')(new Date ($scope.allItems[index].endDate),'yyyy-MM-dd')  ;
         $scope.status = $scope.allItems[index].status ;
         $scope.RiskSelect.repeatSelect =  $scope.allItems[index].risk.risqueId;
     }

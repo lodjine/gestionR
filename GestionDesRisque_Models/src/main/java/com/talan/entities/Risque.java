@@ -26,7 +26,7 @@ public class Risque implements Serializable{
 	private int total ; 
 	private String critere ;
 	private String risqueLabel;
-	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@OneToOne
 	@JoinColumn(name="proc")
 	private Processus proc ;
 	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE ,CascadeType.ALL})

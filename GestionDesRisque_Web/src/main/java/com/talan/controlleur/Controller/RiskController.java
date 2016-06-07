@@ -212,6 +212,7 @@ public class RiskController {
 		 
 		List<Risque> riskList = new ArrayList<>()  ;
 		for (Risque m:risques ){
+			Utilisateur user = new Utilisateur() ; 
 			Risque ris = new Risque() ; 
 			ris.setRisqueId(m.getRisqueId());
 			ris.setRisqueLabel(m.getRisqueLabel());
@@ -220,7 +221,11 @@ public class RiskController {
 			p.setDescription(m.getProc().getDescription());
 			p.setProcessus(m.getProc().getProcessus());
 			p.setProcId(m.getProc().getProcId());
-			p.setUser(m.getProc().getUser());
+			user.setEmail(m.getProc().getUser().getEmail()) ;
+			user.setFirstName(m.getProc().getUser().getFirstName());
+			user.setLastName(m.getProc().getUser().getLastName());
+			
+			p.setUser(user);
 			ris.setProc(p);
 			ris.setCritere(m.getCritere());
 			riskList.add(ris) ; 
@@ -238,6 +243,7 @@ public class RiskController {
 		List<Risque> riskList = new ArrayList<>()  ;
 		for (Risque m:risques ){
 			Risque ris = new Risque() ; 
+			Utilisateur user = new Utilisateur() ;
 			ris.setRisqueId(m.getRisqueId());
 			ris.setRisqueLabel(m.getRisqueLabel());
 			ris.setValue(m.getValue());
@@ -245,7 +251,11 @@ public class RiskController {
 			p.setDescription(m.getProc().getDescription());
 			p.setProcessus(m.getProc().getProcessus());
 			p.setProcId(m.getProc().getProcId());
-			p.setUser(m.getProc().getUser());
+			user.setEmail(m.getProc().getUser().getEmail()) ;
+			user.setFirstName(m.getProc().getUser().getFirstName());
+			user.setLastName(m.getProc().getUser().getLastName());
+			
+			p.setUser(user);
 			ris.setProc(p);
 			ris.setCritere(m.getCritere());
 			riskList.add(ris) ; 
@@ -355,6 +365,8 @@ tracabiliteServiceImpl.persist(trace);
 				
 				ListRisque lrisque = new ListRisque() ; 
 				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
 				lrisque.setRiskval(rList.get(i).getValue());
 				lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
 				for(int j = 0 ; j<mesList.size() ; j++){
@@ -367,7 +379,7 @@ tracabiliteServiceImpl.persist(trace);
 					lrisque.setTotalmes(lrisque.getTotalmes()+mesList.get(j).getValue() );
 					
 				}
-				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				
 				 for(int j = 0 ; j<impList.size() ; j++){
 					 if(j== 0){
 							lrisque.setImpacts(impList.get(j).getImpactLabel());
@@ -376,7 +388,7 @@ tracabiliteServiceImpl.persist(trace);
 						}
 						lrisque.setTotalimps(lrisque.getTotalimps()+impList.get(j).getValue() );
 					}
-				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				
 				 for(int j = 0 ; j<vulList.size() ; j++){
 					 if(j== 0){
 						lrisque.setVuls(vulList.get(j).getVulnLabel());
@@ -388,12 +400,13 @@ tracabiliteServiceImpl.persist(trace);
 					 
 					}
 				lrisque.setTotal((lrisque.getTotalvuls()*lrisque.getTotalimps()*rList.get(i).getValue())-lrisque.getTotalmes());
+				lrisque.setCrit(rList.get(i).getCritere());
 				listRisque.add(lrisque) ;
 			}
 			List<ListRisque> riskJson = new ArrayList<>() ; 
 			for(int i = 0 ; i< listRisque.size(); i ++ ){
 				
-				if(listRisque.get(i).getRiskLabel() != null ){
+				if(listRisque.get(i).getCrit().equals(type) ){
 					riskJson.add(listRisque.get(i)) ; 
 				}
 			}

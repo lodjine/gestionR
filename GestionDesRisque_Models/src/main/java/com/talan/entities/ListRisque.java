@@ -16,6 +16,15 @@ private int totalmes ;
 private int totalimps ; 
 private int totalvuls ; 
 private int riskval ; 
+private String crit ; 
+
+public String getCrit() {
+	return crit;
+}
+
+public void setCrit(String crit) {
+	this.crit = crit;
+}
 
 private int total ;
 

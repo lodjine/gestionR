@@ -208,9 +208,9 @@
      <div class="col-xs-3">
                 <select name="tSelect" class="select2"id="mSelect" ng-change="getRisk()" ng-model="typeSelect.repeatSelect" style="width: 100%">
                 	 <option value="">Type</option>
-     				 <option value="confidentialite">Confidentialite</option>
-     				 <option value="disponibilite">Disponibilite</option>
-     				 <option value="integrite">Integrite</option>
+     				 <option value="Confidentialite">Confidentialite</option>
+     				 <option value="Disponibilite">Disponibilite</option>
+     				 <option value="Integrite">Integrite</option>
    			   </select>
       </div>
       <div class="col-xs-3">

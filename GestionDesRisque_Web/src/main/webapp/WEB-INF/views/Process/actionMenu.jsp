@@ -281,10 +281,10 @@
                 <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse">
                     <td>{{item.label}}</td>
                     <td>{{item.risk.risqueLabel}}</td>
-                    <td>{{item.beginDate | date:'dd-MM-yyyy'}}</td>
-                    <td>{{item.endDate | date:'dd-MM-yyyy'}}</td>
-                    <td>{{item.creationDate | date:'dd-MM-yyyy'}}</td>
-                    <td>{{item.modificationDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.beginDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.endDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.creationDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.modificationDate | date:'yyyy-MM-dd'}}</td>
                     <td>{{item.status}}</td>
                     <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                      <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
