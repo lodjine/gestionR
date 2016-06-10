@@ -21,5 +21,5 @@ public interface RisqueDao {
 	public List<Risque> getRiskByProc(int idproc, String user, String userRole, int res);
 
 	public List<Risque> getRiskByProc(int id); 
-
+	public List<Risque> getAllByc(String c);
 }

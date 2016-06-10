@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -55,16 +56,14 @@
 
           <br />
 
-                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-                              <div class="menu_section">
+                      <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
@@ -133,9 +132,7 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                    <li> <c:url
-							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -175,7 +172,7 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -184,67 +181,81 @@
 								
 								        <div class="clearfix"></div>
              
-              <f:form method="get"  action="ShowActivity">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
-				
-				    
-                  <table id="idTable" class="table table-hover" >
-              
-                   <tr>
-                   	<td>Add New Activity</td>
-                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
-						<i class="glyphicon glyphicon-plus"></i>
-						</button>
-					</td>
-                   </tr>
-                    <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Activity List  </td>
-                      <td>																	
-	
-							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
-							 
-							<option value="">Select an Activity</option>
-								<c:forEach items="${ListActivity}" var="group">
-							<option value="${group.activiteId}">${group.labelActivity}</option>
-								</c:forEach>
-							</select>
-						
-					 
-                   	</td> 
-                <td style="width: 249px;">
- 			 
-						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
-						
-						<i class="glyphicon glyphicon-search"></i>
-						</button>
-						
-					
- 				
-						</td>
-                      
-                      
-                    </tr>
-                       
-                </table>
-                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
-		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
-                
-                </f:form>
-             
-						</div>
-						
-							</div>
-						</div>
-						</div>
-						</div>
+                <div class="x_content">
 
+                  <f:form class="form-horizontal form-label-left" action="ProcessExcel" method="post" modelAttribute="proc"  >
+
+                  
+                    <span class="section">Processus</span>
+
+                    	 <div class="x_content">
+                  <p class="text-muted font-13 m-b-30">
+                  </p>
+                 
+                      <c:set var="j" value="${0}"  scope="page"  />
+                   
+                  <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Sub-Process</th>
+                        <th>Activity</th>
+                        <th>Information</th>
+                        <th>Owner</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                   <c:forEach items="${proc.ssProcs}" var="sspro" varStatus="status"> 
+                    
+                    <tr>
+                    	<td rowspan="${intList[status.index]+actSize[status.index]+1}">${sspro.sousProcessus }</td><td></td><td></td><td></td>
+                 </tr>
+                 				<c:forEach items="${activitys[status.index]}" var="acts" varStatus="statuss">
+                 					<tr>
+                 						<td rowspan="${infoList[j]+1 }">
+                 							${acts.labelActivity }
+                 						</td>
+                 						<td>
+                 						</td>
+                 						<td>
+                 						</td>
+                 					</tr>
+                 						<c:forEach items="${infoss[j]}" var="inf" >
+                 							<tr>
+                 							<td>
+                 								${inf.information }
+                 							</td>
+                 							<td>
+                 								owner 1
+                 							</td>
+                 							</tr>
+                 							
+                 						</c:forEach>
+                 						<c:set var="j" value="${j + 1}" scope="page"/>
+                 				</c:forEach>
+                 				
+                  </c:forEach>
+                    </tbody>
+                    </table>
+                   
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
+                      </div>
+                    </div>
+                  </f:form>
+                </div>
 								
 					   </div>			
 								
 							</div>
-						
-			
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -277,23 +288,8 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
-  $('#boutonLoop')
-  .click(
-  		function() {
 
-  			e = $('.byCodeClass').find(':selected').val();
-  			if(e != ""){
-
-  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
-
-  			$('#seekbouton').trigger("click");
-  			}
-  			
-  			
-
-  		});
-  
-  	$('.select2').select2();
+  	$('#datatable').DataTable();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 

@@ -39,7 +39,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     $scope.reverse = false;
     $scope.RiskSelect = {
     	    repeatSelect: null,
-    	    availableOptions: getRisk(),
+    	    availableOptions: null,
     	   };
     $scope.resetAll = function () {
         $scope.filteredList = $scope.allItems;
@@ -50,7 +50,13 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
         $scope.currentPage = 0;
         $scope.Header = ['', '', ''];
     }
-
+    $scope.getrisks = function(){
+    	 $scope.RiskSelect = {
+    	    	    repeatSelect: null,
+    	    	    availableOptions: getRisk($scope.typeSelect.repeatSelect),
+    	    	   };
+    	
+    }
     $scope.add = function () {
     	var bool = false ;
     	
@@ -221,11 +227,11 @@ function deleteUser(id){
 	});
 }
 
-function getRisk() {
+function getRisk(x) {
 	
 	var xxx = "" ; 
 	$.ajax({
-	    url:'/GestionDesRisque_Web/SeekRisk',
+	    url:'/GestionDesRisque_Web/SeekRiskbycriter/'+x+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false,

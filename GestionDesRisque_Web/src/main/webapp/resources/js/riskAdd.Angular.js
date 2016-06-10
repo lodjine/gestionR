@@ -61,10 +61,10 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
     	}
     	if(bool == false){
        
-            saveUser($scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect);
+            saveUser($scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect,$scope.typeSelect.repeatSelect);
          
     	}else{
-    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect);
+    		updateUser($scope.mesureId,$scope.mesureLabel,$scope.value,$scope.ProcSelect.repeatSelect,$scope.typeSelect.repeatSelect);
     	}
       
     	$scope.allItems=getDummyData() ;
@@ -192,18 +192,18 @@ function getDummyData() {
  
 }
 
-function saveUser(label,value,proc){
+function saveUser(label,value,proc,type){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/PersisteRisk/'+label+'/'+value+'/'+proc+'/',
+	    url:'/GestionDesRisque_Web/PersisteRisk/'+label+'/'+value+'/'+proc+'/'+type+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false
 	
 	});
 }
-function updateUser(id,label,value,proc){
+function updateUser(id,label,value,proc,type){
 	$.ajax({
-	    url:'/GestionDesRisque_Web/updateRisk/'+id+'/'+label+'/'+value+'/'+proc+'/',
+	    url:'/GestionDesRisque_Web/updateRisk/'+id+'/'+label+'/'+value+'/'+proc+'/'+type+'/',
 	    dataType:'json',
 	    type:'get',
 	    async:false

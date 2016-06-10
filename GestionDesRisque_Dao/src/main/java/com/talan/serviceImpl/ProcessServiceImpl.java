@@ -55,9 +55,9 @@ public void setProcessDaoImpl(ProcessDao processDaoImpl) {
 		processDaoImpl.delete(ssPro);
 	}
 
-	public void save(Processus ssPro) {
+	public int save(Processus ssPro) {
 		// TODO Auto-generated method stub
-		processDaoImpl.save(ssPro);
+		return processDaoImpl.save(ssPro);
 	}
 
 }

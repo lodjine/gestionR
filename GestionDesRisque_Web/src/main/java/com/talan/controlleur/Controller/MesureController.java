@@ -129,6 +129,7 @@ public class MesureController {
 			mesure.setCritere(type);
 			Risque r = rserviceImpl.getById(idrisque) ;
 			r.setTotalMesure(r.getTotalMesure()+value);
+			r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 			rserviceImpl.update(r);
 			mesure.setRisque(r);
 			mesureExServiceImpl.persisteMesure(mesure);
@@ -160,6 +161,7 @@ tracabiliteServiceImpl.persist(trace);
 		Risque r = rserviceImpl.getById(idrisque) ;
 		r.setTotalMesure(r.getTotalMesure()-mesure.getValue());
 		r.setTotalMesure(r.getTotalMesure()+value);
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		rserviceImpl.update(r);
 		mesure.setMesureLabel(label);
 		mesure.setValue(value);
@@ -195,6 +197,7 @@ tracabiliteServiceImpl.persist(trace);
 		mesure = mesureExServiceImpl.getMesureById(id);
 		Risque r = rserviceImpl.getById(mesure.getRisque().getRisqueId()) ;
 		r.setTotalMesure(r.getTotalMesure()-mesure.getValue());
+		r.setTotal((r.getTotalImp() * r.getTotalVuls() *r.getValue())-r.getTotalMesure());
 		
 		rserviceImpl.update(r);
 		mesureExServiceImpl.deleteMuser(mesure);

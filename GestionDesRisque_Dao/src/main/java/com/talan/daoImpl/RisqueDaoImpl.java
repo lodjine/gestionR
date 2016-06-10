@@ -77,7 +77,7 @@ session.update(risque);
 			max = 9999999 ;
 		}
 		if(userRole.equals("admin")){
-		String hql = "select e from Risque e WHERE e.proc.procId =:idproc AND e.value >= :min AND e.value <=:max ";
+		String hql = "select e from Risque e WHERE e.proc.procId =:idproc AND e.total >= :min AND e.total <=:max ";
 		
 		 query= session.createQuery(hql);	
 		query.setParameter("idproc", idproc);
@@ -85,7 +85,7 @@ session.update(risque);
 		query.setParameter("max", max);
 		}else{
 			
-			String hql = "select e from Risque e WHERE e.proc.procId =:idproc AND e.proc.user.email =:user AND e.value >= :min AND e.value <=:max";
+			String hql = "select e from Risque e WHERE e.proc.procId =:idproc AND e.proc.user.email =:user AND e.total >= :min AND e.total <=:max";
 			
 			 query= session.createQuery(hql);	
 			query.setParameter("idproc", idproc);
@@ -106,6 +106,10 @@ session.update(risque);
 		Query query =session.createQuery(hql);	
 		query.setParameter("id", id);
 		return query.list();
+	}
+	public List<Risque> getAllByc(String c) {
+		Session session=sessionFactory.getCurrentSession();
+		return session.createQuery("select a from Risque a WHERE a.critere =:c").setParameter("c", c).list();
 	}
 
 	

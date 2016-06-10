@@ -56,10 +56,11 @@ public class ActiviteDaoImpl implements ActiviteDao{
 		session.delete(activité);
 	}
 
-	public void save(Activite activité) {
+	public int save(Activite activité) {
 		// TODO Auto-generated method stub
 		Session session=sessionFactory.getCurrentSession();
-		session.save(activité);
+		Activite ac = (Activite)session.merge(activité);
+		return ac.getActiviteId() ; 
 	}
 
 }

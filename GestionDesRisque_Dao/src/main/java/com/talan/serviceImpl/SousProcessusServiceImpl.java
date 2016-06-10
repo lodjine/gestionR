@@ -59,9 +59,9 @@ public void setSousProcessusDaoImpl(SousProcessusDao sousProcessusDaoImpl) {
 		sousProcessusDaoImpl.delete(ssPro);
 	}
 
-	public void save(SousProcessus ssPro) {
+	public int save(SousProcessus ssPro) {
 		// TODO Auto-generated method stub
-		sousProcessusDaoImpl.save(ssPro);
+		return sousProcessusDaoImpl.save(ssPro);
 	}
 
 	

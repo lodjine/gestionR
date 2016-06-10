@@ -75,6 +75,8 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
@@ -210,9 +212,9 @@
      <div class="col-xs-3">
                 <select name="tSelect" class="select2"id="mSelect" ng-change="getRisk()" ng-model="typeSelect.repeatSelect" style="width: 100%">
                 	 <option value="">Type</option>
-     				 <option value="confidentialite">Confidentialite</option>
-     				 <option value="disponibilite">Disponibilite</option>
-     				 <option value="integrite">Integrite</option>
+     				 <option value="Confidentialite">Confidentialite</option>
+     				 <option value="Disponibilite">Disponibilite</option>
+     				 <option value="Integrite">Integrite</option>
    			   </select>
       </div>
       <div class="col-xs-3">

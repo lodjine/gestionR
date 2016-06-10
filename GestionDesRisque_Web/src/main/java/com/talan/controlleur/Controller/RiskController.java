@@ -212,6 +212,7 @@ public class RiskController {
 		 
 		List<Risque> riskList = new ArrayList<>()  ;
 		for (Risque m:risques ){
+			Utilisateur user = new Utilisateur() ; 
 			Risque ris = new Risque() ; 
 			ris.setRisqueId(m.getRisqueId());
 			ris.setRisqueLabel(m.getRisqueLabel());
@@ -220,24 +221,58 @@ public class RiskController {
 			p.setDescription(m.getProc().getDescription());
 			p.setProcessus(m.getProc().getProcessus());
 			p.setProcId(m.getProc().getProcId());
-			p.setUser(m.getProc().getUser());
-			ris.setProc(p);
+			user.setEmail(m.getProc().getUser().getEmail()) ;
+			user.setFirstName(m.getProc().getUser().getFirstName());
+			user.setLastName(m.getProc().getUser().getLastName());
 			
+			p.setUser(user);
+			ris.setProc(p);
+			ris.setCritere(m.getCritere());
 			riskList.add(ris) ; 
 		}
 		
 	return riskList ; 
 		
 		}
-	
-	@RequestMapping(value = "/PersisteRisk/{label}/{value}/{proc}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("proc") int proc ,HttpSession session) {
+	@RequestMapping(value = "/SeekRiskbycriter/{crit}/", method = RequestMethod.GET)
+    public @ResponseBody List<Risque> seekRiskCriter(@PathVariable("crit") String c) {
+		
+		List<Risque> risques = riskServiceImpl.getAllByc(c) ; 
+		
+		 
+		List<Risque> riskList = new ArrayList<>()  ;
+		for (Risque m:risques ){
+			Risque ris = new Risque() ; 
+			Utilisateur user = new Utilisateur() ;
+			ris.setRisqueId(m.getRisqueId());
+			ris.setRisqueLabel(m.getRisqueLabel());
+			ris.setValue(m.getValue());
+			Processus p = new Processus() ; 
+			p.setDescription(m.getProc().getDescription());
+			p.setProcessus(m.getProc().getProcessus());
+			p.setProcId(m.getProc().getProcId());
+			user.setEmail(m.getProc().getUser().getEmail()) ;
+			user.setFirstName(m.getProc().getUser().getFirstName());
+			user.setLastName(m.getProc().getUser().getLastName());
+			
+			p.setUser(user);
+			ris.setProc(p);
+			ris.setCritere(m.getCritere());
+			riskList.add(ris) ; 
+		}
+		
+	return riskList ; 
+		
+		}
+	@RequestMapping(value = "/PersisteRisk/{label}/{value}/{proc}/{type}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean CheckRcode(@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("type") String type,@PathVariable("proc") int proc ,HttpSession session) {
 		
 		Risque risk = new Risque() ; 
 			Processus p = pServiceImpl.getById(proc) ; 
 			risk.setProc(p);
 			risk.setRisqueLabel(label);
 			risk.setValue(value);
+			risk.setCritere(type);
 			riskServiceImpl.persist(risk);
 ////////////tracabilite/////////////
 			
@@ -259,8 +294,8 @@ tracabiliteServiceImpl.persist(trace);
 		return true ; 
 		
     }
-	@RequestMapping(value = "/updateRisk/{id}/{label}/{value}/{proc}/", method = RequestMethod.GET)
-    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("proc") int proc , HttpSession session) {
+	@RequestMapping(value = "/updateRisk/{id}/{label}/{value}/{proc}/{type}/", method = RequestMethod.GET)
+    public @ResponseBody Boolean updateUser(@PathVariable("id") int id,@PathVariable("label") String label,@PathVariable("value") int value,@PathVariable("type") String type,@PathVariable("proc") int proc , HttpSession session) {
 		
 		Risque ris = new Risque() ;
 		ris = riskServiceImpl.getById(id) ;
@@ -268,6 +303,7 @@ tracabiliteServiceImpl.persist(trace);
 		ris.setProc(p);
 		ris.setValue(value);
 		ris.setRisqueLabel(label);
+		ris.setCritere(type);
 		riskServiceImpl.update(ris);
 		
 ////////////tracabilite/////////////
@@ -326,11 +362,15 @@ tracabiliteServiceImpl.persist(trace);
 	List<Vulnerabilite> vulList = new ArrayList<>() ; 
 	List<ListRisque> listRisque = new ArrayList<>() ; 
 			for(int i =0 ; i<rList.size() ; i++) {
+				
 				ListRisque lrisque = new ListRisque() ; 
 				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
+				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
 				lrisque.setRiskval(rList.get(i).getValue());
+				lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
 				for(int j = 0 ; j<mesList.size() ; j++){
-					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
+					
 					if(j== 0){
 						lrisque.setMesures(mesList.get(j).getMesureLabel());
 					}else{
@@ -339,7 +379,7 @@ tracabiliteServiceImpl.persist(trace);
 					lrisque.setTotalmes(lrisque.getTotalmes()+mesList.get(j).getValue() );
 					
 				}
-				 impList = impactCServiceImpl.getImpactCByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				
 				 for(int j = 0 ; j<impList.size() ; j++){
 					 if(j== 0){
 							lrisque.setImpacts(impList.get(j).getImpactLabel());
@@ -348,7 +388,7 @@ tracabiliteServiceImpl.persist(trace);
 						}
 						lrisque.setTotalimps(lrisque.getTotalimps()+impList.get(j).getValue() );
 					}
-				 vulList = vulServiceImpl.getVulnerabiliteByRiskAndType(rList.get(i).getRisqueId(), type) ; 
+				
 				 for(int j = 0 ; j<vulList.size() ; j++){
 					 if(j== 0){
 						lrisque.setVuls(vulList.get(j).getVulnLabel());
@@ -360,12 +400,13 @@ tracabiliteServiceImpl.persist(trace);
 					 
 					}
 				lrisque.setTotal((lrisque.getTotalvuls()*lrisque.getTotalimps()*rList.get(i).getValue())-lrisque.getTotalmes());
+				lrisque.setCrit(rList.get(i).getCritere());
 				listRisque.add(lrisque) ;
 			}
 			List<ListRisque> riskJson = new ArrayList<>() ; 
 			for(int i = 0 ; i< listRisque.size(); i ++ ){
 				
-				if(listRisque.get(i).getRiskLabel() != null ){
+				if(listRisque.get(i).getCrit().equals(type) ){
 					riskJson.add(listRisque.get(i)) ; 
 				}
 			}
@@ -385,8 +426,9 @@ tracabiliteServiceImpl.persist(trace);
 				ListRisque lrisque = new ListRisque() ; 
 				mesList = mesServiceImpl.getmesureByRiskAndType(rList.get(i).getRisqueId(), type) ;
 				lrisque.setRiskval(rList.get(i).getValue());
+				lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
 				for(int j = 0 ; j<mesList.size() ; j++){
-					lrisque.setRiskLabel(rList.get(i).getRisqueLabel());
+					
 					if(j== 0){
 						lrisque.setMesures(mesList.get(j).getMesureLabel());
 					}else{

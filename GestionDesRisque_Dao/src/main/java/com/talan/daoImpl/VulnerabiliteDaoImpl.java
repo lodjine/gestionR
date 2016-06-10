@@ -63,7 +63,7 @@ public class VulnerabiliteDaoImpl implements VulnerabiliteDao {
 		// TODO Auto-generated method stub
 Session session=sessionFactory.getCurrentSession();
 		
-		String hql = "select a from Vulnerabilite a where a.risque.risqueId =:id AND a.critere LIKE :type" ; 
+		String hql = "select a from Vulnerabilite a where a.risque.risqueId =:id AND a.risque.critere LIKE :type" ; 
 		Query query = session.createQuery(hql) ; 
 		query.setParameter("id", id);
 		query.setParameter("type", type);

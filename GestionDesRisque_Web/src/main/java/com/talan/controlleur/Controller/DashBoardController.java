@@ -82,11 +82,11 @@ public @ResponseBody Integer getActionNumberTermine(){
 		number4=risqueServiceImpl.getRiskByProc(procId, myUser.getEmail(), role, 3).size();
 			List<Integer> numbers=new ArrayList<Integer>();
 			
-			
-			numbers.add(number);
-			numbers.add(number2);
-			numbers.add(number3);
 			numbers.add(number4);
+			numbers.add(number3);
+			numbers.add(number2);
+			numbers.add(number);
+			
 			
 	
 			return numbers;

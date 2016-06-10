@@ -3,6 +3,7 @@ package com.talan.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Processus implements Serializable {
 	@ManyToOne
 	private Utilisateur user;
 	
-	@OneToMany(mappedBy="processus",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="processus",fetch=FetchType.EAGER ,cascade={CascadeType.PERSIST ,CascadeType.MERGE})
 	private List<SousProcessus> ssProcs;
 
 	public int getProcId() {

@@ -12,5 +12,5 @@ public interface ActiviteDao {
 	public void persist(Activite activité);
 	public void update(Activite activité);
 	public void delete(Activite activité);
-	public void save(Activite activité);
+	public int save(Activite activité);
 }

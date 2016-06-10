@@ -23,8 +23,10 @@ public class Risque implements Serializable{
 	private int totalMesure ;
 	private int totalVuls ;
 	private int totalImp ;
+	private int total ; 
+	private String critere ;
 	private String risqueLabel;
-	@OneToOne(cascade={CascadeType.PERSIST , CascadeType.MERGE})
+	@OneToOne
 	@JoinColumn(name="proc")
 	private Processus proc ;
 	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST , CascadeType.MERGE ,CascadeType.ALL})
@@ -40,8 +42,24 @@ public class Risque implements Serializable{
 		return risqueId;
 	}
 	
+	public String getCritere() {
+		return critere;
+	}
+
+	public void setCritere(String critere) {
+		this.critere = critere;
+	}
+
 	public int getTotalMesure() {
 		return totalMesure;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public void setTotalMesure(int totalMesure) {

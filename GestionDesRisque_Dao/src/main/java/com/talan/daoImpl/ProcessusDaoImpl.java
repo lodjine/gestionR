@@ -73,9 +73,10 @@ public class ProcessusDaoImpl implements ProcessDao {
 		
 	}
 
-	public void save(Processus ssPro) {
+	public int save(Processus ssPro) {
 		Session session=sessionFactory.getCurrentSession();
-		session.save(ssPro);
+		Processus p =  (Processus) session.merge(ssPro);
+		return p.getProcId() ;
 		
 	}
 

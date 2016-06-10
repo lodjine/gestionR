@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -26,10 +27,12 @@
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="resources/css/fileinput.css">
+<link rel="stylesheet" href="resources/css/fileinput.min.css">
 
   <script src="resources/js/jquery.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/fileinput.css">
+<link rel="stylesheet" href="resources/css/fileinput.min.css">
 
 
 </head>
@@ -57,7 +60,7 @@
 
                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-                              <div class="menu_section">
+             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
@@ -123,7 +126,7 @@
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
 
-                 <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="resources/images/LogoTalan.jpg" alt="">${firstname } ${lastname }
@@ -133,9 +136,7 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                    <li> <c:url
-							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -183,68 +184,34 @@
 								</div>
 								
 								        <div class="clearfix"></div>
-             
-              <f:form method="get"  action="ShowActivity">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
-				
-				    
-                  <table id="idTable" class="table table-hover" >
-              
-                   <tr>
-                   	<td>Add New Activity</td>
-                   	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
-						<i class="glyphicon glyphicon-plus"></i>
-						</button>
-					</td>
-                   </tr>
-                    <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Activity List  </td>
-                      <td>																	
-	
-							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
-							 
-							<option value="">Select an Activity</option>
-								<c:forEach items="${ListActivity}" var="group">
-							<option value="${group.activiteId}">${group.labelActivity}</option>
-								</c:forEach>
-							</select>
-						
-					 
-                   	</td> 
-                <td style="width: 249px;">
- 			 
-						<button type="button"  class="btn btn-primary" style="margin-top: 0%" id="boutonLoop">
-						
-						<i class="glyphicon glyphicon-search"></i>
-						</button>
-						
-					
- 				
-						</td>
-                      
-                      
-                    </tr>
-                       
-                </table>
-                <input type="submit" name="updateByCode"  id="seekbouton" hidden="true"/>
-		<input type="submit" hidden="true" name="updateByStatus" id="updateauthorized">
-                    
-                
-                </f:form>
-             
-						</div>
-						
-							</div>
-						</div>
-						</div>
-						</div>
+             <f:form  action="procUpload?${_csrf.parameterName}=${_csrf.token}"   method="post" enctype="multipart/form-data"  >	
+                <div class="x_content">
 
+                  
+					
+                  
+                    <span class="section">Proc</span>
+
+                
+							
+				<input type="file"  name="file"  size="50" title="choose a file"  > <H3>Choose a file </H3>  
+		         <input type="submit" value="Upload File" class="btn btn-primary" />
+  
+		          			
+											 </div>
+<%--                    <input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 		value="${_csrf.token}" /> --%>
+                 
+                  </f:form>
+                </div>
 								
 					   </div>			
 								
 							</div>
-						
-			
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /page content -->
 
       <!-- footer content -->
@@ -276,24 +243,9 @@
   <script src="resources/js/custom.js"></script>
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
+  	<script src="resources/js/fileinput.js"></script>
+<script src="resources/js/fileinput.min.js"></script>
   <script>
-  $('#boutonLoop')
-  .click(
-  		function() {
-
-  			e = $('.byCodeClass').find(':selected').val();
-  			if(e != ""){
-
-  		$(".byCodeClass").before('<input type="hidden"  name="byCode" value='+e+'  />');
-
-  			$('#seekbouton').trigger("click");
-  			}
-  			
-  			
-
-  		});
-  
-  	$('.select2').select2();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
@@ -334,6 +286,19 @@
       if (this.checked)
         $('form .alert').remove();
     }).prop('checked', false);
+
+
+  </script>
+  <script>
+  
+  $("#fileUpload").fileinput({
+		showUpload: false,
+		showCaption: false,
+		browseClass: "btn btn-primary btn-lg",
+		fileType: "any",
+      previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+	});
+
   </script>
 
 </body>

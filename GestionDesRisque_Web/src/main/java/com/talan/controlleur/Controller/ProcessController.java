@@ -3,13 +3,19 @@ package com.talan.controlleur.Controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +38,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.talan.entities.Activite;
@@ -40,9 +47,11 @@ import com.talan.entities.Processus;
 import com.talan.entities.SousProcessus;
 import com.talan.entities.Tracabilite;
 import com.talan.entities.Utilisateur;
+import com.talan.service.ActiviteService;
 import com.talan.service.AlerteService;
 import com.talan.service.InformationService;
 import com.talan.service.ProcessService;
+import com.talan.service.SousProcessusService;
 import com.talan.service.TracabiliteService;
 import com.talan.service.UtilisateurService;
 
@@ -63,6 +72,37 @@ public class ProcessController {
 	TracabiliteService tracabiliteServiceImpl;
 	@Autowired
 	AlerteService alerteServiceImpl;
+	@Autowired
+	ActiviteService activiteServiceImpl ; 
+	@Autowired
+	SousProcessusService spServiceImpl ; 
+	
+	
+	
+	public AlerteService getAlerteServiceImpl() {
+		return alerteServiceImpl;
+	}
+
+	public void setAlerteServiceImpl(AlerteService alerteServiceImpl) {
+		this.alerteServiceImpl = alerteServiceImpl;
+	}
+
+	public ActiviteService getActiviteServiceImpl() {
+		return activiteServiceImpl;
+	}
+
+	public void setActiviteServiceImpl(ActiviteService activiteServiceImpl) {
+		this.activiteServiceImpl = activiteServiceImpl;
+	}
+
+	public SousProcessusService getSpServiceImpl() {
+		return spServiceImpl;
+	}
+
+	public void setSpServiceImpl(SousProcessusService spServiceImpl) {
+		this.spServiceImpl = spServiceImpl;
+	}
+
 	public UtilisateurService getUtilisateurServiceImpl() {
 		return utilisateurServiceImpl;
 	}
@@ -249,7 +289,243 @@ tracabiliteServiceImpl.persist(trace);
 		
 	}
 	
+	@RequestMapping(value="/procCreation" , method = RequestMethod.GET)
+	public ModelAndView getProcCreationJsp() {
+		ModelAndView model = new ModelAndView("Process/procCreation") ;
+		 return model ; 
+	}
 	
+	@RequestMapping(value = "/procUpload",  method = RequestMethod.POST)
+	public ModelAndView Upload(@RequestParam("file") MultipartFile path,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+
+		
+		
+		
+		
+		
+    
+    List<SousProcessus> subList = new ArrayList<>();
+    List<Activite> actList = new ArrayList<>() ; 
+    List<Information> infoList = new ArrayList<>() ; 
+    Processus p = new Processus() ; 
+    SousProcessus sp = new SousProcessus() ; 
+    Activite ac = new Activite() ; 
+	 Information info = new Information() ; 
+	
+		
+	try {
+	
+		
+		  
+			
+			 
+			XSSFWorkbook book = new XSSFWorkbook(path.getInputStream()); 
+			XSSFSheet sheet = book.getSheetAt(0);
+			System.out.println("file found");
+			 Iterator<Row> itr = sheet.iterator();
+			 
+			 
+			 ArrayList <String> rows = new ArrayList();
+			 Date bookDate = new Date() ; 
+			 
+			 
+			
+	         
+	        
+	         int i = 0  ; 
+	         String sproc = "" ; 
+	           String act = "" ; 
+			 while (itr.hasNext() ) {
+						
+					System.out.println(sheet.getLastRowNum());
+					 
+						 String rowHolder = "";
+						 Row row = itr.next();
+						 System.out.println(row.getRowNum());
+						 if(row.getRowNum()== 0  ){
+							   continue; //just skip the rows if row number is 0 or 1
+							  }
+						 
+				            Iterator<Cell> cellIter = row.cellIterator();
+				            
+		
+				            
+				            
+				           int n = row.getPhysicalNumberOfCells();
+				          int last = row.getLastCellNum();
+				          
+
+				         
+				            Boolean first =true;
+				          
+				           
+				           
+				            while ( cellIter.hasNext())
+				            {
+				            	
+				      
+				            
+				 
+
+				            	
+				                if (!first)
+				                    rowHolder = rowHolder + ",";
+
+				               Cell cell =  cellIter.next();
+				               if (cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK) {
+				            	   
+				            	   
+				            	  cell.setCellValue("");}
+
+				                rowHolder = rowHolder + cell.toString() ;
+				                first = false;
+				                System.out.println("1"+rowHolder);
+				               
+				            }
+				            System.out.println("line : "+rowHolder);
+				            String delims = "[,]";
+				            
+				            rows.add(rowHolder);
+				            
+				            String[] tokens = rowHolder.split(delims);
+				            
+				           if(i == 0 ){
+				        	   p.setProcessus(tokens[0]);
+				        	   sp.setSousProcessus(tokens[1]);
+				        	   ac.setLabelActivity(tokens[2]);
+				        	   info.setInformation(tokens[3]);
+					           info.setProprietaire(tokens[4]);
+					           infoList.add(info) ;
+					           sproc = tokens[1] ; 
+					           act=tokens[2] ; 
+					           i++;
+				           }else{
+				            
+				        	   
+				        	   if((tokens[1].equals(sproc)) && tokens[2].equals(act)) {
+				        		   info = new Information() ; 
+						            info.setInformation(tokens[3]);
+						            info.setProprietaire(tokens[4]);
+						            
+						             infoList.add(info) ;
+				        	   }else if(tokens[1].equals(sproc) && !tokens[2].equals(act) ){
+				        		   
+				        		   	ac.setInformations(infoList);
+					            	infoList = new ArrayList<>() ; 
+					            	actList.add(ac) ;
+					            	ac = new Activite() ; 
+					            	ac.setLabelActivity(tokens[2]);
+					            	info = new Information() ; 
+						            info.setInformation(tokens[3]);
+						            info.setProprietaire(tokens[4]);
+						            
+						             infoList.add(info) ;
+					            	act = tokens[2] ;
+				        		   
+				        	   }else if (!tokens[1].equals(sproc) && !tokens[2].equals(act)){
+				        		   
+				        			ac.setInformations(infoList);
+					            	infoList = new ArrayList<>() ; 
+					            	actList.add(ac) ;
+					            	sp.setActivites(actList);
+					            	subList.add(sp) ;
+					            	
+					            	sp = new SousProcessus() ;
+					            	sp.setSousProcessus(tokens[1]);
+					            	actList = new ArrayList<>() ;
+					            	
+					            	
+					            	ac = new Activite() ; 
+					            	ac.setLabelActivity(tokens[2]);
+					            	info = new Information() ; 
+						            info.setInformation(tokens[3]);
+						            info.setProprietaire(tokens[4]);
+						            
+						             infoList.add(info) ;
+					            	act = tokens[2] ;
+					            	sproc = tokens[1] ; 
+				        		   
+				        	   }
+				        	   
+				        	  
+				        	   
+				        	   
+				        	  
+				           } 
+				             
+				          
+			 }
+			 	
+			  
+				            
+	}catch (FileNotFoundException fe) { fe.printStackTrace(); } 
+	catch (IOException ie) { ie.printStackTrace(); }
+	ac.setInformations(infoList);
+	actList.add(ac);
+	sp.setActivites(actList);
+	 subList.add(sp); 
+	p.setSsProcs(subList);
+	
+	
+	int procid = processServiceImpl.save(p); 
+	
+		for (int i = 0 ; i< p.getSsProcs().size() ; i ++) {
+			
+			p.getSsProcs().get(i).setProcessus(processServiceImpl.getById(procid));
+			int spId = spServiceImpl.save(p.getSsProcs().get(i));
+			for(int  x =0 ; x<p.getSsProcs().get(i).getActivites().size() ; x++){
+				p.getSsProcs().get(i).getActivites().get(x).setSubprocess(spServiceImpl.getById(spId));
+				int acId = activiteServiceImpl.save(p.getSsProcs().get(i).getActivites().get(x));
+					for ( int z = 0 ; z<p.getSsProcs().get(i).getActivites().get(x).getInformations().size() ; z ++ ){
+						p.getSsProcs().get(i).getActivites().get(x).getInformations().get(z).setActivite(activiteServiceImpl.getById(acId));
+						informationServiceImpl.save(p.getSsProcs().get(i).getActivites().get(x).getInformations().get(z));
+					}
+			}
+		}
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+	ModelAndView model = new ModelAndView("Process/ActifMenu") ; 
+
+	
+	
+	
+	UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+	Utilisateur myUser = new Utilisateur();
+	myUser = utilisateurServiceImpl.getById(user.getUsername());
+	model.addObject("firstname", myUser.getFirstName());
+	model.addObject("lastname", myUser.getLastName());
+	 model.addObject("nombreAlerte", alerteServiceImpl.getAllAction().size()+alerteServiceImpl.getAllAction().size());
+
+	
+		String role="";
+		
+		
+	model.addObject("Listprocess", processServiceImpl.getAll(myUser));
+
+	return model ;
+	
+	
+	
+	
+	
+	
+
+	
+	
+	}
 	
 	
 	//excel

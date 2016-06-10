@@ -76,6 +76,8 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
@@ -222,7 +224,9 @@
                     <th class="value"> <a ng-click="sort('value')" href="#"> proc
                      <span class="{{Header[2]}}"></span></a>
                     </th>
-                   
+                   <th class="value"> <a ng-click="sort('value')" href="#"> Type
+                     <span class="{{Header[2]}}"></span></a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -231,7 +235,7 @@
                     <td>{{item.risqueLabel}}</td>
                     <td>{{item.value}}</td>
                     <td>{{item.proc.processus}}</td>
-                    
+                    <td>{{item.critere}}</td>
                     
                     <td><button type="button" ng-click="modifyUser($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                      <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
@@ -264,6 +268,14 @@
                 <select name="pSelect" class="select2"id="mSelect" ng-model="ProcSelect.repeatSelect" style="width: 100%">
                 	 <option value="">Process</option>
      				 <option ng-repeat="proc in ProcSelect.availableOptions" value="{{proc.procId}}">{{proc.processus}}</option>
+   			   </select>
+            </div>
+               <div class="col-xs-2">
+                <select name="tSelect" class="select2"id="mSelect" ng-model="typeSelect.repeatSelect" ng-change="getrisks()" style="width: 100%">
+                	 <option value="">Type</option>
+     				 <option value="Confidentialite">Confidentialite </option>
+     				 <option value="Disponibilite">Disponibilite</option>
+     				 <option value="Integrite">Integrite</option>
    			   </select>
             </div>
           
