@@ -24,7 +24,7 @@ private  String labelActivity;
 	@ManyToOne
 	private SousProcessus subprocess ;
 	
-	@OneToMany (mappedBy="activite", fetch =  FetchType.EAGER)
+	@OneToMany (mappedBy="activite", fetch =  FetchType.EAGER,cascade={CascadeType.PERSIST ,CascadeType.MERGE})
 	List<Information> informations ;
 	
 	

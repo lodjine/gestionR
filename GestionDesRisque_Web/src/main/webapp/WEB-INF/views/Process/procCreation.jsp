@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -26,27 +27,12 @@
   <!-- Custom styling plus plugins -->
   <link href="resources/css/custom.css" rel="stylesheet">
   <link href="resources/css/icheck/flat/green.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="resources/css/fileinput.css">
+<link rel="stylesheet" href="resources/css/fileinput.min.css">
 
   <script src="resources/js/jquery.min.js"></script>
-
-
-
-
-
-
-  <!-- Custom styling plus plugins -->
-  <link href="css/custom.css" rel="stylesheet">
-  <link href="css/icheck/flat/green.css" rel="stylesheet">
-  <!-- ion_range -->
-  <link rel="stylesheet" href="css/normalize.css" />
-  <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-  <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-
-  <!-- colorpicker -->
-  <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-  <script src="js/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/fileinput.css">
+<link rel="stylesheet" href="resources/css/fileinput.min.css">
 
 
 </head>
@@ -72,10 +58,9 @@
 
           <br />
 
-          <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <div class="menu_section">
+             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
@@ -199,90 +184,24 @@
 								</div>
 								
 								        <div class="clearfix"></div>
-             
+             <f:form  action="procUpload?${_csrf.parameterName}=${_csrf.token}"   method="post" enctype="multipart/form-data"  >	
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="action" action="editAction" >
-
                   
-                    <span class="section">Action</span>
+					
+                  
+                    <span class="section">Proc</span>
 
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label  <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="label" placeholder="Label" required="required" type="text" value="${action.label }">
-                      </div>
-                    </div>
-                    
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Begin Date <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text" value="${action.beginDate }">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">End Date <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text" value="${action.endDate }">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Risk <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12"> 
-							<select name="risk.risqueId" id="currencySelect"
-								class="form-control select2 form-control required noselect"  >
-								                
-								<option value="${action.risk.risqueId }">${action.risk.risqueLabel }</option>
-									
-								
-								
-								<c:forEach items="${rList}" var="ssProc">
-									
-
-										<option value="${ssProc.risqueId}">${ssProc.risqueLabel}</option>
-									
-								</c:forEach>
-							</select>
-						</div>
-                      </div>
-                     <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">User <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12"> 
-							<select name="user.email" id="currencySelect"
-								class="form-control select2 form-control required noselect"  >
-								                
-								<option value="${action.user.email }">${action.user.email }</option>
-									
-								
-								
-								<c:forEach items="${users}" var="ssProc">
-									
-
-										<option value="${ssProc.email}">${ssProc.email}</option>
-									
-								</c:forEach>
-							</select>
-						</div>
-                      </div>
-                    <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Status </label>
-                     <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="${action.status }" name="status">
-                  </div>
-                   </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                      <div class="col-md-6 col-md-offset-3">
-                        
-                        <button id="send" type="submit" class="btn btn-success">Submit</button>
-                      </div>
-                    </div>
-                    <input type="hidden" name="actionId" value="${action.actionId }">
+                
+							
+				<input type="file"  name="file"  size="50" title="choose a file"  > <H3>Choose a file </H3>  
+		         <input type="submit" value="Upload File" class="btn btn-primary" />
+  
+		          			
+											 </div>
+<%--                    <input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 		value="${_csrf.token}" /> --%>
+                 
                   </f:form>
                 </div>
 								
@@ -314,7 +233,7 @@
   </div>
 
   <script src="resources/js/bootstrap.min.js"></script>
- <script src="resources/js/knob/jquery.knob.min.js"></script>
+
   <!-- bootstrap progress js -->
   <script src="resources/js/progressbar/bootstrap-progressbar.min.js"></script>
   <!-- icheck -->
@@ -324,6 +243,8 @@
   <script src="resources/js/custom.js"></script>
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
+  	<script src="resources/js/fileinput.js"></script>
+<script src="resources/js/fileinput.min.js"></script>
   <script>
     // initialize the validator function
     validator.message['date'] = 'not a real date';
@@ -365,108 +286,21 @@
       if (this.checked)
         $('form .alert').remove();
     }).prop('checked', false);
+
+
   </script>
- <script>
-    $(function($) {
+  <script>
+  
+  $("#fileUpload").fileinput({
+		showUpload: false,
+		showCaption: false,
+		browseClass: "btn btn-primary btn-lg",
+		fileType: "any",
+      previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+	});
 
-      $(".knob").knob({
-        change: function(value) {
-          //console.log("change : " + value);
-        },
-        release: function(value) {
-          //console.log(this.$.attr('value'));
-          console.log("release : " + value);
-        },
-        cancel: function() {
-          console.log("cancel : ", this);
-        },
-        /*format : function (value) {
-         return value + '%';
-         },*/
-        draw: function() {
-
-          // "tron" case
-          if (this.$.data('skin') == 'tron') {
-
-            this.cursorExt = 0.3;
-
-            var a = this.arc(this.cv) // Arc
-              ,
-              pa // Previous arc
-              , r = 1;
-
-            this.g.lineWidth = this.lineWidth;
-
-            if (this.o.displayPrevious) {
-              pa = this.arc(this.v);
-              this.g.beginPath();
-              this.g.strokeStyle = this.pColor;
-              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
-              this.g.stroke();
-            }
-
-            this.g.beginPath();
-            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
-            this.g.stroke();
-
-            this.g.lineWidth = 2;
-            this.g.beginPath();
-            this.g.strokeStyle = this.o.fgColor;
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-            this.g.stroke();
-
-            return false;
-          }
-        }
-      });
-
-      // Example of infinite knob, iPod click wheel
-      var v, up = 0,
-        down = 0,
-        i = 0,
-        $idir = $("div.idir"),
-        $ival = $("div.ival"),
-        incr = function() {
-          i++;
-          $idir.show().html("+").fadeOut();
-          $ival.html(i);
-        },
-        decr = function() {
-          i--;
-          $idir.show().html("-").fadeOut();
-          $ival.html(i);
-        };
-      $("input.infinite").knob({
-        min: 0,
-        max: 20,
-        stopper: false,
-        change: function() {
-          if (v > this.cv) {
-            if (up) {
-              decr();
-              up = 0;
-            } else {
-              up = 1;
-              down = 0;
-            }
-          } else {
-            if (v < this.cv) {
-              if (down) {
-                incr();
-                down = 0;
-              } else {
-                down = 1;
-                up = 0;
-              }
-            }
-          }
-          v = this.cv;
-        }
-      });
-    });
   </script>
-  <!-- /knob -->
+
 </body>
 
 </html>

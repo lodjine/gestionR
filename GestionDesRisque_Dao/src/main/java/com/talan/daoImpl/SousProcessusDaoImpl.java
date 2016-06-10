@@ -45,10 +45,11 @@ public void delete(SousProcessus ssPro) {
 
 	session.delete(ssPro);
 }
-public void save(SousProcessus ssPro) {
+public int save(SousProcessus ssPro) {
 	// TODO Auto-generated method stub
 	Session session=sessionFactory.getCurrentSession();
 
-	session.save(ssPro);
+	SousProcessus p = (SousProcessus) session.merge(ssPro);
+	return p.getSspId() ; 
 }
 }

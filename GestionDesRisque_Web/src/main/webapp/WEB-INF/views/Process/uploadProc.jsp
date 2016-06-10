@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -32,23 +33,6 @@
 
 
 
-
-
-
-  <!-- Custom styling plus plugins -->
-  <link href="css/custom.css" rel="stylesheet">
-  <link href="css/icheck/flat/green.css" rel="stylesheet">
-  <!-- ion_range -->
-  <link rel="stylesheet" href="css/normalize.css" />
-  <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-  <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-
-  <!-- colorpicker -->
-  <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-  <script src="js/jquery.min.js"></script>
-
-
 </head>
 
 
@@ -72,17 +56,14 @@
 
           <br />
 
-          <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <div class="menu_section">
+                      <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
-                    </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
@@ -141,7 +122,7 @@
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
 
-                <ul class="nav navbar-nav navbar-right">
+                 <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                   <img src="resources/images/LogoTalan.jpg" alt="">${firstname } ${lastname }
@@ -191,7 +172,7 @@
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel" style="height: 595px;">
+							<div class="x_panel" style="height: auto;">
 								<div class="x_title">
 									<h2>
 										Gestion Des Risques <small>Talan</small>
@@ -202,87 +183,69 @@
              
                 <div class="x_content">
 
-                  <f:form class="form-horizontal form-label-left" method="post" modelAttribute="action" action="editAction" >
+                  <f:form class="form-horizontal form-label-left" action="ProcessExcel" method="post" modelAttribute="proc"  >
 
                   
-                    <span class="section">Action</span>
+                    <span class="section">Processus</span>
 
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Label  <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="label" placeholder="Label" required="required" type="text" value="${action.label }">
-                      </div>
-                    </div>
+                    	 <div class="x_content">
+                  <p class="text-muted font-13 m-b-30">
+                  </p>
+                 
+                      <c:set var="j" value="${0}"  scope="page"  />
+                   
+                  <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Sub-Process</th>
+                        <th>Activity</th>
+                        <th>Information</th>
+                        <th>Owner</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                   <c:forEach items="${proc.ssProcs}" var="sspro" varStatus="status"> 
                     
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Begin Date <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text" value="${action.beginDate }">
-                      </div>
+                    <tr>
+                    	<td rowspan="${intList[status.index]+actSize[status.index]+1}">${sspro.sousProcessus }</td><td></td><td></td><td></td>
+                 </tr>
+                 				<c:forEach items="${activitys[status.index]}" var="acts" varStatus="statuss">
+                 					<tr>
+                 						<td rowspan="${infoList[j]+1 }">
+                 							${acts.labelActivity }
+                 						</td>
+                 						<td>
+                 						</td>
+                 						<td>
+                 						</td>
+                 					</tr>
+                 						<c:forEach items="${infoss[j]}" var="inf" >
+                 							<tr>
+                 							<td>
+                 								${inf.information }
+                 							</td>
+                 							<td>
+                 								owner 1
+                 							</td>
+                 							</tr>
+                 							
+                 						</c:forEach>
+                 						<c:set var="j" value="${j + 1}" scope="page"/>
+                 				</c:forEach>
+                 				
+                  </c:forEach>
+                    </tbody>
+                    </table>
+                   
                     </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">End Date <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text" value="${action.endDate }">
-                      </div>
-                    </div>
-                    <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Risk <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12"> 
-							<select name="risk.risqueId" id="currencySelect"
-								class="form-control select2 form-control required noselect"  >
-								                
-								<option value="${action.risk.risqueId }">${action.risk.risqueLabel }</option>
-									
-								
-								
-								<c:forEach items="${rList}" var="ssProc">
-									
-
-										<option value="${ssProc.risqueId}">${ssProc.risqueLabel}</option>
-									
-								</c:forEach>
-							</select>
-						</div>
-                      </div>
-                     <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">User <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12"> 
-							<select name="user.email" id="currencySelect"
-								class="form-control select2 form-control required noselect"  >
-								                
-								<option value="${action.user.email }">${action.user.email }</option>
-									
-								
-								
-								<c:forEach items="${users}" var="ssProc">
-									
-
-										<option value="${ssProc.email}">${ssProc.email}</option>
-									
-								</c:forEach>
-							</select>
-						</div>
-                      </div>
-                    <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Status </label>
-                     <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="${action.status }" name="status">
-                  </div>
-                   </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                       <div class="col-md-6 col-md-offset-3">
                         
-                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                        <button id="send" type="submit" class="btn btn-success">Download Excel</button>
                       </div>
                     </div>
-                    <input type="hidden" name="actionId" value="${action.actionId }">
                   </f:form>
                 </div>
 								
@@ -314,7 +277,7 @@
   </div>
 
   <script src="resources/js/bootstrap.min.js"></script>
- <script src="resources/js/knob/jquery.knob.min.js"></script>
+
   <!-- bootstrap progress js -->
   <script src="resources/js/progressbar/bootstrap-progressbar.min.js"></script>
   <!-- icheck -->
@@ -325,6 +288,8 @@
   <!-- form validation -->
   <script src="resources/js/validator/validator.js"></script>
   <script>
+
+  	$('#datatable').DataTable();
     // initialize the validator function
     validator.message['date'] = 'not a real date';
 
@@ -366,107 +331,7 @@
         $('form .alert').remove();
     }).prop('checked', false);
   </script>
- <script>
-    $(function($) {
 
-      $(".knob").knob({
-        change: function(value) {
-          //console.log("change : " + value);
-        },
-        release: function(value) {
-          //console.log(this.$.attr('value'));
-          console.log("release : " + value);
-        },
-        cancel: function() {
-          console.log("cancel : ", this);
-        },
-        /*format : function (value) {
-         return value + '%';
-         },*/
-        draw: function() {
-
-          // "tron" case
-          if (this.$.data('skin') == 'tron') {
-
-            this.cursorExt = 0.3;
-
-            var a = this.arc(this.cv) // Arc
-              ,
-              pa // Previous arc
-              , r = 1;
-
-            this.g.lineWidth = this.lineWidth;
-
-            if (this.o.displayPrevious) {
-              pa = this.arc(this.v);
-              this.g.beginPath();
-              this.g.strokeStyle = this.pColor;
-              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
-              this.g.stroke();
-            }
-
-            this.g.beginPath();
-            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
-            this.g.stroke();
-
-            this.g.lineWidth = 2;
-            this.g.beginPath();
-            this.g.strokeStyle = this.o.fgColor;
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-            this.g.stroke();
-
-            return false;
-          }
-        }
-      });
-
-      // Example of infinite knob, iPod click wheel
-      var v, up = 0,
-        down = 0,
-        i = 0,
-        $idir = $("div.idir"),
-        $ival = $("div.ival"),
-        incr = function() {
-          i++;
-          $idir.show().html("+").fadeOut();
-          $ival.html(i);
-        },
-        decr = function() {
-          i--;
-          $idir.show().html("-").fadeOut();
-          $ival.html(i);
-        };
-      $("input.infinite").knob({
-        min: 0,
-        max: 20,
-        stopper: false,
-        change: function() {
-          if (v > this.cv) {
-            if (up) {
-              decr();
-              up = 0;
-            } else {
-              up = 1;
-              down = 0;
-            }
-          } else {
-            if (v < this.cv) {
-              if (down) {
-                incr();
-                down = 0;
-              } else {
-                down = 1;
-                up = 0;
-              }
-            }
-          }
-          v = this.cv;
-        }
-      });
-    });
-  </script>
-  <!-- /knob -->
 </body>
 
 </html>

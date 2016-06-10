@@ -13,5 +13,5 @@ public interface SousProcessusService {
 	public void persist(SousProcessus ssPro);
 	public void update(SousProcessus ssPro);
 	public void delete(SousProcessus ssPro);
-	public void save(SousProcessus ssPro);
+	public int save(SousProcessus ssPro);
 }

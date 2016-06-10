@@ -55,9 +55,9 @@ public class ActiviteServiceImpl implements ActiviteService {
 		activiteDaoImpl.delete(activité);
 	}
 
-	public void save(Activite activité) {
+	public int save(Activite activité) {
 		// TODO Auto-generated method stub
-		activiteDaoImpl.save(activité);
+		return activiteDaoImpl.save(activité);
 	}
 
 	

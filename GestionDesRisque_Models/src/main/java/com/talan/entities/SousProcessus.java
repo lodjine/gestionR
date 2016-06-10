@@ -3,6 +3,7 @@ package com.talan.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class SousProcessus implements Serializable {
 	@ManyToOne
 	private Processus processus;
 	
-	@OneToMany(mappedBy="subprocess",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="subprocess",fetch=FetchType.EAGER,cascade={CascadeType.PERSIST ,CascadeType.MERGE})
 	private List<Activite> activites;
 
 	public int getSspId() {

@@ -78,6 +78,8 @@
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>

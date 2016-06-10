@@ -76,6 +76,8 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
@@ -456,9 +458,9 @@ var mybarChart = new Chart(ctx, {
 function onchangeProc(){
 	
 	var id = $('.selectProcId').val(); 
-	alert(id) ;
+	
 	 var x =  getRiskByProc(id)  ;
-	 alert(x);
+	
 //Bar chart
 var ctx = document.getElementById("mybarChart");
 var mybarChart = new Chart(ctx, {

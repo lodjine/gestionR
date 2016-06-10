@@ -12,5 +12,5 @@ public interface ProcessDao {
 	public void persist(Processus ssPro);
 	public void update(Processus ssPro);
 	public void delete(Processus ssPro);
-	public void save(Processus ssPro);
+	public int save(Processus ssPro);
 }
