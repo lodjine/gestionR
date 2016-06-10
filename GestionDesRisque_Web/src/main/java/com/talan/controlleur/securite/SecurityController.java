@@ -36,7 +36,6 @@ import com.talan.service.UtilisateurService;
 
 
 @Controller
-
 public class SecurityController {
 @Autowired
 
@@ -52,17 +51,7 @@ ActionService actionServiceImpl;
 ProcessService processServiceImpl;
 
 	
-	public HttpSession session(HttpServletRequest request){
 
-		HttpSession session=request.getSession();  
-        System.out.println(session.getId());
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-        Utilisateur myUser = new Utilisateur() ;
-        myUser = utilisateurServiceImpl.getById(user.getUsername());
-        session.setAttribute("user", myUser.getEmail());
-        return session;
-	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpSession session) {
@@ -104,9 +93,10 @@ ProcessService processServiceImpl;
 		}
 
 		if (logout != null) {
-		
-			HttpSession session=request.getSession();  
-            session.invalidate();
+			HttpSession session =request.getSession();
+			session.invalidate();
+			 session = request.getSession(false);
+			
 
 
 	
@@ -136,6 +126,14 @@ ModelAndView model = new ModelAndView();
 		}
 
 		if (logout != null) {
+			
+			
+			HttpSession session=request.getSession();  
+			
+            session.invalidate();
+   		 session = request.getSession(false);
+
+            
 			model.addObject("msg", "You've been logged out successfully.");
 		}
 		model.setViewName("login");

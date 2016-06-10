@@ -18,17 +18,15 @@
   <!-- activate the AutitAspect --> 
  
 
-	<global-method-security pre-post-annotations="enabled" />
+ <global-method-security pre-post-annotations="enabled" />
 
 	<http auto-config="true" use-expressions="true">
 	
-<!-- 	/home/glManagment -->
 
 
-
-<!-- 		<intercept-url pattern="/GLHome" access="hasAnyRole('ROLE_FO_USER','ROLE_UNIQ_ADMIN')" /> -->
-		
-		<intercept-url pattern="/*" access="permitAll" />
+			<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/index" access="isAuthenticated()" />
+	
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 
@@ -41,6 +39,11 @@
 
 		<logout logout-success-url="/login?logout" delete-cookies="JsessionID"
 			invalidate-session="true" logout-url="/login?logout"  />
+			
+			
+
+
+
 
 		<csrf />
 		

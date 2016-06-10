@@ -143,7 +143,9 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                   <li> <c:url
+							value="login?logout" var="logoutUrl" /> 
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -193,25 +195,25 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Utilisateur</h3>
 				
 				    <f:form method="get" modelAttribute="Process"    action="ShowAdmin">
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
-                   	<td>Add New Admini</td>
+                   	<td>Ajouter nouveau Admin</td>
                    	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
 						<i class="glyphicon glyphicon-plus"></i>
 						</button>
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Admin List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Liste Utilisateur </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select a Process</option>
+							<option value="">Select a Utilisateur</option>
 								<c:forEach items="${ListAdmin}" var="group">
 							<option value="${group.email}">${group.email}</option>
 								</c:forEach>

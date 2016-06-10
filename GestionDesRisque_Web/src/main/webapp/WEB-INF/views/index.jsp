@@ -143,7 +143,9 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                   <li> <c:url
+							value="login?logout" var="logoutUrl" /> 
+                  <a href="j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -291,7 +293,9 @@
                 </div>	
                  
                 </div>				
-							
+						
+	<input type="hidden" name="${_csrf.parameterName}"
+		value="${_csrf.token}" />	
 							</div>
 						</div>
 					</div>

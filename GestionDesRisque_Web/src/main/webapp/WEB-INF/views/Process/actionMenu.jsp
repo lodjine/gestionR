@@ -143,7 +143,9 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <li> <c:url
+							value="login?logout" var="logoutUrl" /> 
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -193,7 +195,7 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Admin</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Actions</h3>
 				
 				    <f:form method="get" modelAttribute="Process"    action="ShowAction">
                   <table id="idTable" class="table table-hover" >
@@ -211,7 +213,7 @@
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select a Process</option>
+							<option value="">Select  action</option>
 								<c:forEach items="${ListAdmin}" var="group">
 							<option value="${group.actionId}">${group.label}</option>
 								</c:forEach>
