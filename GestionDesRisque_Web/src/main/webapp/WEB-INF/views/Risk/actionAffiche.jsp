@@ -82,9 +82,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -115,10 +115,10 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-               
+                
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
-                 </sec:authorize>
+                </sec:authorize>
               </ul>
             </div>
             
@@ -153,7 +153,7 @@
                  
                     <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -218,21 +218,21 @@
                     </div>
                     
                     <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Begin Date <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Date Debut<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="beginDate" placeholder="Description" required="required" type="text" value="${action.beginDate }">
                       </div>
                     </div>
                     <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">End Date <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Date Fin<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="InfLabel" class="form-control col-md-7 col-xs-12"  name="endDate" placeholder="Description" required="required" type="text" value="${action.endDate }">
                       </div>
                     </div>
                     <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Risk <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Risque <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12"> 
 							<select name="risk.risqueId" id="currencySelect"
@@ -252,7 +252,7 @@
 						</div>
                       </div>
                      <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">User <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Utilisateur <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12"> 
 							<select name="user.email" id="currencySelect"
@@ -272,7 +272,7 @@
 						</div>
                       </div>
                     <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Status </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Label">Statut</label>
                      <div class="col-md-6 col-sm-6 col-xs-12">
                     <input class="knob" data-width="100" data-height="120" data-angleOffset=-125 data-angleArc=250 data-fgColor="#34495E" data-rotation="anticlockwise" value="${action.status }" name="status">
                   </div>

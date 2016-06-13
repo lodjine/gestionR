@@ -64,9 +64,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                      <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -135,7 +135,7 @@
                  
                     <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -185,7 +185,7 @@
 								        <div class="clearfix"></div>
              
               <f:form method="get"  action="ShowActivity">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Activite</h3>
 				
 				    
                   <table id="idTable" class="table table-hover" >
@@ -198,12 +198,12 @@
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Activity List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Liste Des Activites  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select an Activity</option>
+							<option value="">Selectionner Activite</option>
 								<c:forEach items="${ListActivity}" var="group">
 							<option value="${group.activiteId}">${group.labelActivity}</option>
 								</c:forEach>

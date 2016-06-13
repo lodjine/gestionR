@@ -55,7 +55,7 @@
 
           <br />
 
-                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
@@ -64,9 +64,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -97,10 +97,10 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-               
+                
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
-                 </sec:authorize>
+                </sec:authorize>
               </ul>
             </div>
             
@@ -135,7 +135,7 @@
                  
                    <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
                   </li>
                 </ul>
               </li>

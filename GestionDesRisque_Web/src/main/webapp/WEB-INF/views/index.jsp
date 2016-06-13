@@ -76,9 +76,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -147,7 +147,7 @@
                  
                    <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -278,7 +278,7 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <select class="selectProcId" onchange="onchangeProc()" >
-                        <option>select processus</option>
+                        <option>selectionner processus</option>
                         <c:forEach items="${procs}" var="proc">
                         <option value="${proc.procId}">${proc.processus}</option>
                         </c:forEach>

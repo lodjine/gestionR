@@ -56,16 +56,18 @@
 
           <br />
 
-                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-                      <div class="menu_section">
+            <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
+                    </li>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -96,10 +98,10 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-               
+                
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
-                 </sec:authorize>
+                </sec:authorize>
               </ul>
             </div>
             
@@ -132,7 +134,7 @@
                   <li><a href="javascript:;">  Profile</a>
                   </li>
                  
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Deconnexion</a>
                   </li>
                 </ul>
               </li>

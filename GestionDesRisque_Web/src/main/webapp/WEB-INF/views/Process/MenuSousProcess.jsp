@@ -64,9 +64,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -135,7 +135,7 @@
                  
                     <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -185,25 +185,25 @@
 								        <div class="clearfix"></div>
              
               <f:form method="get"  action="ShowSubProcess">
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Process</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Sous Processus</h3>
 				
 				    
                   <table id="idTable" class="table table-hover" >
               
                    <tr>
-                   	<td>Add New Sub-Process</td>
+                   	<td>Ajouter Sous Processus</td>
                    	<td><button type="submit" name="newRecord" class="btn btn-primary" style="margin-top: 1%;margin-left: 3%">
 						<i class="glyphicon glyphicon-plus"></i>
 						</button>
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Sub-Process List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Liste Sous Processus </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select an Sub-Process</option>
+							<option value="">selectionner un sous processus</option>
 								<c:forEach items="${ListSubprocess}" var="group">
 							<option value="${group.sspId}">${group.sousProcessus}</option>
 								</c:forEach>

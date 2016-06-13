@@ -64,9 +64,9 @@
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -135,7 +135,7 @@
                  
                     <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -198,12 +198,12 @@
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Process List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> liste des processus </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select a Process</option>
+							<option value="">Selectionner Processus</option>
 								<c:forEach items="${Listprocess}" var="group">
 							<option value="${group.procId}">${group.processus}</option>
 								</c:forEach>

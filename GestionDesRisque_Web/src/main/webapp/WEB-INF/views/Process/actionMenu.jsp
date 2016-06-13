@@ -67,20 +67,18 @@
 
           <br />
 
-                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                  <li><a href="/GestionDesRisque_Web/getMenuRisks">Risque Managment </a>
-                    </li>
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -90,6 +88,8 @@
                 </li>
                 <li><a><i class="fa fa-edit"></i>Identification des risques<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
+                  <li><a href="/GestionDesRisque_Web/getMenuRisks">Risque Managment </a>
+                    </li>
                     <li><a href="/GestionDesRisque_Web/getRisks">Risque</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/showMesureMenu">Mesure</a>
@@ -109,10 +109,10 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-               
+                
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
-                 </sec:authorize>
+                </sec:authorize>
               </ul>
             </div>
             
@@ -147,7 +147,7 @@
                  
                     <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
                   </li>
                 </ul>
               </li>
@@ -210,12 +210,12 @@
 					</td>
                    </tr>
                     <tr>
-                      <td style="width: 171px;padding-top: 6px;"> Action List  </td>
+                      <td style="width: 171px;padding-top: 6px;"> Liste Des Actions  </td>
                       <td>																	
 	
 							<select id="styleInput" class="form-control select2 byCodeClass" data-live-search="true" >
 							 
-							<option value="">Select  action</option>
+							<option value="">Selectionner  Action</option>
 								<c:forEach items="${ListAdmin}" var="group">
 							<option value="${group.actionId}">${group.label}</option>
 								</c:forEach>
@@ -261,22 +261,22 @@
                          </a>
 
                     </th>
-                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Risk
+                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Risque
                          <span class="{{Header[1]}}"></span></a>
                     </th>
-                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Start Date
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#">Date Debut
                      <span class="{{Header[2]}}"></span></a>
                     </th>
-                    <th class="lastName"> <a ng-click="sort('lastName')" href="#"> End Date
+                    <th class="lastName"> <a ng-click="sort('lastName')" href="#">Date Fin
                          <span class="{{Header[1]}}"></span></a>
                     </th>
-                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Creation Date
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#">Date De Creation
                      <span class="{{Header[2]}}"></span></a>
                     </th>
-                     <th class="lastName"> <a ng-click="sort('lastName')" href="#"> Modification Date
+                     <th class="lastName"> <a ng-click="sort('lastName')" href="#">Date De Modification 
                          <span class="{{Header[1]}}"></span></a>
                     </th>
-                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Status
+                    <th class="firstName"> <a ng-click="sort('firstName')" href="#"> Statut
                      <span class="{{Header[2]}}"></span></a>
                     </th>
                 </tr>

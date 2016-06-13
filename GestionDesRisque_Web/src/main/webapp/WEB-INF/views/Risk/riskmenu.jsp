@@ -67,18 +67,18 @@
 
           <br />
 
-                   <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-          <div class="menu_section">
+            <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i>Identification des actifs<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="/GestionDesRisque_Web/MenuProces">Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/procCreation">Upload Actifs</a>
+                    <li><a href="/GestionDesRisque_Web/procCreation">Telecharger Actifs</a>
                     </li>
-                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sub-Process</a>
+                    <li><a href="/GestionDesRisque_Web/MenuSsProcess">Sous Processus</a>
                     </li>
                     <li><a href="/GestionDesRisque_Web/MenuActivite">Activities</a>
                     </li>
@@ -109,12 +109,15 @@
                  <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/GestionDesRisque_Web/MenuAdmin"><i class="fa fa-users"></i>Utilisateur</a>
                 </li>
-              
+                
                  <li><a href="/GestionDesRisque_Web/Trace"><i  class="fa fa-camera"></i>Traçabilite</a>
                 </li>
-                  </sec:authorize>
+                </sec:authorize>
               </ul>
             </div>
+            
+
+          </div>
 
           </div>
           <!-- /sidebar menu -->
@@ -196,7 +199,7 @@
 								        <div class="clearfix"></div>
              
               
-				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Risk</h3>
+				<h3 class="box-title" style="margin-top: 1%; margin-left: 2%">Risque</h3>
 				
 		<br />
 
@@ -218,7 +221,7 @@
                     <th class="Mlabel"> <a ng-click="sort('mesureLabel')" href="#"> Label
                          <span class="{{Header[1]}}"></span></a>
                     </th>
-                    <th class="value"> <a ng-click="sort('value')" href="#"> Value
+                    <th class="value"> <a ng-click="sort('value')" href="#"> Valeur
                      <span class="{{Header[2]}}"></span></a>
                     </th>
                     <th class="value"> <a ng-click="sort('value')" href="#"> proc
@@ -262,11 +265,11 @@
                 <input type="text" ng-model="mesureLabel" class="form-control" placeholder="Label">
             </div>
             <div class="col-xs-2">
-                <input type="number" ng-model="value" class="form-control" placeholder="value">
+                <input type="number" ng-model="value" class="form-control" placeholder="valeur">
             </div>
             <div class="col-xs-2">
                 <select name="pSelect" class="select2"id="mSelect" ng-model="ProcSelect.repeatSelect" style="width: 100%">
-                	 <option value="">Process</option>
+                	 <option value="">Processus</option>
      				 <option ng-repeat="proc in ProcSelect.availableOptions" value="{{proc.procId}}">{{proc.processus}}</option>
    			   </select>
             </div>
