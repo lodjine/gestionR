@@ -3,6 +3,7 @@ package com.talan.controlleur.securite;
 
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -96,6 +97,12 @@ ProcessService processServiceImpl;
 			HttpSession session =request.getSession();
 			session.invalidate();
 			 session = request.getSession(false);
+			 try {
+				request.logout();
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 
 
@@ -132,7 +139,13 @@ ModelAndView model = new ModelAndView();
 			
             session.invalidate();
    		 session = request.getSession(false);
-
+   		 try {
+				request.logout();
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
             
 			model.addObject("msg", "You've been logged out successfully.");
 		}

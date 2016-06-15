@@ -25,7 +25,7 @@
 
 
 			<intercept-url pattern="/login" access="permitAll" />
-		<intercept-url pattern="/index" access="isAuthenticated()" />
+		<intercept-url pattern="/*" access="isAuthenticated()" />
 	
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
@@ -37,7 +37,7 @@
 		password-parameter="pwd" always-use-default-target="true" />
 
 
-		<logout logout-success-url="/login?logout" delete-cookies="JsessionID"
+		<logout logout-success-url="/login?logout"
 			invalidate-session="true" logout-url="/login?logout"  />
 			
 			

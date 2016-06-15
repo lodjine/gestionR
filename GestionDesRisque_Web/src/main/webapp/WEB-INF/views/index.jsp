@@ -147,7 +147,7 @@
                  
                    <li> <c:url
 							value="login?logout" var="logoutUrl" /> 
-                  <a href="j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
+                  <a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Deconnexion</a>
                   </li>
                 </ul>
               </li>
